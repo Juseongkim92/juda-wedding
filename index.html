@@ -9,7 +9,7 @@
   <meta property="og:type"        content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
   /* ────────────────────────────────
@@ -220,7 +220,7 @@
   body {
     background: var(--cream);
     color: var(--dark);
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Sans KR', sans-serif;
     max-width: 480px;
     margin: 0 auto;
     overflow-x: hidden;
@@ -232,7 +232,7 @@
   section { padding: 2.4rem 1.6rem; text-align: center; }
 
   .tag {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: italic;
     font-size: .78rem;
     letter-spacing: .32em;
@@ -242,7 +242,7 @@
   }
 
   .sec-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
     font-weight: 300;
     color: var(--dark);
@@ -310,11 +310,12 @@
     position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -56%);
     width: 270px; height: 270px; opacity: .17;
+    display: none;
   }
   .ring svg { width: 100%; height: 100%; }
 
   .hero-eyebrow {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: italic; font-size: .82rem;
     letter-spacing: .34em; color: var(--rose);
     text-transform: uppercase;
@@ -323,7 +324,7 @@
   }
 
   .hero-names {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 3.1rem; font-weight: 300;
     color: var(--dark); line-height: 1.1;
     animation: fadeUp .9s .15s ease both;
@@ -347,7 +348,7 @@
   }
 
   .hero-date {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.08rem; letter-spacing: .2em;
     color: var(--mid);
     animation: fadeUp .9s .45s ease both;
@@ -371,7 +372,7 @@
      GREETING
   ──────────────────────────────── */
   .greeting .calligraphy {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: italic; font-size: 2.8rem;
     color: var(--rose); opacity: .18;
     line-height: 1; margin-bottom: .4rem;
@@ -420,7 +421,7 @@
 
   .ph-icon { font-size: 2.6rem; opacity: .5; }
   .ph-label {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: italic; font-size: .85rem;
     color: rgba(80,55,50,.55); letter-spacing: .1em;
   }
@@ -456,7 +457,7 @@
     box-shadow: 0 3px 14px rgba(0,0,0,.045);
   }
   .cd-num {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 2.3rem; font-weight: 400;
     color: var(--rose); line-height: 1;
   }
@@ -477,7 +478,7 @@
     box-shadow: 0 2px 12px rgba(0,0,0,.04);
   }
   .family-card .side-label {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: italic; font-size: .78rem;
     letter-spacing: .18em; color: var(--rose);
     margin-bottom: .8rem;
@@ -491,7 +492,7 @@
     border: 1px solid var(--blush);
     border-radius: 20px;
     color: var(--rose); font-size: .68rem;
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Sans KR', sans-serif;
     padding: .28rem .7rem; cursor: pointer;
     transition: background .2s, color .2s;
     text-decoration: none;
@@ -515,7 +516,7 @@
   .account-card .who  { font-size: .95rem; color: var(--dark); font-weight: 400; margin-bottom: .1rem; }
   .account-card .bank { font-size: .78rem; color: var(--mid); margin-bottom: .7rem; }
   .account-card .num  {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.15rem; letter-spacing: .08em; color: var(--dark);
   }
   .copy-btn {
@@ -523,7 +524,7 @@
     background: var(--cream); border: 1px solid var(--blush);
     border-radius: 8px; padding: .45rem .75rem;
     color: var(--rose); font-size: .72rem; cursor: pointer;
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Sans KR', sans-serif;
     transition: background .2s, color .2s;
     white-space: nowrap;
   }
@@ -548,7 +549,7 @@
     border-radius: 20px; padding: .2rem .75rem;
     margin-bottom: .6rem; letter-spacing: .08em;
   }
-  .venue-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--dark); margin-bottom: .3rem; }
+  .venue-name { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; color: var(--dark); margin-bottom: .3rem; }
   .venue-addr { font-size: .78rem; color: var(--mid); line-height: 1.7; }
 
   .map-box {
@@ -569,7 +570,7 @@
     flex: 1; padding: .72rem;
     border-radius: 10px; border: 1px solid var(--blush);
     background: #fff; color: var(--rose);
-    font-size: .78rem; font-family: 'Noto Serif KR', serif;
+    font-size: .78rem; font-family: 'Noto Sans KR', sans-serif;
     cursor: pointer; transition: background .2s, color .2s;
   }
   .map-btn:hover { background: var(--rose); color: #fff; }
@@ -665,7 +666,7 @@
     display: flex; align-items: center; gap: .6rem;
     padding: .42rem .6rem; border-radius: 10px;
     cursor: pointer; border: none; background: none;
-    font-family: 'Noto Serif KR', serif; font-size: .76rem;
+    font-family: 'Noto Sans KR', sans-serif; font-size: .76rem;
     color: var(--dark); width: 100%; text-align: left;
     transition: background .2s;
   }
@@ -687,7 +688,7 @@
   }
   #loadingScreen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
   .ls-names {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.5rem; font-weight: 300; letter-spacing: .28em;
     color: var(--dark, #3a2e2e);
   }
@@ -712,7 +713,7 @@
     border: 1px solid rgba(255,255,255,.22);
     color: rgba(255,255,255,.8); border-radius: 22px;
     padding: .6rem 1.5rem; font-size: .8rem;
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Sans KR', sans-serif;
     cursor: pointer; margin-top: 1.2rem;
     transition: background .2s;
   }
@@ -739,7 +740,7 @@
   .upload-name-input {
     flex: 1; border: 1px solid var(--blush); border-radius: 10px;
     padding: .6rem .9rem; font-size: .82rem;
-    font-family: 'Noto Serif KR', serif; color: var(--dark);
+    font-family: 'Noto Sans KR', sans-serif; color: var(--dark);
     background: #fff; outline: none;
   }
   .upload-name-input:focus { border-color: var(--rose); }
@@ -783,7 +784,7 @@
   .upload-submit-btn {
     width: 100%; background: var(--rose); color: #fff; border: none;
     border-radius: 10px; padding: .72rem; font-size: .82rem;
-    font-family: 'Noto Serif KR', serif; cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif; cursor: pointer;
     margin-top: .8rem; transition: opacity .2s;
   }
   .upload-submit-btn:disabled { opacity: .45; cursor: not-allowed; }
@@ -861,7 +862,7 @@
   .gb-input {
     width: 100%; border: 1px solid var(--blush); border-radius: 10px;
     padding: .65rem .9rem; font-size: .84rem;
-    font-family: 'Noto Serif KR', serif; color: var(--dark);
+    font-family: 'Noto Sans KR', sans-serif; color: var(--dark);
     background: var(--cream); outline: none; resize: none;
     transition: border-color .2s, background .2s;
   }
@@ -871,7 +872,7 @@
   .gb-submit {
     width: 100%; background: var(--rose); color: #fff; border: none;
     border-radius: 10px; padding: .75rem; font-size: .85rem;
-    font-family: 'Noto Serif KR', serif; cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif; cursor: pointer;
     letter-spacing: .06em; transition: opacity .2s;
   }
   .gb-submit:disabled { opacity: .45; cursor: not-allowed; }
@@ -892,7 +893,7 @@
     padding: .26rem .75rem; color: var(--mid); font-size: .72rem;
     cursor: pointer; display: flex; align-items: center; gap: .3rem;
     transition: background .2s, color .2s, border-color .2s;
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Sans KR', sans-serif;
   }
   .heart-btn:hover, .heart-btn.liked { background: #ffe8e4; color: #e05040; border-color: #f4a090; }
 
@@ -984,6 +985,7 @@
     position: absolute; border-radius: 50%;
     filter: blur(55px); pointer-events: none;
     animation: orbPulse ease-in-out infinite;
+    display: none;
   }
   .hero-orb.r { width:260px; height:260px; background:rgba(201,128,106,.16); top:-5%; left:-8%;  animation-duration:7s; }
   .hero-orb.g { width:220px; height:220px; background:rgba(184,154,106,.13); bottom:0%; right:-5%; animation-duration:9s; animation-delay:-4s; }
@@ -991,6 +993,22 @@
     0%,100% { transform: scale(1)    translate(0,0);     opacity:.5; }
     40%      { transform: scale(1.2) translate(10px,-15px); opacity:1; }
     70%      { transform: scale(.9)  translate(-8px,10px); opacity:.6; }
+  }
+
+  /* wave animation */
+  .hero-waves {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 280px; overflow: hidden;
+    pointer-events: none; z-index: 1;
+  }
+  .wave {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+    animation: wave 8s linear infinite;
+  }
+  .wave-delay { animation-delay: -2s; }
+  .wave-delay-2 { animation-delay: -4s; }
+  @keyframes wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(1440px); }
   }
 
   /* hero mouse-follow glow */
@@ -1107,10 +1125,10 @@
   .story-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(201,128,106,.14); }
   .sc-num {
     position: absolute; top: .5rem; right: .65rem;
-    font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; line-height: 1;
+    font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 300; line-height: 1;
     color: transparent; -webkit-text-stroke: 1px rgba(201,128,106,.18); user-select: none;
   }
-  .sc-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 400; color: var(--dark); margin-bottom: .3rem; }
+  .sc-title { font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 400; color: var(--dark); margin-bottom: .3rem; }
   .sc-desc  { font-size: .74rem; color: var(--mid); line-height: 1.75; }
   .sc-ph    { display: block; font-size: .63rem; color: rgba(120,96,96,.32); font-style: italic; margin-top: .25rem; }
 
@@ -1120,7 +1138,7 @@
     flex: 1; padding: .6rem .3rem; background: #fff;
     border: 1px solid var(--blush); border-radius: 10px;
     color: var(--mid); font-size: .76rem;
-    font-family: 'Noto Serif KR', serif; cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif; cursor: pointer;
     transition: background .2s, color .2s, border-color .2s; white-space: nowrap;
   }
   .tab-btn.active { background: var(--rose); color: #fff; border-color: var(--rose); }
@@ -1182,7 +1200,7 @@
     align-items: center; justify-content: center; gap: .5rem;
     border: 1.5px dashed rgba(255,255,255,.2);
     color: rgba(255,255,255,.38);
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: .75rem; letter-spacing: .1em;
   }
   .hero-photo-ph span.ph-icon { font-size: 2rem; opacity: .5; }
@@ -1321,7 +1339,7 @@
   /* giant background chapter number */
   .ss-bg-num {
     position: absolute; bottom: -3rem; right: -.5rem;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: min(52vw, 250px); font-weight: 300; line-height: 1;
     color: transparent;
     -webkit-text-stroke: 1px rgba(201,128,106,.1);
@@ -1330,14 +1348,14 @@
 
   /* chapter label */
   .ss-sub {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: italic; font-size: .78rem;
     letter-spacing: .32em; color: var(--rose);
     text-transform: uppercase; margin-bottom: .9rem;
   }
 
   .ss-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 2.6rem; font-weight: 300;
     color: var(--dark); line-height: 1.1; margin-bottom: .6rem;
   }
@@ -1458,20 +1476,16 @@
     <div class="hero-photo-dim"></div>
   </div>
 
-  <!-- decorative ring -->
-  <div class="ring">
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="92" stroke="#c9806a" stroke-width=".8" stroke-dasharray="4 7"/>
-      <circle cx="100" cy="100" r="72" stroke="#b89a6a" stroke-width=".5" stroke-dasharray="2 9"/>
-      <ellipse cx="100" cy="16" rx="7" ry="16" fill="#e8c8b8" transform="rotate(0   100 100)"/>
-      <ellipse cx="100" cy="16" rx="7" ry="16" fill="#e8c8b8" transform="rotate(45  100 100)"/>
-      <ellipse cx="100" cy="16" rx="7" ry="16" fill="#e8c8b8" transform="rotate(90  100 100)"/>
-      <ellipse cx="100" cy="16" rx="7" ry="16" fill="#e8c8b8" transform="rotate(135 100 100)"/>
-      <ellipse cx="100" cy="16" rx="7" ry="16" fill="#e8c8b8" transform="rotate(180 100 100)"/>
-      <ellipse cx="100" cy="16" rx="7" ry="16" fill="#e8c8b8" transform="rotate(225 100 100)"/>
-      <ellipse cx="100" cy="16" rx="7" ry="16" fill="#e8c8b8" transform="rotate(270 100 100)"/>
-      <ellipse cx="100" cy="16" rx="7" ry="16" fill="#e8c8b8" transform="rotate(315 100 100)"/>
-      <circle cx="100" cy="100" r="11" fill="#f5e0d4"/>
+  <!-- wave effect -->
+  <div class="hero-waves">
+    <svg class="wave" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+      <path fill="rgba(200,220,240,.15)" d="M0,96L120,112C240,128,480,160,720,170.7C960,181,1200,171,1320,165.3L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"/>
+    </svg>
+    <svg class="wave wave-delay" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+      <path fill="rgba(150,190,230,.1)" d="M0,160L120,176C240,192,480,224,720,213.3C960,203,1200,149,1320,128L1440,107L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"/>
+    </svg>
+    <svg class="wave wave-delay-2" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+      <path fill="rgba(100,160,220,.08)" d="M0,224L120,213.3C240,203,480,181,720,192C960,203,1200,245,1320,256L1440,267L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"/>
     </svg>
   </div>
 
