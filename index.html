@@ -226,6 +226,57 @@
     overflow-x: hidden;
   }
 
+  /* ════════════════════════════════════
+     LAYOUT MODES
+  ════════════════════════════════════ */
+  /* 풀커버: 기본 (아무것도 안 함) */
+  html.layout-fullcover body { background: var(--cream); }
+  html.layout-fullcover section { padding: 2.4rem 1.6rem; }
+
+  /* 엽서형: 카드 스타일 */
+  html.layout-card body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #f0f2f5 100%);
+    padding: 2rem 0;
+  }
+  html.layout-card section {
+    background: var(--card-bg);
+    margin: 1rem auto;
+    max-width: 420px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    padding: 2rem 1.4rem;
+  }
+  html.layout-card .hero { margin-top: 1.2rem; border-radius: 12px; }
+
+  /* 폴라로이드: 액자 스타일 */
+  html.layout-polaroid body {
+    background: linear-gradient(135deg, #fafbfc 0%, #f5f6f8 100%);
+    padding: 2.4rem 0;
+  }
+  html.layout-polaroid section {
+    background: #fff;
+    margin: 1.2rem auto;
+    max-width: 380px;
+    padding: 2rem 1.2rem 2.8rem;
+    border-radius: 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    position: relative;
+    transform: rotate(-0.5deg);
+  }
+  html.layout-polaroid section:nth-child(even) { transform: rotate(0.5deg); }
+  html.layout-polaroid section::before {
+    content: '';
+    position: absolute;
+    bottom: 0.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    height: 1.2rem;
+    background: linear-gradient(90deg, rgba(0,0,0,.03) 0%, rgba(0,0,0,.08) 50%, rgba(0,0,0,.03) 100%);
+    border-radius: 50%;
+    filter: blur(8px);
+  }
+
   /* ────────────────────────────────
      COMMON
   ──────────────────────────────── */
@@ -650,6 +701,41 @@
     transition: transform .2s;
   }
   .theme-btn:hover { transform: scale(1.08); }
+
+  .layout-btn {
+    position: fixed; bottom: 4.4rem; right: 5.6rem; z-index: 100;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--dark); border: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,.22);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.1rem;
+    transition: transform .2s;
+  }
+  .layout-btn:hover { transform: scale(1.08); }
+
+  .layout-panel {
+    position: fixed; bottom: 9rem; right: 5.4rem; z-index: 101;
+    background: var(--card-bg, #fff);
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 16px; padding: .9rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,.18);
+    display: none; flex-direction: column; gap: .55rem;
+    min-width: 130px;
+  }
+  .layout-panel.open { display: flex; }
+
+  .layout-option {
+    display: flex; align-items: center; gap: .6rem;
+    padding: .42rem .6rem; border-radius: 10px;
+    cursor: pointer; border: none; background: none;
+    font-family: 'Noto Sans KR', sans-serif; font-size: .76rem;
+    color: var(--dark); width: 100%; text-align: left;
+    transition: background .2s;
+  }
+  .layout-option:hover { background: rgba(0,0,0,.04); }
+  .layout-option.active { background: rgba(0,0,0,.08); font-weight: 500; }
+
+  .layout-icon { font-size: .9rem; }
 
   .theme-panel {
     position: fixed; bottom: 9rem; right: 1.2rem; z-index: 101;
@@ -1959,7 +2045,17 @@
   <button class="theme-option" onclick="setTheme('blue',    this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#2e72a8,#4888b8)"></span>💙 오션 블루</button>
   <button class="theme-option" onclick="setTheme('minimal', this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#1a1a1a,#888)"></span>◻ 미니멀</button>
 </div>
-<button class="theme-btn" id="themeToggle" onclick="toggleThemePanel()" title="버전 변경">🎨</button>
+
+<!-- Layout panel -->
+<div class="layout-panel" id="layoutPanel">
+  <div style="font-size:.68rem;color:var(--mid);padding:.1rem .4rem .5rem;letter-spacing:.06em;opacity:.7">레이아웃 선택</div>
+  <button class="layout-option active" onclick="setLayout('fullcover', this)"><span class="layout-icon">📱</span>풀커버</button>
+  <button class="layout-option" onclick="setLayout('card', this)"><span class="layout-icon">🎫</span>엽서형</button>
+  <button class="layout-option" onclick="setLayout('polaroid', this)"><span class="layout-icon">📷</span>폴라로이드</button>
+</div>
+
+<button class="theme-btn" id="themeToggle" onclick="toggleThemePanel()" title="색상 변경">🎨</button>
+<button class="layout-btn" id="layoutToggle" onclick="toggleLayoutPanel()" title="레이아웃 변경">📐</button>
 
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="배경음악">
   <!-- 음표 아이콘 (재생 중 아닐 때) -->
@@ -2636,14 +2732,30 @@ function toggleThemePanel() {
   document.getElementById('themePanel').classList.toggle('open');
 }
 
+function toggleLayoutPanel() {
+  document.getElementById('layoutPanel').classList.toggle('open');
+}
+
 document.addEventListener('click', e => {
   if (!e.target.closest('.theme-panel') && !e.target.closest('.theme-btn'))
     document.getElementById('themePanel').classList.remove('open');
+  if (!e.target.closest('.layout-panel') && !e.target.closest('.layout-btn'))
+    document.getElementById('layoutPanel').classList.remove('open');
 });
 
-/* ── Blue 테마 고정 ── */
+/* ── 레이아웃 변경 함수 ── */
+function setLayout(name, btn) {
+  const html = document.documentElement;
+  ['fullcover', 'card', 'polaroid'].forEach(l => html.classList.remove('layout-' + l));
+  html.classList.add('layout-' + name);
+  document.querySelectorAll('.layout-option').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+/* ── Blue 테마 + 풀커버 레이아웃 초기화 ── */
 (function initTheme() {
   setTheme('blue');
+  setLayout('fullcover');
 })();
 
 
