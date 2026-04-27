@@ -96,7 +96,7 @@
     --cream:#f0f5fa; --blush:#a8c0d8; --rose:#2e72a8;
     --gold:#4888b8;  --dark:#162840;  --mid:#30587a;
     --light:#e2edf6; --h1:#ddeaf8; --h2:#f0f5fa; --h3:#d4e6f4;
-    --t1:#d8eaf8;    --card-bg:#ffffff; --section-light:#ffffff;
+    --t1:#d8eaf8;    --card-bg:#ffffff; --section-light:#e8f2fc;
   }
   /* 카드: 더 각지게, 직선적 */
   html.theme-blue .family-card, html.theme-blue .account-card,
@@ -262,7 +262,12 @@
   }
 
   .bg-light  { background: var(--section-light); }
-  .bg-tinted { background: linear-gradient(150deg, var(--t1) 0%, var(--cream) 100%); }
+  .bg-tinted { background: linear-gradient(150deg, #d8eaf8 0%, #e8f2fc 100%); }
+
+  html.theme-blue .bg-light  { background: #e8f2fc !important; }
+  html.theme-blue .bg-tinted { background: linear-gradient(150deg, #c5ddf4 0%, #e8f2fc 100%) !important; }
+  html.theme-blue .hero { background: #f0f5fa !important; }
+  html.theme-blue .story-outer { background: #e8f2fc !important; }
 
   /* reveal */
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity .75s ease, transform .75s ease; }
