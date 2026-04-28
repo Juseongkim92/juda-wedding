@@ -2535,21 +2535,53 @@ function initImageBlurUp() {
 }
 
 // 갤러리 이미지 주입 및 블러 효과 초기화
-(function initGallery() {
+function initGallery() {
   const slides = document.querySelectorAll('.gallery-slide');
+  if (!slides.length) return;
+
   slides.forEach((slide, i) => {
     if (STORY_IMAGES[i]) {
+      // 기존 내용을 비우고 이미지 주입
       slide.innerHTML = `<img src="${STORY_IMAGES[i]}" alt="Story Photo ${i+1}" loading="lazy" />`;
     }
   });
-  initImageBlurUp();
+  
+  // 이미지 로딩 블러 효과 초기화
+  const images = document.querySelectorAll('img[loading="lazy"]');
+  images.forEach(img => {
+    if (img.complete) img.classList.add('loaded');
+    else img.addEventListener('load', () => img.classList.add('loaded'));
+  });
 
   // 갤러리 클릭 확대 (STORY_IMAGES 연동)
   const items = STORY_IMAGES.map((src, i) => ({ src, caption: `Story Photo ${i + 1}` }));
   slides.forEach((slide, i) => {
     slide.addEventListener('click', () => openLightboxSet(items, i));
   });
-})();
+}
+
+// 모든 초기화 실행
+window.addEventListener('DOMContentLoaded', () => {
+  initGallery();
+  
+  // 첫 번째 히어로 이미지는 즉시 로딩
+  const firstImg = document.getElementById('ghImg');
+  if (firstImg) {
+    firstImg.removeAttribute('loading');
+    firstImg.src = HERO_IMAGES[0];
+  }
+  
+  const blurBg = document.getElementById('ghBlurBg');
+  if (blurBg) {
+    blurBg.style.backgroundImage = `url('${HERO_IMAGES[0]}')`;
+  }
+
+  // 자동 회전 (6초마다)
+  setInterval(() => {
+    const nextIdx = (currentGalleryIdx + 1) % HERO_IMAGES.length;
+    setGalleryImage(nextIdx);
+  }, 6000);
+});
 
 
 /* ─────────────────────────────────
@@ -2787,56 +2819,6 @@ gsap.to(['.hero-eyebrow','.hero-names','.hero-kr','.hero-rule','.hero-date','.he
   ease: 'none',
   scrollTrigger: { trigger: '.hero', start: '18% top', end: '72% top', scrub: true }
 });
-
-/* ── Gallery Hero (Section 0) 이미지 자동 회전 ── */
-let currentGalleryIdx = 0;
-
-function setGalleryImage(idx) {
-  const img = document.getElementById('ghImg');
-  const blurBg = document.getElementById('ghBlurBg');
-  if (!img || !blurBg) return;
-
-  // 페이드 아웃
-  img.classList.add('fade-out');
-
-  setTimeout(() => {
-    currentGalleryIdx = idx;
-    img.src = HERO_IMAGES[idx];
-
-    // 블러 배경도 함께 변경
-    blurBg.style.backgroundImage = `url('${HERO_IMAGES[idx]}')`;
-
-    // 페이드 인
-    img.onload = () => {
-      img.classList.remove('fade-out');
-    };
-    if (img.complete) {
-      img.classList.remove('fade-out');
-    }
-  }, 600);
-}
-
-// 초기화 및 자동 회전
-window.addEventListener('DOMContentLoaded', () => {
-  // 첫 번째 이미지는 즉시 로딩 (LCP 최적화)
-  const firstImg = document.getElementById('ghImg');
-  if (firstImg) {
-    firstImg.removeAttribute('loading');
-    firstImg.src = HERO_IMAGES[0];
-  }
-  
-  const blurBg = document.getElementById('ghBlurBg');
-  if (blurBg) {
-    blurBg.style.backgroundImage = `url('${HERO_IMAGES[0]}')`;
-  }
-
-  // 자동 회전 (6초마다)
-  setInterval(() => {
-    const nextIdx = (currentGalleryIdx + 1) % HERO_IMAGES.length;
-    setGalleryImage(nextIdx);
-  }, 6000);
-});
-
 
 /* ── 2. D-Day Count-Up on enter ── */
 let cdDone = false;
