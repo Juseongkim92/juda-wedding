@@ -3041,8 +3041,8 @@ ScrollTrigger.create({
 
   let currentIdx = 0;
   let autoPlayTimeout;
-  const DISPLAY_DURATION = 4000; // 4초 표시
-  const FADE_DURATION = 0.8;    // 페이드 시간
+  const DISPLAY_DURATION = 5000; // 5초 표시
+  const FADE_DURATION = 1.2;    // 부드러운 페이드 (1.2초)
 
   // 초기화: 모든 씬 숨김
   gsap.set(scenes, { opacity: 0 });
@@ -3051,39 +3051,20 @@ ScrollTrigger.create({
     idx = Math.max(0, Math.min(idx, scenes.length - 1));
     currentIdx = idx;
 
-    // 모든 씬 페이드 아웃
+    // 모든 씬 페이드 아웃 (간단하고 차분하게)
     gsap.to(scenes, {
       opacity: 0,
       duration: FADE_DURATION,
-      ease: 'power2.inOut',
+      ease: 'sine.inOut', // 더 부드러운 이징
     });
 
-    // 해당 씬만 페이드 인 + 살짝 위로
+    // 해당 씬만 페이드 인 (움직임 없이 순수 페이드만)
     const scene = scenes[idx];
-    const kids = scene.querySelectorAll('.ss-sub,.ss-title,.ss-rule,.ss-desc');
-    const card = scene.querySelector('.ss-card');
-
     gsap.to(scene, {
       opacity: 1,
       duration: FADE_DURATION,
-      ease: 'power2.inOut',
+      ease: 'sine.inOut',
     }, 0);
-
-    // 카드 확대 효과
-    if (card) {
-      gsap.fromTo(card,
-        { scale: 0.88, y: 20 },
-        { scale: 1.0, y: 0, duration: FADE_DURATION * 0.8, ease: 'power2.out' },
-        0
-      );
-    }
-
-    // 텍스트 페이드인
-    gsap.fromTo(kids,
-      { opacity: 0, y: 8 },
-      { opacity: 1, y: 0, duration: FADE_DURATION * 0.6, stagger: 0.06, ease: 'power2.out' },
-      FADE_DURATION * 0.2
-    );
 
     // UI 업데이트
     dots.forEach((d, i) => d.classList.toggle('active', i === idx));
