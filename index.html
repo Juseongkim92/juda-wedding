@@ -372,6 +372,7 @@
     color: var(--rose);
     text-transform: uppercase;
     margin-bottom: .9rem;
+    padding: 0 1.2rem;
   }
 
   .sec-title {
@@ -379,6 +380,7 @@
     font-size: 2rem;
     font-weight: 300;
     color: var(--dark);
+    padding: 0 1.2rem;
     margin-bottom: .5rem;
   }
 
@@ -406,6 +408,8 @@
   ──────────────────────────────── */
   .hero {
     position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     height: 100svh; min-height: 620px;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
@@ -503,7 +507,7 @@
   .gallery-wrap { padding: 2.4rem 0; }
   .gallery-wrap .tag, .gallery-wrap .sec-title, .gallery-wrap .rule { margin-left: 1.6rem; margin-right: 1.6rem; }
 
-  .gallery-track-outer { overflow: hidden; }
+  .gallery-track-outer { overflow: hidden; padding: 0 1.2rem; }
 
   .gallery-track {
     display: flex;
@@ -589,6 +593,7 @@
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 0.8rem; margin-top: 1.8rem;
     max-width: 100%;
+    padding: 0 1.2rem;
   }
   .family-card {
     background: #fff;
@@ -1280,7 +1285,8 @@
   ════════════════════════════════════ */
   .gallery-hero {
     position: relative;
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     height: 100svh; min-height: 620px;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
