@@ -1380,6 +1380,7 @@
   .hero-photo-zone {
     position: absolute; inset: 0; z-index: 0 !important;
     overflow: hidden; pointer-events: none;
+    display: none; /* 숨김 */
   }
   /* 사진 이미지 */
   .hero-bg-img {
@@ -1421,7 +1422,11 @@
 
   /* ── Hero Ken Burns ──────────────────── */
   /* Strip native bg from hero; a JS-injected layer handles it */
-  .hero { background: var(--cream) !important; }
+  .hero {
+    background: var(--cream) no-repeat center / cover !important;
+    background-image: url('./images/img1.png') !important;
+    transition: background-image 1.2s ease-in-out;
+  }
   .hero::before { display: none !important; }
 
   /* Ken Burns wrapper — GSAP handles scroll-scale; this div handles the looping drift */
@@ -3143,8 +3148,8 @@ gsap.to(['.hero-eyebrow','.hero-names','.hero-kr','.hero-rule','.hero-date','.he
 
 /* ── Hero 배경 사진 자동 회전 ── */
 (function() {
-  const img = document.getElementById('heroBgImg');
-  if (!img) return;
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
 
   const images = [
     './images/img1.png',
@@ -3159,22 +3164,8 @@ gsap.to(['.hero-eyebrow','.hero-names','.hero-kr','.hero-rule','.hero-date','.he
 
   function nextImage() {
     currentIdx = (currentIdx + 1) % images.length;
-
-    // 페이드 아웃
-    img.classList.add('fade-out');
-
-    // 0.5초 후 이미지 변경
-    setTimeout(() => {
-      img.src = images[currentIdx];
-      // 이미지 로드 후 페이드 인
-      img.onload = () => {
-        img.classList.remove('fade-out');
-      };
-      // 혹시 캐시된 이미지면 바로 페이드인
-      if (img.complete) {
-        img.classList.remove('fade-out');
-      }
-    }, 500);
+    // 배경 이미지 변경 (CSS transition이 자동으로 fade 처리)
+    hero.style.backgroundImage = `url('${images[currentIdx]}')`;
   }
 
   // 4초마다 다음 이미지로
