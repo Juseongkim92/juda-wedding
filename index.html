@@ -277,7 +277,7 @@
     position: fixed;
     inset: 0;
     z-index: -1;
-    background-image: url('./images/bg1.png');
+    background-image: url('./images/bg1.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -367,6 +367,28 @@
      COMMON
   ──────────────────────────────── */
   section { padding: 2.4rem 0; text-align: center; }
+
+  /* 이미지 로딩 블러 효과 */
+  img { transition: filter 0.5s ease; }
+  img[loading] { filter: blur(10px); }
+  img.loaded { filter: blur(0); }
+
+  /* 플로팅 테마 & 음악 컨트롤 */
+  .floating-controls {
+    position: fixed; bottom: 1.5rem; right: 1rem;
+    display: flex; flex-direction: column; gap: 0.7rem; z-index: 1000;
+  }
+  .f-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.85); border: 1px solid var(--blush);
+    color: var(--rose); display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12); cursor: pointer;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .f-btn:active { transform: scale(0.9); }
+  .f-btn svg { width: 20px; height: 20px; }
+  .f-btn.active { background: var(--rose); color: #fff; }
 
   .tag {
     font-family: 'Montserrat', sans-serif;
@@ -1446,7 +1468,7 @@
 
   <div class="gh-container">
     <div class="gh-image">
-      <img id="ghImg" src="./images/img1.png" alt="Gallery image" />
+      <img id="ghImg" src="./images/img1.jpg" alt="Gallery image" />
     </div>
     <div class="gh-info">
     </div>
@@ -1506,7 +1528,7 @@
      예) data-bg="images/flower.jpg"
      투명도 조절: data-bg-opacity="0.18" (기본값 0.14) -->
 <section class="greeting bg-light reveal"
-         data-bg="./images/bg1.png"
+         data-bg="./images/bg1.jpg"
          data-bg-opacity="0.12">
   <p class="calligraphy">" "</p>
   <p class="tag">Invitation</p>
@@ -1873,7 +1895,20 @@
   <span style="opacity:.35;font-size:.65rem">Made with love</span>
 </footer>
 
+<!-- 플로팅 컨트롤 (BGM & Theme) -->
+<div class="floating-controls">
+  <button class="f-btn" id="musicBtn" onclick="toggleMusic()" title="배경음악">
+    <svg id="musicOnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+  </button>
+  <button class="f-btn" onclick="nextTheme()" title="테마 변경">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  </button>
+</div>
 
+<!-- 배경음악 오디오 (음악 파일이 있다면 src에 경로를 넣으세요) -->
+<audio id="bgm" loop preload="none">
+  <source src="" type="audio/mpeg">
+</audio>
 
 <!-- Toast 메시지 -->
 <div class="toast" id="toast"></div>
@@ -2437,21 +2472,72 @@ function shareInvitation() {
 
 
 /* ─────────────────────────────────
-   THEME SWITCHER  (랜덤 버전)
+   THEME SWITCHER
 ───────────────────────────────── */
-const THEMES = ['rose','dark','green','blue','minimal','gold','coral','purple','sage'];
-const THEME_NAMES = {
-  rose:    '🌸 로즈 가든',
-  dark:    '🌙 미드나잇',
-  green:   '🌿 보태니컬',
-  blue:    '💙 오션 블루',
-  minimal: '◻ 미니멀',
-  gold:    '✨ 골드',
-  coral:   '🪸 코랄',
-  purple:  '💜 퍼플',
-  sage:    '🍃 세이지',
-};
+const THEMES = ['blue', 'dark', 'green', 'rose', 'minimal', 'gold', 'coral', 'purple', 'sage'];
+let currentThemeIdx = 0;
 
+function nextTheme() {
+  currentThemeIdx = (currentThemeIdx + 1) % THEMES.length;
+  const newTheme = THEMES[currentThemeIdx];
+  
+  // 모든 테마 클래스 제거 후 새 테마 적용
+  document.documentElement.className = document.documentElement.className
+    .replace(/theme-\w+/, '') + ' theme-' + newTheme;
+  
+  showToast(`${newTheme.toUpperCase()} 테마로 변경되었습니다`);
+}
+
+/* ─────────────────────────────────
+   MUSIC PLAYER
+───────────────────────────────── */
+function toggleMusic() {
+  const audio = document.getElementById('bgm');
+  const btn = document.getElementById('musicBtn');
+  
+  if (audio.paused) {
+    audio.play().then(() => {
+      btn.classList.add('active');
+      showToast('🎵 배경음악이 재생됩니다');
+    }).catch(() => {
+      showToast('음악 파일 경로를 확인해주세요');
+    });
+  } else {
+    audio.pause();
+    btn.classList.remove('active');
+    showToast('🔇 배경음악이 정지되었습니다');
+  }
+}
+
+/* ─────────────────────────────────
+   IMAGE OPTIMIZATION & BLUR-UP
+   ─────────────────────────────────
+   TIP: 이미지 로딩 속도를 위해 각 이미지의 용량을 500KB 이하로 줄이는 것을 추천합니다.
+   TinyPNG (https://tinypng.com) 등을 활용해 보세요.
+───────────────────────────────── */
+function initImageBlurUp() {
+  const images = document.querySelectorAll('img[loading="lazy"]');
+  images.forEach(img => {
+    if (img.complete) {
+      img.classList.add('loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('loaded'));
+    }
+  });
+}
+
+// 기존 갤러리 슬라이드에 실제 이미지 적용
+(function initGalleryImages() {
+  const slides = document.querySelectorAll('.gallery-slide');
+  const images = ['./images/img1.jpg', './images/img2.jpg', './images/img3.jpg', './images/img4.jpg', './images/img5.jpg'];
+  
+  slides.forEach((slide, i) => {
+    if (images[i]) {
+      slide.innerHTML = `<img src="${images[i]}" alt="Wedding Photo ${i+1}" loading="lazy" />`;
+    }
+  });
+  initImageBlurUp();
+})();
 
 
 /* ─────────────────────────────────
@@ -2692,11 +2778,11 @@ gsap.to(['.hero-eyebrow','.hero-names','.hero-kr','.hero-rule','.hero-date','.he
 
 /* ── Gallery Hero (Section 0) 이미지 자동 회전 ── */
 const GALLERY_IMAGES = [
-  './images/img1.png',
-  './images/img2.png',
-  './images/img3.png',
-  './images/img4.png',
-  './images/img5.png',
+  './images/img1.jpg',
+  './images/img2.jpg',
+  './images/img3.jpg',
+  './images/img4.jpg',
+  './images/img5.jpg',
 ];
 
 let currentGalleryIdx = 0;
@@ -2726,7 +2812,13 @@ function setGalleryImage(idx) {
   }, 600);
 }
 
-// 자동 회전 (4초마다)
+// 첫 번째 이미지는 즉시 로딩 (LCP 최적화)
+window.addEventListener('DOMContentLoaded', () => {
+  const firstImg = document.getElementById('ghImg');
+  if (firstImg) firstImg.removeAttribute('loading'); 
+});
+
+// 자동 회전 (6초마다)
 (function() {
   setInterval(() => {
     const nextIdx = (currentGalleryIdx + 1) % GALLERY_IMAGES.length;
