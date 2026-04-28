@@ -2576,11 +2576,11 @@ window.addEventListener('DOMContentLoaded', () => {
     blurBg.style.backgroundImage = `url('${HERO_IMAGES[0]}')`;
   }
 
-  // 자동 회전 (6초마다)
+  // 자동 회전 (4초마다)
   setInterval(() => {
     const nextIdx = (currentGalleryIdx + 1) % HERO_IMAGES.length;
     setGalleryImage(nextIdx);
-  }, 6000);
+  }, 4000);
 });
 
 
