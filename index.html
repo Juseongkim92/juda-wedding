@@ -43,8 +43,8 @@
     --t1:#1e1828;    --card-bg:#24202e; --section-light:#1e1a28;
   }
   html.theme-dark body        { background:var(--cream); color:var(--dark); }
-  html.theme-dark .bg-light   { background:var(--section-light)!important; }
-  html.theme-dark .bg-tinted  { background:linear-gradient(150deg,var(--t1) 0%,var(--cream) 100%)!important; }
+  html.theme-dark .bg-light   { background:transparent!important; }
+  html.theme-dark .bg-tinted  { background:transparent!important; }
   /* 카드: 골드 테두리 + 미묘한 빛 */
   html.theme-dark .family-card, html.theme-dark .account-card,
   html.theme-dark .cd-box, html.theme-dark .transport-item,
@@ -94,7 +94,7 @@
   ══════════════════════════════════════════════ */
   html.theme-blue {
     --cream:#f0f5fa; --blush:#a8c0d8; --rose:#2e72a8;
-    --gold:#4888b8;  --dark:#162840;  --mid:#30587a;
+    --gold:#4888b8;  --dark:#ffffff;  --mid:rgba(255,255,255,0.75);
     --light:#e2edf6; --h1:#ddeaf8; --h2:#f0f5fa; --h3:#d4e6f4;
     --t1:#d8eaf8;    --card-bg:#ffffff; --section-light:#e8f2fc;
   }
@@ -161,8 +161,8 @@
     --light:#efe5d8; --h1:#fdfaf5; --h2:#fef9f0; --h3:#faf5f0;
     --t1:#f5f0e8;    --card-bg:#ffffff; --section-light:#fef5ed;
   }
-  html.theme-gold .bg-light  { background: #fef5ed !important; }
-  html.theme-gold .bg-tinted { background: linear-gradient(150deg, #f5f0e8 0%, #fef5ed 100%) !important; }
+  html.theme-gold .bg-light  { background: transparent!important; }
+  html.theme-gold .bg-tinted { background: transparent!important; }
   html.theme-gold .venue-badge { background:#ebe0d0!important; color:#8b6f47!important; }
   html.theme-gold .family-card:hover, html.theme-gold .account-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(196,159,97,.22); }
 
@@ -175,8 +175,8 @@
     --light:#fce3dc; --h1:#fffbfa; --h2:#fff5f3; --h3:#fdf0ed;
     --t1:#fde8e3;    --card-bg:#ffffff; --section-light:#fffaf7;
   }
-  html.theme-coral .bg-light  { background: #fffaf7 !important; }
-  html.theme-coral .bg-tinted { background: linear-gradient(150deg, #fde8e3 0%, #fffaf7 100%) !important; }
+  html.theme-coral .bg-light  { background: transparent!important; }
+  html.theme-coral .bg-tinted { background: transparent!important; }
   html.theme-coral .venue-badge { background:#f0d4cc!important; color:#c85a45!important; }
   html.theme-coral .family-card:hover, html.theme-coral .account-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(232,118,96,.22); }
 
@@ -189,8 +189,8 @@
     --light:#ede5f5; --h1:#fcfbfe; --h2:#f8f5fc; --h3:#f5f2fa;
     --t1:#f0ebf8;    --card-bg:#ffffff; --section-light:#fbf8fd;
   }
-  html.theme-purple .bg-light  { background: #fbf8fd !important; }
-  html.theme-purple .bg-tinted { background: linear-gradient(150deg, #f0ebf8 0%, #fbf8fd 100%) !important; }
+  html.theme-purple .bg-light  { background: transparent!important; }
+  html.theme-purple .bg-tinted { background: transparent!important; }
   html.theme-purple .venue-badge { background:#e0d6f0!important; color:#7a5f91!important; }
   html.theme-purple .family-card:hover, html.theme-purple .account-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(155,127,184,.22); }
 
@@ -203,8 +203,8 @@
     --light:#e8f0eb; --h1:#fafcfb; --h2:#f5f9f6; --h3:#f1f6f3;
     --t1:#ede f5eb;    --card-bg:#ffffff; --section-light:#f9fcfa;
   }
-  html.theme-sage .bg-light  { background: #f9fcfa !important; }
-  html.theme-sage .bg-tinted { background: linear-gradient(150deg, #ede f5eb 0%, #f9fcfa 100%) !important; }
+  html.theme-sage .bg-light  { background: transparent!important; }
+  html.theme-sage .bg-tinted { background: transparent!important; }
   html.theme-sage .venue-badge { background:#dce7e1!important; color:#547560!important; }
   html.theme-sage .family-card:hover, html.theme-sage .account-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(122,152,129,.22); }
 
@@ -273,8 +273,15 @@
 
   html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
 
+  #fixed-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(160deg, #1a3a5c 0%, #2e72a8 50%, #1a4a7a 100%);
+    pointer-events: none;
+  }
+
   body {
-    background: var(--cream);
     color: var(--dark);
     font-family: 'Noto Sans KR', sans-serif;
     max-width: 480px;
@@ -355,7 +362,7 @@
   /* ────────────────────────────────
      COMMON
   ──────────────────────────────── */
-  section { padding: 2.4rem 1.6rem; text-align: center; }
+  section { padding: 2.4rem 0; text-align: center; }
 
   .tag {
     font-family: 'Montserrat', sans-serif;
@@ -387,13 +394,8 @@
     color: var(--mid);
   }
 
-  .bg-light  { background: var(--section-light); }
-  .bg-tinted { background: linear-gradient(150deg, #d8eaf8 0%, #e8f2fc 100%); }
-
-  html.theme-blue .bg-light  { background: #e8f2fc !important; }
-  html.theme-blue .bg-tinted { background: linear-gradient(150deg, #c5ddf4 0%, #e8f2fc 100%) !important; }
-  html.theme-blue .hero { /* 배경 이미지 회전 사용 - background 제거 */ }
-  html.theme-blue .story-outer { background: #e8f2fc !important; }
+  .bg-light  { background: transparent; }
+  .bg-tinted { background: transparent; }
 
   /* reveal */
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity .75s ease, transform .75s ease; }
@@ -1415,6 +1417,7 @@
   </style>
 </head>
 <body>
+<div id="fixed-bg"></div>
 
 <!-- ── 로딩 스피너 ── -->
 <div id="loadingScreen">
@@ -1621,11 +1624,16 @@
         <div class="pr-info">
           <div class="pr-role">신랑 어머니</div>
           <div class="pr-name">박희숙</div>
+          <div class="pr-acc">○○은행 · <span id="acc2">000-000-000000</span></div>
+
         </div>
         <div class="pr-btns">
           <a href="tel:010-0000-0000" class="pr-btn" title="전화">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.86 19.86 0 013.09 4.18 2 2 0 015.07 2h3a2 2 0 012 1.72c.12.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L9.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0122 16.92z"/></svg>
           </a>
+          <button class="pr-btn" onclick="copyPrAcc('acc4',this)" title="계좌복사">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
         </div>
       </div>
 
@@ -1673,11 +1681,15 @@
         <div class="pr-info">
           <div class="pr-role">신부 어머니</div>
           <div class="pr-name">주봉은</div>
+          <div class="pr-acc">○○은행 · <span id="acc2">000-000-000000</span></div>
         </div>
         <div class="pr-btns">
           <a href="tel:010-0000-0000" class="pr-btn" title="전화">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.86 19.86 0 013.09 4.18 2 2 0 015.07 2h3a2 2 0 012 1.72c.12.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L9.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0122 16.92z"/></svg>
           </a>
+          <button class="pr-btn" onclick="copyPrAcc('acc4',this)" title="계좌복사">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
         </div>
       </div>
 
