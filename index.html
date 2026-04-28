@@ -585,14 +585,16 @@
   ──────────────────────────────── */
   .family-cols {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1rem; margin-top: 1.8rem;
+    gap: 0.8rem; margin-top: 1.8rem;
+    max-width: 100%;
   }
   .family-card {
     background: #fff;
     border: 1px solid rgba(184,154,106,.2);
     border-radius: 14px;
-    padding: 1.2rem .9rem 1rem;
+    padding: 1rem 0.7rem 0.9rem;
     box-shadow: 0 2px 12px rgba(0,0,0,.04);
+    min-width: 0; /* 중요: grid 오버플로우 방지 */
   }
   .family-card .side-label {
     font-family: 'Montserrat', sans-serif;
