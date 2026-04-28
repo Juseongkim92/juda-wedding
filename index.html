@@ -277,7 +277,7 @@
     position: fixed;
     inset: 0;
     z-index: -1;
-    background-image: url('./images/bg1.jpg');
+    background-image: url('./images/img5.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -366,7 +366,15 @@
   /* ────────────────────────────────
      COMMON
   ──────────────────────────────── */
-  section { padding: 2.4rem 0; text-align: center; }
+  section {
+    min-height: 100vh;
+    padding: 2.4rem 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   /* 이미지 로딩 블러 효과 */
   img { transition: filter 0.5s ease; }
@@ -399,6 +407,7 @@
     text-transform: uppercase;
     margin-bottom: .9rem;
     padding: 0 1.2rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
 
   .sec-title {
@@ -408,6 +417,7 @@
     color: var(--dark);
     padding: 0 1.2rem;
     margin-bottom: .5rem;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.2);
   }
 
   .rule {
@@ -420,6 +430,7 @@
     font-size: .88rem;
     line-height: 2.1;
     color: var(--mid);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.15);
   }
 
   .bg-light  { background: transparent; }
@@ -441,7 +452,7 @@
     align-items: center; justify-content: center;
     text-align: center; padding: 2rem;
     overflow: hidden;
-    background: linear-gradient(165deg, #f9ede4 0%, #fdf8f3 55%, #f2e8df 100%);
+    background: transparent;
   }
 
   /* floating petals */
@@ -470,6 +481,7 @@
     text-transform: uppercase;
     animation: fadeUp .9s ease both;
     margin-bottom: 1.3rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
 
   .hero-names {
@@ -477,6 +489,7 @@
     font-size: 3.1rem; font-weight: 300;
     color: var(--dark); line-height: 1.1;
     animation: fadeUp .9s .15s ease both;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.25);
   }
   .hero-names .amp {
     font-style: italic; color: var(--rose);
@@ -487,6 +500,7 @@
     font-size: 1rem; color: var(--mid);
     letter-spacing: .12em; margin-top: .5rem;
     animation: fadeUp .9s .25s ease both;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
 
   .hero-rule {
@@ -501,11 +515,13 @@
     font-size: 1.08rem; letter-spacing: .2em;
     color: var(--mid);
     animation: fadeUp .9s .45s ease both;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
   .hero-venue-sm {
     font-size: .75rem; color: var(--mid);
     margin-top: .5rem; letter-spacing: .06em;
     animation: fadeUp .9s .55s ease both;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
 
   .scroll-cue {
