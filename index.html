@@ -3024,7 +3024,7 @@ ScrollTrigger.create({
 });
 
 
-/* ── 3. Auto-Fade Story Sequence ── */
+/* ── 3. Story Scene Selection (No Animation) ── */
 (function() {
   const pin    = document.getElementById('storyPin');
   const scenes = document.querySelectorAll('.story-scene');
@@ -3040,44 +3040,25 @@ ScrollTrigger.create({
   ];
 
   let currentIdx = 0;
-  let autoPlayTimeout;
-  const DISPLAY_DURATION = 5000; // 5초 표시
-  const FADE_DURATION = 1.2;    // 부드러운 페이드 (1.2초)
 
-  // 초기화: 모든 씬 숨김
+  // 초기화: 첫 번째 씬만 표시
   gsap.set(scenes, { opacity: 0 });
+  gsap.set(scenes[0], { opacity: 1 });
 
   function showScene(idx) {
     idx = Math.max(0, Math.min(idx, scenes.length - 1));
     currentIdx = idx;
 
-    // 모든 씬 페이드 아웃 (간단하고 차분하게)
-    gsap.to(scenes, {
-      opacity: 0,
-      duration: FADE_DURATION,
-      ease: 'sine.inOut', // 더 부드러운 이징
+    // 모든 씬 즉시 숨김
+    scenes.forEach((s, i) => {
+      s.style.opacity = i === idx ? 1 : 0;
+      s.classList.toggle('active-scene', i === idx);
     });
-
-    // 해당 씬만 페이드 인 (움직임 없이 순수 페이드만)
-    const scene = scenes[idx];
-    gsap.to(scene, {
-      opacity: 1,
-      duration: FADE_DURATION,
-      ease: 'sine.inOut',
-    }, 0);
 
     // UI 업데이트
     dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-    scenes.forEach((s, i) => s.classList.toggle('active-scene', i === idx));
     if (bg) bg.style.background = SCENE_BGS[idx] || SCENE_BGS[0];
     if (pgbar) pgbar.style.width = ((idx + 1) / scenes.length * 100) + '%';
-
-    // 다음 자동 전환 예약
-    clearTimeout(autoPlayTimeout);
-    autoPlayTimeout = setTimeout(() => {
-      const nextIdx = (idx + 1) % scenes.length;
-      showScene(nextIdx);
-    }, DISPLAY_DURATION);
   }
 
   // 닷 클릭으로 수동 제어
@@ -3087,7 +3068,7 @@ ScrollTrigger.create({
     });
   });
 
-  // 시작
+  // 초기 설정
   showScene(0);
 })();
 
