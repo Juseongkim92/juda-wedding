@@ -1289,11 +1289,11 @@
   .gh-blur-bg {
     position: absolute;
     inset: 0;
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     filter: blur(40px);
-    opacity: 0.6;
+    opacity: 0.8;
     z-index: 1;
     transition: background-image 1.2s ease-in-out;
   }
@@ -1335,15 +1335,7 @@
     color: #fff;
   }
 
-  .gh-counter {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: .1em;
-    margin-bottom: 1rem;
-    opacity: 0.8;
-  }
-
-  .gh-dots {
+.gh-dots {
     display: flex;
     gap: 0.8rem;
     justify-content: center;
@@ -1617,7 +1609,6 @@
       <img id="ghImg" src="./images/img1.png" alt="Gallery image" />
     </div>
     <div class="gh-info">
-      <p class="gh-counter"><span id="ghCounter">1</span> / 5</p>
       <p class="gh-dots">
         <span class="gh-dot active" onclick="setGalleryImage(0)"></span>
         <span class="gh-dot" onclick="setGalleryImage(1)"></span>
@@ -2975,7 +2966,6 @@ let currentGalleryIdx = 0;
 function setGalleryImage(idx) {
   const img = document.getElementById('ghImg');
   const blurBg = document.getElementById('ghBlurBg');
-  const counter = document.getElementById('ghCounter');
   if (!img || !blurBg) return;
 
   // 페이드 아웃
@@ -2984,7 +2974,6 @@ function setGalleryImage(idx) {
   setTimeout(() => {
     currentGalleryIdx = idx;
     img.src = GALLERY_IMAGES[idx];
-    counter.textContent = idx + 1;
 
     // 블러 배경도 함께 변경
     blurBg.style.backgroundImage = `url('${GALLERY_IMAGES[idx]}')`;
