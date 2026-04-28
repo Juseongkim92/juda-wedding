@@ -2560,27 +2560,71 @@ function initGallery() {
   });
 }
 
+/* ── Gallery Hero (Section 0) 이미지 제어 ── */
+let currentGalleryIdx = 0;
+let galleryInterval;
+
+function setGalleryImage(idx) {
+  const img = document.getElementById('ghImg');
+  const blurBg = document.getElementById('ghBlurBg');
+  if (!img || !blurBg) return;
+
+  // 페이드 아웃
+  img.style.opacity = '0.2';
+
+  setTimeout(() => {
+    currentGalleryIdx = idx;
+    img.src = HERO_IMAGES[idx];
+
+    // 블러 배경도 함께 변경
+    blurBg.style.backgroundImage = `url('${HERO_IMAGES[idx]}')`;
+
+    // 페이드 인
+    img.onload = () => {
+      img.style.opacity = '1';
+    };
+    if (img.complete) {
+      img.style.opacity = '1';
+    }
+  }, 400);
+}
+
+function nextGalleryImage() {
+  const nextIdx = (currentGalleryIdx + 1) % HERO_IMAGES.length;
+  setGalleryImage(nextIdx);
+  resetGalleryTimer();
+}
+
+function resetGalleryTimer() {
+  clearInterval(galleryInterval);
+  galleryInterval = setInterval(nextGalleryImage, 4000);
+}
+
 // 모든 초기화 실행
 window.addEventListener('DOMContentLoaded', () => {
   initGallery();
   
-  // 첫 번째 히어로 이미지는 즉시 로딩
+  const heroSection = document.getElementById('galleryHero');
   const firstImg = document.getElementById('ghImg');
+  const blurBg = document.getElementById('ghBlurBg');
+
   if (firstImg) {
     firstImg.removeAttribute('loading');
     firstImg.src = HERO_IMAGES[0];
+    firstImg.style.transition = 'opacity 0.6s ease-in-out';
   }
   
-  const blurBg = document.getElementById('ghBlurBg');
   if (blurBg) {
     blurBg.style.backgroundImage = `url('${HERO_IMAGES[0]}')`;
   }
 
-  // 자동 회전 (4초마다)
-  setInterval(() => {
-    const nextIdx = (currentGalleryIdx + 1) % HERO_IMAGES.length;
-    setGalleryImage(nextIdx);
-  }, 4000);
+  // 탭(클릭) 시 다음 이미지로 전환 기능 추가
+  if (heroSection) {
+    heroSection.style.cursor = 'pointer';
+    heroSection.addEventListener('click', nextGalleryImage);
+  }
+
+  resetGalleryTimer();
 });
 
 
