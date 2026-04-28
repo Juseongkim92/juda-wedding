@@ -355,15 +355,7 @@
   /* ────────────────────────────────
      COMMON
   ──────────────────────────────── */
-  section {
-    padding: 2.4rem 1.6rem;
-    text-align: center;
-    background-image: url('./images/img1.png') !important;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    transition: background-image 1.2s ease-in-out;
-  }
+  section { padding: 2.4rem 1.6rem; text-align: center; }
 
   .tag {
     font-family: 'Montserrat', sans-serif;
@@ -1430,7 +1422,14 @@
 
   /* ── Hero Ken Burns ──────────────────── */
   /* Strip native bg from hero; a JS-injected layer handles it */
-  .hero { background: var(--cream) !important; }
+  .hero {
+    background-image: url('./images/img1.png') !important;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-color: var(--cream);
+    transition: background-image 1.2s ease-in-out;
+  }
   .hero::before { display: none !important; }
 
   /* Ken Burns wrapper — GSAP handles scroll-scale; this div handles the looping drift */
@@ -3150,10 +3149,10 @@ gsap.to(['.hero-eyebrow','.hero-names','.hero-kr','.hero-rule','.hero-date','.he
   scrollTrigger: { trigger: '.hero', start: '18% top', end: '72% top', scrub: true }
 });
 
-/* ── 모든 섹션 배경 사진 자동 회전 ── */
+/* ── Hero 섹션 배경 사진 자동 회전 ── */
 (function() {
-  const sections = document.querySelectorAll('section');
-  if (!sections.length) return;
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
 
   const images = [
     './images/img1.png',
@@ -3168,10 +3167,8 @@ gsap.to(['.hero-eyebrow','.hero-names','.hero-kr','.hero-rule','.hero-date','.he
 
   function nextImage() {
     currentIdx = (currentIdx + 1) % images.length;
-    // 모든 섹션의 배경 이미지 동시에 변경
-    sections.forEach(section => {
-      section.style.backgroundImage = `url('${images[currentIdx]}')`;
-    });
+    // Hero 섹션의 배경 이미지만 변경
+    hero.style.backgroundImage = `url('${images[currentIdx]}')`;
   }
 
   // 4초마다 다음 이미지로
