@@ -152,6 +152,62 @@
   html.theme-minimal .map-box    { border-radius:4px!important; background:#f5f5f5!important; border:1px solid #e0e0e0!important; }
   html.theme-minimal footer      { background:#111; }
 
+  /* ═══════════════════════════════════════════════════════
+     THEME 6: Gold — 황금빛 우아함
+  ═══════════════════════════════════════════════════════ */
+  html.theme-gold {
+    --cream:#fef9f0; --blush:#e8d7c3; --rose:#c9a961;
+    --gold:#d4af37;  --dark:#3d2817;  --mid:#7a6a54;
+    --light:#efe5d8; --h1:#fdfaf5; --h2:#fef9f0; --h3:#faf5f0;
+    --t1:#f5f0e8;    --card-bg:#ffffff; --section-light:#fef5ed;
+  }
+  html.theme-gold .bg-light  { background: #fef5ed !important; }
+  html.theme-gold .bg-tinted { background: linear-gradient(150deg, #f5f0e8 0%, #fef5ed 100%) !important; }
+  html.theme-gold .venue-badge { background:#ebe0d0!important; color:#8b6f47!important; }
+  html.theme-gold .family-card:hover, html.theme-gold .account-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(196,159,97,.22); }
+
+  /* ═══════════════════════════════════════════════════════
+     THEME 7: Coral — 산호빛 생생함
+  ═══════════════════════════════════════════════════════ */
+  html.theme-coral {
+    --cream:#fff5f3; --blush:#f2c8c0; --rose:#e87660;
+    --gold:#f08860;  --dark:#6b2f26;  --mid:#a85548;
+    --light:#fce3dc; --h1:#fffbfa; --h2:#fff5f3; --h3:#fdf0ed;
+    --t1:#fde8e3;    --card-bg:#ffffff; --section-light:#fffaf7;
+  }
+  html.theme-coral .bg-light  { background: #fffaf7 !important; }
+  html.theme-coral .bg-tinted { background: linear-gradient(150deg, #fde8e3 0%, #fffaf7 100%) !important; }
+  html.theme-coral .venue-badge { background:#f0d4cc!important; color:#c85a45!important; }
+  html.theme-coral .family-card:hover, html.theme-coral .account-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(232,118,96,.22); }
+
+  /* ═══════════════════════════════════════════════════════
+     THEME 8: Purple — 우아한 보라
+  ═══════════════════════════════════════════════════════ */
+  html.theme-purple {
+    --cream:#f8f5fc; --blush:#d9cce8; --rose:#8b6ba3;
+    --gold:#9b7fb8;  --dark:#3d2147;  --mid:#6b5975;
+    --light:#ede5f5; --h1:#fcfbfe; --h2:#f8f5fc; --h3:#f5f2fa;
+    --t1:#f0ebf8;    --card-bg:#ffffff; --section-light:#fbf8fd;
+  }
+  html.theme-purple .bg-light  { background: #fbf8fd !important; }
+  html.theme-purple .bg-tinted { background: linear-gradient(150deg, #f0ebf8 0%, #fbf8fd 100%) !important; }
+  html.theme-purple .venue-badge { background:#e0d6f0!important; color:#7a5f91!important; }
+  html.theme-purple .family-card:hover, html.theme-purple .account-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(155,127,184,.22); }
+
+  /* ═══════════════════════════════════════════════════════
+     THEME 9: Sage — 차분한 세이지 초록
+  ═══════════════════════════════════════════════════════ */
+  html.theme-sage {
+    --cream:#f5f9f6; --blush:#d4dfd8; --rose:#6b8873;
+    --gold:#7a9881;  --dark:#2d4a38;  --mid:#5a7063;
+    --light:#e8f0eb; --h1:#fafcfb; --h2:#f5f9f6; --h3:#f1f6f3;
+    --t1:#ede f5eb;    --card-bg:#ffffff; --section-light:#f9fcfa;
+  }
+  html.theme-sage .bg-light  { background: #f9fcfa !important; }
+  html.theme-sage .bg-tinted { background: linear-gradient(150deg, #ede f5eb 0%, #f9fcfa 100%) !important; }
+  html.theme-sage .venue-badge { background:#dce7e1!important; color:#547560!important; }
+  html.theme-sage .family-card:hover, html.theme-sage .account-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(122,152,129,.22); }
+
   /* ══════════════════════════════════════════════
      PER-THEME ANIMATION OVERRIDES
   ══════════════════════════════════════════════ */
@@ -232,6 +288,25 @@
   /* 풀커버: 기본 (아무것도 안 함) */
   html.layout-fullcover body { background: var(--cream); }
   html.layout-fullcover section { padding: 2.4rem 1.6rem; }
+
+  /* ════════════════════════════════════
+     SIZE MODES
+  ════════════════════════════════════ */
+  /* Compact: 촘촘하게 */
+  html.size-compact section { padding: 1.6rem 1.2rem !important; }
+  html.size-compact h1, html.size-compact h2, html.size-compact h3 { font-size: 0.95em; }
+  html.size-compact .tag { font-size: 0.7rem !important; }
+  html.size-compact .body-text, html.size-compact p { font-size: 0.9rem; }
+  html.size-compact .sec-title { font-size: 1.4rem !important; }
+
+  /* Standard: 기본 (아무것도 안 함) */
+
+  /* Spacious: 넓고 여유있게 */
+  html.size-spacious section { padding: 3.2rem 2rem !important; }
+  html.size-spacious h1, html.size-spacious h2, html.size-spacious h3 { font-size: 1.1em; }
+  html.size-spacious .tag { font-size: 0.88rem !important; }
+  html.size-spacious .body-text, html.size-spacious p { font-size: 1.08rem; }
+  html.size-spacious .sec-title { font-size: 1.9rem !important; }
 
   /* 엽서형: 카드 스타일 */
   html.layout-card body {
@@ -712,6 +787,41 @@
     transition: transform .2s;
   }
   .layout-btn:hover { transform: scale(1.08); }
+
+  .size-btn {
+    position: fixed; bottom: 4.4rem; right: 10.8rem; z-index: 100;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--dark); border: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,.22);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.1rem;
+    transition: transform .2s;
+  }
+  .size-btn:hover { transform: scale(1.08); }
+
+  .size-panel {
+    position: fixed; bottom: 9rem; right: 10.6rem; z-index: 101;
+    background: var(--card-bg, #fff);
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 16px; padding: .9rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,.18);
+    display: none; flex-direction: column; gap: .55rem;
+    min-width: 130px;
+  }
+  .size-panel.open { display: flex; }
+
+  .size-option {
+    display: flex; align-items: center; gap: .6rem;
+    padding: .42rem .6rem; border-radius: 10px;
+    cursor: pointer; border: none; background: none;
+    font-family: 'Noto Sans KR', sans-serif; font-size: .76rem;
+    color: var(--dark); width: 100%; text-align: left;
+    transition: background .2s;
+  }
+  .size-option:hover { background: rgba(0,0,0,.04); }
+  .size-option.active { background: rgba(0,0,0,.08); font-weight: 500; }
+
+  .size-icon { font-size: .9rem; }
 
   .layout-panel {
     position: fixed; bottom: 9rem; right: 5.4rem; z-index: 101;
@@ -2044,6 +2154,10 @@
   <button class="theme-option" onclick="setTheme('green',   this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#5c8c50,#7a6e38)"></span>🌿 보태니컬</button>
   <button class="theme-option" onclick="setTheme('blue',    this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#2e72a8,#4888b8)"></span>💙 오션 블루</button>
   <button class="theme-option" onclick="setTheme('minimal', this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#1a1a1a,#888)"></span>◻ 미니멀</button>
+  <button class="theme-option" onclick="setTheme('gold',    this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#d4af37,#c9a961)"></span>✨ 골드</button>
+  <button class="theme-option" onclick="setTheme('coral',   this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#e87660,#f08860)"></span>🪸 코랄</button>
+  <button class="theme-option" onclick="setTheme('purple',  this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#8b6ba3,#9b7fb8)"></span>💜 퍼플</button>
+  <button class="theme-option" onclick="setTheme('sage',    this)"><span class="theme-swatch" style="background:linear-gradient(135deg,#6b8873,#7a9881)"></span>🍃 세이지</button>
 </div>
 
 <!-- Layout panel -->
@@ -2054,8 +2168,17 @@
   <button class="layout-option" onclick="setLayout('polaroid', this)"><span class="layout-icon">📷</span>폴라로이드</button>
 </div>
 
+<!-- Size panel -->
+<div class="size-panel" id="sizePanel">
+  <div style="font-size:.68rem;color:var(--mid);padding:.1rem .4rem .5rem;letter-spacing:.06em;opacity:.7">크기 선택</div>
+  <button class="size-option" onclick="setSize('compact', this)"><span class="size-icon">🔹</span>Compact</button>
+  <button class="size-option active" onclick="setSize('standard', this)"><span class="size-icon">🔸</span>Standard</button>
+  <button class="size-option" onclick="setSize('spacious', this)"><span class="size-icon">⭕</span>Spacious</button>
+</div>
+
 <button class="theme-btn" id="themeToggle" onclick="toggleThemePanel()" title="색상 변경">🎨</button>
 <button class="layout-btn" id="layoutToggle" onclick="toggleLayoutPanel()" title="레이아웃 변경">📐</button>
+<button class="size-btn" id="sizeToggle" onclick="toggleSizePanel()" title="크기 변경">📏</button>
 
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="배경음악">
   <!-- 음표 아이콘 (재생 중 아닐 때) -->
@@ -2709,13 +2832,17 @@ function shareInvitation() {
 /* ─────────────────────────────────
    THEME SWITCHER  (랜덤 버전)
 ───────────────────────────────── */
-const THEMES = ['rose','dark','green','blue','minimal'];
+const THEMES = ['rose','dark','green','blue','minimal','gold','coral','purple','sage'];
 const THEME_NAMES = {
   rose:    '🌸 로즈 가든',
   dark:    '🌙 미드나잇',
   green:   '🌿 보태니컬',
   blue:    '💙 오션 블루',
   minimal: '◻ 미니멀',
+  gold:    '✨ 골드',
+  coral:   '🪸 코랄',
+  purple:  '💜 퍼플',
+  sage:    '🍃 세이지',
 };
 
 function setTheme(name, btn) {
@@ -2736,11 +2863,17 @@ function toggleLayoutPanel() {
   document.getElementById('layoutPanel').classList.toggle('open');
 }
 
+function toggleSizePanel() {
+  document.getElementById('sizePanel').classList.toggle('open');
+}
+
 document.addEventListener('click', e => {
   if (!e.target.closest('.theme-panel') && !e.target.closest('.theme-btn'))
     document.getElementById('themePanel').classList.remove('open');
   if (!e.target.closest('.layout-panel') && !e.target.closest('.layout-btn'))
     document.getElementById('layoutPanel').classList.remove('open');
+  if (!e.target.closest('.size-panel') && !e.target.closest('.size-btn'))
+    document.getElementById('sizePanel').classList.remove('open');
 });
 
 /* ── 레이아웃 변경 함수 ── */
@@ -2752,10 +2885,20 @@ function setLayout(name, btn) {
   if (btn) btn.classList.add('active');
 }
 
+/* ── 크기 변경 함수 ── */
+function setSize(name, btn) {
+  const html = document.documentElement;
+  ['compact', 'standard', 'spacious'].forEach(s => html.classList.remove('size-' + s));
+  html.classList.add('size-' + name);
+  document.querySelectorAll('.size-option').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
 /* ── Blue 테마 + 풀커버 레이아웃 초기화 ── */
 (function initTheme() {
   setTheme('blue');
   setLayout('fullcover');
+  setSize('standard');
 })();
 
 
