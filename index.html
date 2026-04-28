@@ -409,16 +409,6 @@
     align-items: center; justify-content: center;
     text-align: center; padding: 2rem;
     overflow: hidden;
-    /* 배경 이미지 회전 사용 - 기본 background 제거 */
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 15% 15%, rgba(201,128,106,.14) 0%, transparent 48%),
-      radial-gradient(circle at 85% 82%, rgba(184,154,106,.11) 0%, transparent 48%);
-    pointer-events: none;
   }
 
   /* floating petals */
