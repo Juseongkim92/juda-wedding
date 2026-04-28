@@ -1924,10 +1924,20 @@
 
 <script>
 /* ─────────────────────────────────
-   COUNTDOWN
+   GLOBAL ASSETS
 ───────────────────────────────── */
 const WEDDING = new Date('2026-08-22T12:00:00');
+const GALLERY_IMAGES = [
+  './images/img1.jpg',
+  './images/img2.jpg',
+  './images/img3.jpg',
+  './images/img4.jpg',
+  './images/img5.jpg'
+];
 
+/* ─────────────────────────────────
+   COUNTDOWN
+───────────────────────────────── */
 function pad(n) { return String(n).padStart(2, '0'); }
 
 function tick() {
@@ -1941,10 +1951,16 @@ function tick() {
   const h = Math.floor((diff % 86400000) / 3600000);
   const m = Math.floor((diff % 3600000)  / 60000);
   const s = Math.floor((diff % 60000)    / 1000);
-  document.getElementById('cd-d').textContent = d;
-  document.getElementById('cd-h').textContent = pad(h);
-  document.getElementById('cd-m').textContent = pad(m);
-  document.getElementById('cd-s').textContent = pad(s);
+  
+  const elD = document.getElementById('cd-d');
+  const elH = document.getElementById('cd-h');
+  const elM = document.getElementById('cd-m');
+  const elS = document.getElementById('cd-s');
+  
+  if (elD) elD.textContent = d;
+  if (elH) elH.textContent = pad(h);
+  if (elM) elM.textContent = pad(m);
+  if (elS) elS.textContent = pad(s);
 }
 tick();
 setInterval(tick, 1000);
@@ -2511,9 +2527,6 @@ function toggleMusic() {
 
 /* ─────────────────────────────────
    IMAGE OPTIMIZATION & BLUR-UP
-   ─────────────────────────────────
-   TIP: 이미지 로딩 속도를 위해 각 이미지의 용량을 500KB 이하로 줄이는 것을 추천합니다.
-   TinyPNG (https://tinypng.com) 등을 활용해 보세요.
 ───────────────────────────────── */
 function initImageBlurUp() {
   const images = document.querySelectorAll('img[loading="lazy"]');
@@ -2526,14 +2539,12 @@ function initImageBlurUp() {
   });
 }
 
-// 기존 갤러리 슬라이드에 실제 이미지 적용
-(function initGalleryImages() {
+// 갤러리 이미지 주입 및 블러 효과 초기화
+(function initGallery() {
   const slides = document.querySelectorAll('.gallery-slide');
-  const images = ['./images/img1.jpg', './images/img2.jpg', './images/img3.jpg', './images/img4.jpg', './images/img5.jpg'];
-  
   slides.forEach((slide, i) => {
-    if (images[i]) {
-      slide.innerHTML = `<img src="${images[i]}" alt="Wedding Photo ${i+1}" loading="lazy" />`;
+    if (GALLERY_IMAGES[i]) {
+      slide.innerHTML = `<img src="${GALLERY_IMAGES[i]}" alt="Wedding Photo ${i+1}" loading="lazy" />`;
     }
   });
   initImageBlurUp();
@@ -2777,14 +2788,6 @@ gsap.to(['.hero-eyebrow','.hero-names','.hero-kr','.hero-rule','.hero-date','.he
 });
 
 /* ── Gallery Hero (Section 0) 이미지 자동 회전 ── */
-const GALLERY_IMAGES = [
-  './images/img1.jpg',
-  './images/img2.jpg',
-  './images/img3.jpg',
-  './images/img4.jpg',
-  './images/img5.jpg',
-];
-
 let currentGalleryIdx = 0;
 
 function setGalleryImage(idx) {
@@ -2812,19 +2815,26 @@ function setGalleryImage(idx) {
   }, 600);
 }
 
-// 첫 번째 이미지는 즉시 로딩 (LCP 최적화)
+// 초기화 및 자동 회전
 window.addEventListener('DOMContentLoaded', () => {
+  // 첫 번째 이미지는 즉시 로딩 (LCP 최적화)
   const firstImg = document.getElementById('ghImg');
-  if (firstImg) firstImg.removeAttribute('loading'); 
-});
+  if (firstImg) {
+    firstImg.removeAttribute('loading');
+    firstImg.src = GALLERY_IMAGES[0];
+  }
+  
+  const blurBg = document.getElementById('ghBlurBg');
+  if (blurBg) {
+    blurBg.style.backgroundImage = `url('${GALLERY_IMAGES[0]}')`;
+  }
 
-// 자동 회전 (6초마다)
-(function() {
+  // 자동 회전 (6초마다)
   setInterval(() => {
     const nextIdx = (currentGalleryIdx + 1) % GALLERY_IMAGES.length;
     setGalleryImage(nextIdx);
   }, 6000);
-})();
+});
 
 
 /* ── 2. D-Day Count-Up on enter ── */
