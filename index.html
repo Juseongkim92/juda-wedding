@@ -1372,7 +1372,7 @@
   .story-outer { } /* GSAP injects pin-spacer height automatically */
 
   .story-pin {
-    height: 100svh; min-height: 620px;
+    height: 100svh; min-height: 560px;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; position: relative;
   }
@@ -1383,22 +1383,22 @@
     width: 56px; height: 56px; pointer-events: none; z-index: 5;
   }
   .story-pin::before { top: 1.4rem; left: 1.4rem;
-    border-top: 1px solid rgba(184,154,106,.3); border-left: 1px solid rgba(184,154,106,.3); }
+    border-top: 1px solid rgba(46,114,168,.25); border-left: 1px solid rgba(46,114,168,.25); }
   .story-pin::after  { bottom: 1.4rem; right: 1.4rem;
-    border-bottom: 1px solid rgba(184,154,106,.3); border-right: 1px solid rgba(184,154,106,.3); }
+    border-bottom: 1px solid rgba(46,114,168,.25); border-right: 1px solid rgba(46,114,168,.25); }
 
   /* animated bg layer */
   .story-bg {
     position: absolute; inset: 0; pointer-events: none;
     transition: background 1s ease;
-    background: linear-gradient(165deg, #f9ede4 0%, #fdf8f3 100%);
+    background: linear-gradient(165deg, #e8f2fc 0%, #f0f5fa 100%);
   }
 
   /* progress bar inside story section */
   .story-pgbar {
     position: absolute; bottom: 0; left: 0; z-index: 20;
     height: 2px; width: 0%;
-    background: linear-gradient(90deg, var(--blush), var(--rose), var(--gold));
+    background: linear-gradient(90deg, #a8c0d8, #2e72a8, #4888b8);
   }
 
   /* right-side dot nav */
@@ -1615,14 +1615,14 @@
   <h2 class="sec-title">소중한 분들께</h2>
   <div class="rule"></div>
   <p class="body-text">
-    서로 다른 길을 걷다<br/>
+    <!-- 서로 다른 길을 걷다<br/>
     같은 곳을 바라보게 된 두 사람이<br/>
     이제 하나의 길을 함께 걸어가려 합니다.<br/><br/>
     저희의 작은 시작을<br/>
     따뜻한 마음으로 축복해 주신다면<br/>
     더없는 기쁨이 되겠습니다.<br/><br/>
     <strong style="color:var(--dark);letter-spacing:.08em">김주성 · 조다빈</strong><br/>
-    결혼합니다.
+    결혼합니다. -->
   </p>
 </section>
 
@@ -3024,7 +3024,7 @@ ScrollTrigger.create({
 });
 
 
-/* ── 3. Sticky Story Sequence ── */
+/* ── 3. Auto-Fade Story Sequence ── */
 (function() {
   const pin    = document.getElementById('storyPin');
   const scenes = document.querySelectorAll('.story-scene');
@@ -3034,102 +3034,80 @@ ScrollTrigger.create({
   if (!pin || !scenes.length) return;
 
   const SCENE_BGS = [
-    'linear-gradient(165deg,#f9ede4 0%,#fdf8f3 100%)',
-    'linear-gradient(165deg,#f4e8dd 0%,#faf3ee 100%)',
-    'linear-gradient(165deg,#edddd2 0%,#f7f0eb 100%)',
-    'linear-gradient(165deg,#f5ece2 0%,#fdf8f3 100%)',
+    'linear-gradient(165deg,#e8f2fc 0%,#f0f5fa 100%)',
+    'linear-gradient(165deg,#dce9f8 0%,#ebf1f9 100%)',
+    'linear-gradient(165deg,#d0e4f4 0%,#e8f2fc 100%)',
   ];
 
-  // All scenes start hidden
-  gsap.set(scenes, { opacity: 0, y: 48 });
+  let currentIdx = 0;
+  let autoPlayTimeout;
+  const DISPLAY_DURATION = 4000; // 4초 표시
+  const FADE_DURATION = 0.8;    // 페이드 시간
 
-  // Build the scrubbed timeline
-  const tl = gsap.timeline();
+  // 초기화: 모든 씬 숨김
+  gsap.set(scenes, { opacity: 0 });
 
-  scenes.forEach((scene, i) => {
-    const kids  = scene.querySelectorAll('.ss-sub,.ss-title,.ss-rule,.ss-desc');
-    const card  = scene.querySelector('.ss-card');
-    const imgEl = scene.querySelector('.ss-img-ph, .ss-img-wrap img');
+  function showScene(idx) {
+    idx = Math.max(0, Math.min(idx, scenes.length - 1));
+    currentIdx = idx;
 
-    const pos = i === 0 ? 0 : '>-0.15';
+    // 모든 씬 페이드 아웃
+    gsap.to(scenes, {
+      opacity: 0,
+      duration: FADE_DURATION,
+      ease: 'power2.inOut',
+    });
 
-    // 씬 래퍼 등장
-    tl.to(scene, { opacity: 1, y: 0, duration: .8, ease: 'power2.out' }, pos);
+    // 해당 씬만 페이드 인 + 살짝 위로
+    const scene = scenes[idx];
+    const kids = scene.querySelectorAll('.ss-sub,.ss-title,.ss-rule,.ss-desc');
+    const card = scene.querySelector('.ss-card');
 
-    // ★ 카드 돌출 (scale↑ + shadow↑ = 앞으로 솟아오르는 느낌)
+    gsap.to(scene, {
+      opacity: 1,
+      duration: FADE_DURATION,
+      ease: 'power2.inOut',
+    }, 0);
+
+    // 카드 확대 효과
     if (card) {
-      tl.fromTo(card,
-        { scale: 0.72, y: 50,
-          boxShadow: '0 2px 12px rgba(58,46,46,.06)' },
-        { scale: 1.0,  y: 0,
-          boxShadow: '0 32px 80px rgba(58,46,46,.32)',
-          duration: .85, ease: 'power3.out' },
-        '<');
-    }
-
-    // ★ 이미지 인너 패럴랙스 (카드 안에서 이미지가 별도로 움직임)
-    if (imgEl) {
-      tl.fromTo(imgEl,
-        { scale: 1.18, y: 18 },
-        { scale: 1.0,  y: -6, duration: .85, ease: 'power2.out' },
-        '<');
-    }
-
-    // 텍스트 순차 등장
-    tl.fromTo(kids,
-      { opacity: 0, y: 14 },
-      { opacity: 1, y: 0, duration: .5, stagger: .09, ease: 'power2.out' },
-      '<0.25');
-
-    // 유지
-    tl.to({}, { duration: 0.6 });
-
-    // 퇴장 (마지막 씬 제외)
-    if (i < scenes.length - 1) {
-      tl.to(kids, { opacity: 0, duration: .22, ease: 'power2.in' });
-      if (card) tl.to(card,
-        { scale: 0.84, y: -24, opacity: 0,
-          boxShadow: '0 2px 8px rgba(58,46,46,.04)',
-          duration: .5, ease: 'power2.in' }, '<0.05');
-      tl.to(scene, { opacity: 0, duration: .35, ease: 'power2.in' }, '<0.05');
-    }
-  });
-
-  // Attach timeline to scroll with pin
-  ScrollTrigger.create({
-    trigger: pin,
-    start: 'top top',
-    end: `+=${scenes.length * 55}%`,
-    pin: true,
-    pinSpacing: true,
-    scrub: 0.45,
-    animation: tl,
-    onUpdate(self) {
-      const p   = self.progress;
-      if (pgbar) pgbar.style.width = (p * 100) + '%';
-
-      // Active scene index
-      const idx = Math.min(
-        Math.floor(p * scenes.length * 1.05),
-        scenes.length - 1
+      gsap.fromTo(card,
+        { scale: 0.88, y: 20 },
+        { scale: 1.0, y: 0, duration: FADE_DURATION * 0.8, ease: 'power2.out' },
+        0
       );
-      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      scenes.forEach((s, i) => s.classList.toggle('active-scene', i === idx));
-      if (bg) bg.style.background = SCENE_BGS[idx] || SCENE_BGS[0];
     }
-  });
 
-  // Dot click → jump to scene
+    // 텍스트 페이드인
+    gsap.fromTo(kids,
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: FADE_DURATION * 0.6, stagger: 0.06, ease: 'power2.out' },
+      FADE_DURATION * 0.2
+    );
+
+    // UI 업데이트
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    scenes.forEach((s, i) => s.classList.toggle('active-scene', i === idx));
+    if (bg) bg.style.background = SCENE_BGS[idx] || SCENE_BGS[0];
+    if (pgbar) pgbar.style.width = ((idx + 1) / scenes.length * 100) + '%';
+
+    // 다음 자동 전환 예약
+    clearTimeout(autoPlayTimeout);
+    autoPlayTimeout = setTimeout(() => {
+      const nextIdx = (idx + 1) % scenes.length;
+      showScene(nextIdx);
+    }, DISPLAY_DURATION);
+  }
+
+  // 닷 클릭으로 수동 제어
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
-      const st = ScrollTrigger.getById('story') ||
-                 ScrollTrigger.getAll().find(t => t.pin === pin);
-      if (!st) return;
-      const targetProgress = (i + .1) / scenes.length;
-      const scrollTarget   = st.start + (st.end - st.start) * targetProgress;
-      window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+      showScene(i);
     });
   });
+
+  // 시작
+  showScene(0);
 })();
 
 
