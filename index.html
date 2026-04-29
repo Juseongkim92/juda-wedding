@@ -493,6 +493,47 @@
     }
 
     /* ════════════════════════════════════
+       ACCORDION
+    ════════════════════════════════════ */
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-header:hover h2 {
+      color: var(--accent);
+    }
+
+    .accordion-arrow {
+      font-size: 12px;
+      transition: transform 0.3s ease;
+      color: var(--accent);
+    }
+
+    .accordion-header.active .accordion-arrow {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ════════════════════════════════════
        FAMILY TAB TOGGLE
     ════════════════════════════════════ */
     .family-tabs {
@@ -1313,10 +1354,14 @@
   ═══════════════════════════════════════════════════════ -->
   <section>
     <div class="container">
-      <h2>가족 소개</h2>
+      <div class="accordion-header" onclick="toggleSection('familySection')">
+        <h2 style="margin-bottom: 0; display: inline-block;">가족 소개</h2>
+        <span class="accordion-arrow" id="familyArrow">▼</span>
+      </div>
 
-      <!-- Family Tabs -->
-      <div class="family-tabs">
+      <div id="familySection" class="accordion-content" style="display: none; margin-top: 20px;">
+        <!-- Family Tabs -->
+        <div class="family-tabs">
         <button class="family-tab-btn active" onclick="switchFamilyTab('groom')">신랑 측</button>
         <button class="family-tab-btn" onclick="switchFamilyTab('bride')">신부 측</button>
       </div>
@@ -1542,6 +1587,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </section>
@@ -1877,6 +1923,22 @@
 
       modal.addEventListener('click', () => modal.remove());
       document.body.appendChild(modal);
+    }
+
+    // ════════════════════════════════════
+    // ACCORDION TOGGLE
+    // ════════════════════════════════════
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      const header = section.previousElementSibling;
+
+      if (section.style.display === 'none') {
+        section.style.display = 'block';
+        header.classList.add('active');
+      } else {
+        section.style.display = 'none';
+        header.classList.remove('active');
+      }
     }
 
     // ════════════════════════════════════
