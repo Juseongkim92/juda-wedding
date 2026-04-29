@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>김주성 & 조다빈 결혼합니다</title>
-  <meta property="og:title" content="김주성 & 조다빈 결혼합니다" />
-  <meta property="og:description" content="2026년 8월 22일 토요일 · 대구 인터불고만촌 인터빌리지" />
+  <title>주성 & 다빈 결혼합니다</title>
+  <meta property="og:title" content="주성 & 다빈 결혼합니다" />
+  <meta property="og:description" content="2026년 8월 22일 토요일 · 호델인터불고 대구 인터빌리지" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -923,7 +923,7 @@
       </div>
     </div>
     <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 10;">
-      우리의 시작
+      주성 & 다빈
     </div>
   </section>
 
@@ -933,7 +933,7 @@
   <section>
     <div class="container">
       <div class="section-intro">
-        <h2>우리의 만남</h2>
+        <h2>인사의 말</h2>
         <p>사랑하는 분들과 함께 새로운 시작을 알리고 싶습니다.<br>변함없는 사랑과 믿음으로 함께 나아갈 것을 약속드립니다.</p>
         <p style="margin-top: 20px; font-size: 18px; font-family: 'Playfair Display', serif;">
           <strong>김주성 & 조다빈</strong><br>
@@ -974,47 +974,152 @@
   <!-- ═══════════════════════════════════════════════════════
        LOCATION
   ═══════════════════════════════════════════════════════ -->
-  <section>
-    <div class="container">
-      <h2>오시는 길</h2>
+<style>
+  /* 전체 컨테이너 및 카드 스타일 */
+  .location-section { font-family: 'Pretendard', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+  .card { border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  
+  /* 주소 및 복사 버튼 */
+  .address-box { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+  .address-text { font-size: 0.95rem; color: #333; line-height: 1.5; }
+  .copy-btn { font-size: 0.8rem; padding: 6px 12px; border: 1px solid #ddd; background: #fff; border-radius: 4px; cursor: pointer; white-space: nowrap; }
 
-      <div class="card">
-        <h3>주소 및 교통정보</h3>
-        <p style="margin-bottom: 16px;">
-          대구 광역시 구미시 인터불고 만촌동<br>
-          인터빌리지 B동 2층
-        </p>
+  /* 아코디언 스타일 */
+  .info-list { display: flex; flex-direction: column; gap: 10px; }
+  .info-item { border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; transition: all 0.2s; }
+  .info-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; background: #fff; }
+  .info-header:hover { background: #fafafa; }
+  .info-content { max-height: 0; padding: 0 16px; transition: all 0.3s ease; background: #fff; font-size: 0.9rem; color: #555; overflow: hidden; }
+  
+  /* 활성화 상태 */
+  .info-item.active { border-color: #d1b894; }
+  .info-item.active .info-content { max-height: 500px; padding: 16px; border-top: 1px solid #f0f0f0; }
+  .info-item.active .arrow { transform: rotate(180deg); }
+  .arrow { transition: transform 0.3s; color: #bbb; display: inline-block; }
 
-        <div class="info-grid" style="margin-top: 16px;">
-          <div class="info-item">
-            <div class="info-label">🚌 버스</div>
-            <div class="info-value">100, 120, 130번</div>
-            <div class="info-detail">인터빌리지 정류장</div>
+  /* 포인트 라벨 */
+  .point-label { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-right: 5px; }
+  .bg-on { background: #fff3e0; color: #e67e22; } /* 승차 */
+  .bg-off { background: #e3f2fd; color: #1976d2; } /* 하차 */
+
+  /* 하단 지도 버튼 */
+  .map-btn-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .map-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--white);
+    color: var(--accent);
+    text-align: center;
+  }
+
+  .map-btn:hover {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 157, 195, 0.2);
+  }
+</style>
+
+<section class="location-section">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:24px;">오시는 길</h2>
+
+    <div class="card">
+      <div class="address-box">
+        <div class="address-text">
+          <strong>호텔인터불고 대구 (인터빌리지홀)</strong><br>
+          대구광역시 수성구 팔현길 212
+        </div>
+        <button class="copy-btn" onclick="copyAddress()">주소 복사</button>
+      </div>
+
+      <div class="info-list">
+        <div class="info-item" onclick="toggleInfo(this)">
+          <div class="info-header">
+            <span>🚌 시내버스 안내</span>
+            <span class="arrow">▼</span>
           </div>
-
-          <div class="info-item">
-            <div class="info-label">🚕 택시</div>
-            <div class="info-value">인터불고 만촌</div>
-            <div class="info-detail">5분 내 도착</div>
+          <div class="info-content">
+            <p><span class="point-label bg-on">승차</span> 동대구역 정류장</p>
+            <p><span class="point-label bg-off">하차</span> <strong>651번</strong> (호텔 정문 앞 하차)</p>
+            <p><span class="point-label bg-off">하차</span> <strong>814, 708번</strong> (망우공원 하차, 도보 5분)</p>
+            <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+            <small>* 정문 하차를 원하시면 <strong>651, 848, 수성2</strong>번이 가장 편리합니다.</small>
           </div>
+        </div>
 
-          <div class="info-item">
-            <div class="info-label">🚗 자가용</div>
-            <div class="info-value">네비게이션</div>
-            <div class="info-detail">"인터빌리지" 검색</div>
+        <div class="info-item" onclick="toggleInfo(this)">
+          <div class="info-header">
+            <span>🚇 지하철 및 환승</span>
+            <span class="arrow">▼</span>
           </div>
+          <div class="info-content">
+            <p><strong>1호선 아양교역</strong> 2번 출구<br>→ 814번 버스 환승 또는 택시 이용 (약 10분)</p>
+            <p style="margin-top:10px;"><strong>2호선 만촌역</strong> 3번 출구<br>→ 848번 버스 환승 또는 택시 이용 (약 15분)</p>
+          </div>
+        </div>
 
-          <div class="info-item">
-            <div class="info-label">🅿️ 주차</div>
-            <div class="info-value">건물 주차장</div>
-            <div class="info-detail">선착순 무료</div>
+        <div class="info-item" onclick="toggleInfo(this)">
+          <div class="info-header">
+            <span>🚕 택시 및 자가용</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div class="info-content">
+            <p><strong>동대구역 출발:</strong> 약 15분 (약 6,000원)</p>
+            <p><strong>네비게이션:</strong> "호텔인터불고 대구" 검색</p>
+            <p><strong>주차:</strong> 호텔 내 전 구역 무료 주차 지원</p>
           </div>
         </div>
       </div>
-
-      <button style="margin-top: 20px;" onclick="openMap()">지도로 보기</button>
     </div>
-  </section>
+
+    <div class="map-btn-group">
+      <button class="map-btn" onclick="openNavi('naver')">📍 네이버 지도</button>
+      <button class="map-btn" onclick="openNavi('kakao')">📍 카카오맵</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  // 아코디언 토글
+  function toggleInfo(element) {
+    element.classList.toggle('active');
+  }
+
+  // 주소 복사 기능
+  function copyAddress() {
+    const addr = "대구광역시 수성구 팔현길 212";
+    navigator.clipboard.writeText(addr).then(() => {
+      alert("주소가 복사되었습니다. 원하시는 앱에 붙여넣기 하세요!");
+    });
+  }
+
+  // 내비게이션 실행
+  function openNavi(type) {
+    const destinationName = "호텔인터불고 대구";
+    const lat = 35.874596;
+    const lng = 128.659615;
+
+    if (type === 'naver') {
+      window.open(`https://map.naver.com/v5/directions/-/-/${encodeURIComponent(destinationName)},${lat},${lng}/-`, '_blank');
+    } else if (type === 'kakao') {
+      window.open(`https://map.kakao.com/link/to/${destinationName},${lat},${lng}`, '_blank');
+    }
+  }
+</script>
 
   <!-- ═══════════════════════════════════════════════════════
        STORY GALLERY (GRID)
