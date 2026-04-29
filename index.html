@@ -383,42 +383,44 @@
        FAMILY INFO
     ════════════════════════════════════ */
     .family-section {
-      margin-bottom: 32px;
+      margin-bottom: 20px;
     }
 
     .family-title {
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
       color: var(--primary);
       text-align: center;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
     }
 
     .family-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 0;
     }
 
     .family-card {
-      padding: 16px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 12px;
+      padding: 12px 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
     }
 
     .family-card:last-child {
-      margin-bottom: 0;
+      border-bottom: none;
     }
 
     .family-header {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 10px;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .family-info {
@@ -426,44 +428,44 @@
     }
 
     .family-name {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--primary);
       margin-bottom: 2px;
     }
 
     .family-relation {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-light);
       margin-bottom: 0;
     }
 
     .family-contacts-row {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .family-contact-item {
       flex: 1;
-      min-width: 200px;
+      min-width: 150px;
     }
 
     .family-contact-label {
-      font-size: 11px;
-      letter-spacing: 0.5px;
+      font-size: 10px;
+      letter-spacing: 0.4px;
       color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       font-weight: 500;
     }
 
     .family-contact {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--primary);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       word-break: break-word;
     }
 
@@ -474,9 +476,9 @@
       border: none;
       cursor: pointer;
       transition: all 0.3s ease;
-      font-size: 16px;
-      width: 24px;
-      height: 24px;
+      font-size: 14px;
+      width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
