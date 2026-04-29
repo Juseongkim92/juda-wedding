@@ -382,8 +382,33 @@
     /* ════════════════════════════════════
        FAMILY INFO
     ════════════════════════════════════ */
+    .family-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .family-side-section {
+      padding: 16px 0;
+    }
+
+    .family-side-section:first-child {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 16px;
+    }
+
+    .family-side-header {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
     .family-section {
-      margin-bottom: 20px;
+      margin-bottom: 0;
     }
 
     .family-title {
@@ -1358,16 +1383,10 @@
       </div>
 
       <div id="familySection" class="accordion-content" style="display: none; margin-top: 20px;">
-        <!-- Family Tabs -->
-        <div class="family-tabs">
-        <button class="family-tab-btn active" onclick="switchFamilyTab('groom')">신랑 측</button>
-        <button class="family-tab-btn" onclick="switchFamilyTab('bride')">신부 측</button>
-      </div>
-
-      <!-- Groom's Family -->
-      <div id="groom-tab" class="family-tab-content active">
-        <div class="family-section">
-          <div class="family-grid">
+        <div class="family-list">
+          <div class="family-side-section">
+            <div class="family-side-header">신랑 측</div>
+            <div class="family-grid">
           <div class="family-card">
             <div class="family-header">
               <div class="family-info">
@@ -1472,12 +1491,11 @@
               </div>
             </div>
           </div>
-        </div>
-        </div>
-      </div>
+          </div>
+          </div>
 
-      <!-- Bride's Family -->
-      <div id="bride-tab" class="family-tab-content">
+          <div class="family-side-section">
+            <div class="family-side-header">신부 측</div>
         <div class="family-section">
           <div class="family-grid">
           <div class="family-card">
@@ -1583,9 +1601,9 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   </section>
@@ -1853,28 +1871,6 @@
       }
     }
 
-    // ════════════════════════════════════
-    // FAMILY TAB TOGGLE
-    // ════════════════════════════════════
-    function switchFamilyTab(tab) {
-      // Hide all tabs
-      document.getElementById('groom-tab').classList.remove('active');
-      document.getElementById('bride-tab').classList.remove('active');
-
-      // Remove active class from all buttons
-      document.querySelectorAll('.family-tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      // Show selected tab
-      if (tab === 'groom') {
-        document.getElementById('groom-tab').classList.add('active');
-        document.querySelectorAll('.family-tab-btn')[0].classList.add('active');
-      } else if (tab === 'bride') {
-        document.getElementById('bride-tab').classList.add('active');
-        document.querySelectorAll('.family-tab-btn')[1].classList.add('active');
-      }
-    }
 
     // ════════════════════════════════════
     // STORY GALLERY & LIGHTBOX
