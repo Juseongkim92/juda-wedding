@@ -1249,14 +1249,10 @@
 
   // 내비게이션 실행
   function openNavi(type) {
-    const destinationName = "호텔인터불고 대구";
-    const lat = 35.874596;
-    const lng = 128.659615;
-
     if (type === 'naver') {
-      window.open(`https://map.naver.com/v5/directions/-/-/${encodeURIComponent(destinationName)},${lat},${lng}/-`, '_blank');
+      window.open('https://naver.me/5k7fh8vo', '_blank');
     } else if (type === 'kakao') {
-      window.open(`https://map.kakao.com/link/to/${destinationName},${lat},${lng}`, '_blank');
+      window.open('https://place.map.kakao.com/27363708', '_blank');
     }
   }
 </script>
@@ -1592,93 +1588,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════
-       STORY GALLERY (GRID)
-  ═══════════════════════════════════════════════════════ -->
-  <section>
-    <div class="container">
-      <h2>우리의 이야기</h2>
 
-      <div class="story-gallery" id="storyGallery">
-        <!-- Story images will be dynamically loaded -->
-      </div>
-
-      <p style="text-align: center; font-size: 13px; color: var(--text-light); margin-top: 20px;">
-        💕 사진을 클릭하면 확대되어 볼 수 있습니다
-      </p>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════
-       LIGHTBOX MODAL
-  ═══════════════════════════════════════════════════════ -->
-  <div id="lightboxModal" class="lightbox-modal" style="display: none;">
-    <div class="lightbox-container">
-      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-
-      <button class="lightbox-nav lightbox-prev" onclick="prevImage()">&lsaquo;</button>
-
-      <div class="lightbox-image-wrapper">
-        <img id="lightboxImage" src="" alt="확대 이미지" class="lightbox-image">
-      </div>
-
-      <button class="lightbox-nav lightbox-next" onclick="nextImage()">&rsaquo;</button>
-
-      <div class="lightbox-counter">
-        <span id="lightboxCounter">1/5</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════
-       GUESTBOOK
-  ═══════════════════════════════════════════════════════ -->
-  <section>
-    <div class="container">
-      <h2>축하 메시지</h2>
-      <p style="text-align: center; margin-bottom: 32px; color: var(--text-light);">
-        따뜻한 응원과 축하의 말씀을 남겨주세요
-      </p>
-
-      <!-- Message Form -->
-      <div class="card" style="margin-bottom: 32px;">
-        <form id="messageForm" onsubmit="handleMessageSubmit(event)">
-          <div class="form-group">
-            <label for="authorName">이름</label>
-            <input type="text" id="authorName" name="authorName" required placeholder="이름을 입력해주세요">
-          </div>
-
-          <div class="form-group">
-            <label for="messageText">메시지</label>
-            <textarea id="messageText" name="messageText" required placeholder="축하의 말씀을 남겨주세요"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="photoInput">사진 (선택)</label>
-            <div class="photo-upload">
-              <input type="file" id="photoInput" name="photo" accept="image/*" onchange="previewPhoto(event)">
-              <label for="photoInput" class="photo-label">
-                📷 사진 선택
-              </label>
-            </div>
-            <div id="photoPreview" class="photo-preview"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="password">비밀번호 (선택)</label>
-            <input type="password" id="password" name="password" placeholder="삭제할 때 필요합니다">
-          </div>
-
-          <button type="submit">메시지 남기기</button>
-        </form>
-      </div>
-
-      <!-- Messages Display -->
-      <div id="messagesList" class="message-list">
-        <div class="no-messages">아직 메시지가 없습니다. 첫 번째 축하 인사를 남겨주세요!</div>
-      </div>
-    </div>
-  </section>
 
   <!-- ═══════════════════════════════════════════════════════
        FOOTER
