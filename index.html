@@ -859,6 +859,24 @@
     }
 
     /* ════════════════════════════════════
+       VIDEO PLAYER
+    ════════════════════════════════════ */
+    .video-player {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(139, 157, 195, 0.1);
+      background: #000;
+      margin-top: 20px;
+    }
+
+    .video-player video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ════════════════════════════════════
        LIGHTBOX MODAL
     ════════════════════════════════════ */
     .lightbox-modal {
@@ -1117,7 +1135,6 @@
       </defs>
       <text font-size="20" fill="white" font-family="'Playfair Display', serif" font-weight="500" letter-spacing="2" text-shadow="0 2px 8px rgba(0,0,0,0.3)">
         <textPath href="#circlePath" startOffset="50%" text-anchor="middle" class="typing-text">
-          Oh! Happy! Day!
         </textPath>
       </text>
     </svg>
@@ -1637,7 +1654,20 @@
     </div>
   </section>
 
-
+  <!-- ═══════════════════════════════════════════════════════
+       OUR JOURNEY VIDEO
+  ═══════════════════════════════════════════════════════ -->
+  <section>
+    <div class="container">
+      <h2>Our Journey</h2>
+      <div class="video-player">
+        <video controls>
+          <source src="./udo_video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
 
   <!-- ═══════════════════════════════════════════════════════
        FOOTER
