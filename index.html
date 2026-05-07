@@ -1051,6 +1051,57 @@
 
 
     /* ════════════════════════════════════
+       FAMILY CONTACT BUTTONS
+    ════════════════════════════════════ */
+    .contact-action-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-call {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .btn-pay {
+      background: #fee500; /* Kakao Yellow */
+      color: #3c1e1e;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* ════════════════════════════════════
+       HERO ROTATING TEXT
+    ════════════════════════════════════ */
+    .rotating-text {
+      animation: rotateCircle 20s linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes rotateCircle {
+      from { transform: translateX(-50%) rotate(0deg); }
+      to { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    /* ════════════════════════════════════
        FOOTER
     ════════════════════════════════════ */
     footer {
@@ -1129,12 +1180,14 @@
         <!-- Images will be dynamically inserted -->
       </div>
     </div>
-    <svg style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 200px; height: 200px; z-index: 10;" viewBox="0 0 200 200">
+    <svg class="rotating-text" style="position: absolute; bottom: -10px; left: 50%; width: 220px; height: 220px; z-index: 10;" viewBox="0 0 200 200">
       <defs>
-        <path id="circlePath" d="M 100, 100 m -70, 0 a 70,70 0 1,1 140,0 a 70,70 0 1,1 -140,0" fill="none"/>
+        <path id="circlePath" d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" fill="none"/>
       </defs>
-      <text font-size="20" fill="white" font-family="'Playfair Display', serif" font-weight="500" letter-spacing="2" text-shadow="0 2px 8px rgba(0,0,0,0.3)">
-        <textPath href="#circlePath" startOffset="50%" text-anchor="middle" class="typing-text">
+      <text font-size="15" fill="white" font-family="'Playfair Display', serif" font-weight="400" letter-spacing="3.5" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+        <textPath href="#circlePath">
+          SAVE THE DATE· 26.08.22 · JUSEONG & DAPIN· 
+
         </textPath>
       </text>
     </svg>
@@ -1433,220 +1486,196 @@
           <div class="family-side-section">
             <div class="family-side-header">신랑 측</div>
             <div class="family-grid">
-          <div class="family-card">
-            <div class="family-header">
-              <div class="family-info">
-                <div class="family-name">김○○</div>
-                <div class="family-relation">아버지</div>
-              </div>
-            </div>
-            <div class="family-contacts-row">
-              <div class="family-contact-item">
-                <div class="family-contact-label">연락처</div>
-                <div class="family-contact">
-                  <span>010-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('010-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
+              <!-- 신랑 아버지 -->
+              <div class="family-card">
+                <div class="family-header">
+                  <div class="family-info">
+                    <div class="family-name">김한섭</div>
+                    <div class="family-relation">아버지</div>
+                  </div>
                 </div>
-              </div>
-              <div class="family-contact-item">
-                <div class="family-contact-label">계좌</div>
-                <div class="family-contact">
-                  <span>국민은행 ****-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('국민은행 ****-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
+                <div class="family-contacts-row">
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">연락처</div>
+                    <div class="family-contact">
+                      <span>010-0000-0000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">계좌</div>
+                    <div class="family-contact">
+                      <span>국민 123456-00-000000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="family-card">
-            <div class="family-header">
-              <div class="family-info">
-                <div class="family-name">김○○</div>
-                <div class="family-relation">어머니</div>
               </div>
-            </div>
-            <div class="family-contacts-row">
-              <div class="family-contact-item">
-                <div class="family-contact-label">연락처</div>
-                <div class="family-contact">
-                  <span>010-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('010-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="family-contact-item">
-                <div class="family-contact-label">계좌</div>
-                <div class="family-contact">
-                  <span>국민은행 ****-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('국민은행 ****-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="family-card">
-            <div class="family-header">
-              <div class="family-info">
-                <div class="family-name">김주성</div>
-                <div class="family-relation">신랑</div>
+              <!-- 신랑 어머니 -->
+              <div class="family-card">
+                <div class="family-header">
+                  <div class="family-info">
+                    <div class="family-name">박희숙</div>
+                    <div class="family-relation">어머니</div>
+                  </div>
+                </div>
+                <div class="family-contacts-row">
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">연락처</div>
+                    <div class="family-contact">
+                      <span>010-0000-0000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">계좌</div>
+                    <div class="family-contact">
+                      <span>국민 123456-00-000000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- 신랑 -->
+              <div class="family-card">
+                <div class="family-header">
+                  <div class="family-info">
+                    <div class="family-name">김주성</div>
+                    <div class="family-relation">신랑</div>
+                  </div>
+                </div>
+                <div class="family-contacts-row">
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">연락처</div>
+                    <div class="family-contact">
+                      <span>010-1234-5678</span>
+                      <button class="copy-btn" onclick="copyToClipboard('010-1234-5678')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">계좌</div>
+                    <div class="family-contact">
+                      <span>국민 123456-00-000000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
-            <div class="family-contacts-row">
-              <div class="family-contact-item">
-                <div class="family-contact-label">연락처</div>
-                <div class="family-contact">
-                  <span>010-1234-5678</span>
-                  <button class="copy-btn" onclick="copyToClipboard('010-1234-5678')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="family-contact-item">
-                <div class="family-contact-label">계좌</div>
-                <div class="family-contact">
-                  <span>국민은행 ****-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('국민은행 ****-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
           </div>
 
           <div class="family-side-section">
             <div class="family-side-header">신부 측</div>
-        <div class="family-section">
-          <div class="family-grid">
-          <div class="family-card">
-            <div class="family-header">
-              <div class="family-info">
-                <div class="family-name">조○○</div>
-                <div class="family-relation">아버지</div>
-              </div>
-            </div>
-            <div class="family-contacts-row">
-              <div class="family-contact-item">
-                <div class="family-contact-label">연락처</div>
-                <div class="family-contact">
-                  <span>010-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('010-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
+            <div class="family-grid">
+              <!-- 신부 아버지 -->
+              <div class="family-card">
+                <div class="family-header">
+                  <div class="family-info">
+                    <div class="family-name">조진형</div>
+                    <div class="family-relation">아버지</div>
+                  </div>
                 </div>
-              </div>
-              <div class="family-contact-item">
-                <div class="family-contact-label">계좌</div>
-                <div class="family-contact">
-                  <span>국민은행 ****-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('국민은행 ****-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
+                <div class="family-contacts-row">
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">연락처</div>
+                    <div class="family-contact">
+                      <span>010-0000-0000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">계좌</div>
+                    <div class="family-contact">
+                      <span>국민 123456-00-000000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="family-card">
-            <div class="family-header">
-              <div class="family-info">
-                <div class="family-name">조○○</div>
-                <div class="family-relation">어머니</div>
               </div>
-            </div>
-            <div class="family-contacts-row">
-              <div class="family-contact-item">
-                <div class="family-contact-label">연락처</div>
-                <div class="family-contact">
-                  <span>010-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('010-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="family-contact-item">
-                <div class="family-contact-label">계좌</div>
-                <div class="family-contact">
-                  <span>국민은행 ****-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('국민은행 ****-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="family-card">
-            <div class="family-header">
-              <div class="family-info">
-                <div class="family-name">조다빈</div>
-                <div class="family-relation">신부</div>
-              </div>
-            </div>
-            <div class="family-contacts-row">
-              <div class="family-contact-item">
-                <div class="family-contact-label">연락처</div>
-                <div class="family-contact">
-                  <span>010-1234-5678</span>
-                  <button class="copy-btn" onclick="copyToClipboard('010-1234-5678')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
+              <!-- 신부 어머니 -->
+              <div class="family-card">
+                <div class="family-header">
+                  <div class="family-info">
+                    <div class="family-name">주봉은</div>
+                    <div class="family-relation">어머니</div>
+                  </div>
                 </div>
-              </div>
-              <div class="family-contact-item">
-                <div class="family-contact-label">계좌</div>
-                <div class="family-contact">
-                  <span>국민은행 ****-****-****</span>
-                  <button class="copy-btn" onclick="copyToClipboard('국민은행 ****-****-****')" title="복사">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                    </svg>
-                  </button>
+                <div class="family-contacts-row">
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">연락처</div>
+                    <div class="family-contact">
+                      <span>010-0000-0000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">계좌</div>
+                    <div class="family-contact">
+                      <span>국민 123456-00-000000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
                 </div>
+
               </div>
-            </div>
+
+              <!-- 신부 -->
+              <div class="family-card">
+                <div class="family-header">
+                  <div class="family-info">
+                    <div class="family-name">조다빈</div>
+                    <div class="family-relation">신부</div>
+                  </div>
+                </div>
+                <div class="family-contacts-row">
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">연락처</div>
+                    <div class="family-contact">
+                      <span>010-1234-5678</span>
+                      <button class="copy-btn" onclick="copyToClipboard('010-1234-5678')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="family-contact-item">
+                    <div class="family-contact-label">계좌</div>
+                    <div class="family-contact">
+                      <span>국민 123456-00-000000</span>
+                      <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
@@ -1661,7 +1690,7 @@
     <div class="container">
       <h2>Our Journey</h2>
       <div class="video-player">
-        <video controls>
+        <video controls playsinline poster="./images/img1.jpg">
           <source src="./udo_video.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -1684,7 +1713,32 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+
   <script>
+    // ════════════════════════════════════
+    // FIREBASE CONFIGURATION
+    // ════════════════════════════════════
+    // 실제 사용 시 아래 주석을 해제하고 Firebase 설정값을 입력하세요.
+    /*
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      databaseURL: "YOUR_DATABASE_URL",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const storage = firebase.storage();
+    */
+
     // ════════════════════════════════════
     // COUNTDOWN TIMER
     // ════════════════════════════════════
@@ -1738,7 +1792,8 @@
         `;
         carouselItem.innerHTML = `
           <img src="./images/img${i}.jpg" alt="우리의 시작 ${i}"
-               style="width: 100%; height: 100%; object-fit: cover; display: block;">
+               style="width: 100%; height: 100%; object-fit: cover; display: block;"
+               loading="lazy">
           <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(44, 62, 80, 0.2) 0%, transparent 100%);"></div>
         `;
         carouselTrack.appendChild(carouselItem);
@@ -1762,14 +1817,55 @@
     // MESSAGE MANAGEMENT
     // ════════════════════════════════════
     const MESSAGES_STORAGE_KEY = 'weddingMessages';
+    let isFirebaseEnabled = false;
 
-    function loadMessages() {
-      const stored = localStorage.getItem(MESSAGES_STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
+    // Check if Firebase is initialized
+    try {
+      if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
+        isFirebaseEnabled = true;
+      }
+    } catch (e) {
+      console.warn("Firebase not initialized, falling back to localStorage.");
     }
 
-    function saveMessages(messages) {
-      localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(messages));
+    function loadMessages(callback) {
+      if (isFirebaseEnabled) {
+        const messagesRef = firebase.database().ref('messages');
+        messagesRef.on('value', (snapshot) => {
+          const data = snapshot.val();
+          const messages = data ? Object.values(data).reverse() : [];
+          callback(messages);
+        });
+      } else {
+        const stored = localStorage.getItem(MESSAGES_STORAGE_KEY);
+        callback(stored ? JSON.parse(stored) : []);
+      }
+    }
+
+    function saveMessage(messageData, callback) {
+      if (isFirebaseEnabled) {
+        const messagesRef = firebase.database().ref('messages');
+        const newMessageRef = messagesRef.push();
+        
+        // Handle photo upload if exists
+        if (messageData.photo && messageData.photo.startsWith('data:image')) {
+          const storageRef = firebase.storage().ref(`messages/${newMessageRef.key}`);
+          storageRef.putString(messageData.photo, 'data_url').then((snapshot) => {
+            snapshot.ref.getDownloadURL().then((downloadURL) => {
+              messageData.photo = downloadURL;
+              newMessageRef.set(messageData).then(callback);
+            });
+          });
+        } else {
+          newMessageRef.set(messageData).then(callback);
+        }
+      } else {
+        const stored = localStorage.getItem(MESSAGES_STORAGE_KEY);
+        const messages = stored ? JSON.parse(stored) : [];
+        messages.unshift(messageData);
+        localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(messages));
+        callback();
+      }
     }
 
     function formatDate(date) {
@@ -1784,23 +1880,24 @@
     }
 
     function renderMessages() {
-      const messages = loadMessages();
-      const messagesList = document.getElementById('messagesList');
+      loadMessages((messages) => {
+        const messagesList = document.getElementById('messagesList');
 
-      if (messages.length === 0) {
-        messagesList.innerHTML = '<div class="no-messages">아직 메시지가 없습니다. 첫 번째 축하 인사를 남겨주세요!</div>';
-        return;
-      }
+        if (messages.length === 0) {
+          messagesList.innerHTML = '<div class="no-messages">아직 메시지가 없습니다. 첫 번째 축하 인사를 남겨주세요!</div>';
+          return;
+        }
 
-      messagesList.innerHTML = messages.map((msg, index) => `
-        <div class="message-card">
-          <div class="message-author">${msg.author}</div>
-          ${msg.photo ? `<div class="message-photo-item" onclick="viewPhotoModal('${msg.photo}')"><img src="${msg.photo}" alt="사진"></div>` : ''}
-          <div class="message-text">${escapeHtml(msg.text)}</div>
-          <div class="message-date">${formatDate(msg.date)}</div>
-          ${msg.password ? `<button style="width: 100%; margin-top: 8px; background: var(--accent); color: white; padding: 8px; border: none; border-radius: 4px; cursor: pointer;" onclick="deleteMessage(${index})">삭제</button>` : ''}
-        </div>
-      `).join('');
+        messagesList.innerHTML = messages.map((msg, index) => `
+          <div class="message-card">
+            <div class="message-author">${msg.author}</div>
+            ${msg.photo ? `<div class="message-photo-item" onclick="viewPhotoModal('${msg.photo}')"><img src="${msg.photo}" alt="사진" loading="lazy"></div>` : ''}
+            <div class="message-text">${escapeHtml(msg.text)}</div>
+            <div class="message-date">${formatDate(msg.date)}</div>
+            ${!isFirebaseEnabled && msg.password ? `<button style="width: 100%; margin-top: 8px; background: var(--accent); color: white; padding: 8px; border: none; border-radius: 4px; cursor: pointer;" onclick="deleteMessage(${index})">삭제</button>` : ''}
+          </div>
+        `).join('');
+      });
     }
 
     function handleMessageSubmit(event) {
@@ -1810,11 +1907,15 @@
       const text = document.getElementById('messageText').value.trim();
       const password = document.getElementById('password').value.trim();
       const photoInput = document.getElementById('photoInput');
+      const submitBtn = event.target.querySelector('button[type="submit"]');
 
       if (!author || !text) {
         alert('이름과 메시지를 입력해주세요.');
         return;
       }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '저장 중...';
 
       const messageData = {
         author,
@@ -1824,42 +1925,42 @@
         photo: null
       };
 
-      // 사진이 있으면 Base64로 변환
+      const finalize = () => {
+        saveMessage(messageData, () => {
+          renderMessages();
+          document.getElementById('messageForm').reset();
+          document.getElementById('photoPreview').innerHTML = '';
+          submitBtn.disabled = false;
+          submitBtn.textContent = '메시지 남기기';
+          alert('메시지가 저장되었습니다. 감사합니다!');
+        });
+      };
+
       if (photoInput.files && photoInput.files[0]) {
         const reader = new FileReader();
         reader.onload = (e) => {
           messageData.photo = e.target.result;
-
-          const messages = loadMessages();
-          messages.unshift(messageData);
-          saveMessages(messages);
-          renderMessages();
-
-          document.getElementById('messageForm').reset();
-          document.getElementById('photoPreview').innerHTML = '';
-          alert('메시지가 저장되었습니다. 감사합니다!');
+          finalize();
         };
         reader.readAsDataURL(photoInput.files[0]);
       } else {
-        const messages = loadMessages();
-        messages.unshift(messageData);
-        saveMessages(messages);
-        renderMessages();
-
-        document.getElementById('messageForm').reset();
-        document.getElementById('photoPreview').innerHTML = '';
-        alert('메시지가 저장되었습니다. 감사합니다!');
+        finalize();
       }
     }
 
     function deleteMessage(index) {
+      if (isFirebaseEnabled) {
+        alert('Firebase 모드에서는 관리자 페이지에서 삭제 가능합니다.');
+        return;
+      }
       const password = prompt('비밀번호를 입력해주세요:');
       if (password === null) return;
 
-      const messages = loadMessages();
+      const stored = localStorage.getItem(MESSAGES_STORAGE_KEY);
+      const messages = stored ? JSON.parse(stored) : [];
       if (messages[index].password === password) {
         messages.splice(index, 1);
-        saveMessages(messages);
+        localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(messages));
         renderMessages();
         alert('메시지가 삭제되었습니다.');
       } else {
@@ -1943,7 +2044,7 @@
       storyImages.forEach((image, index) => {
         const storyItem = document.createElement('div');
         storyItem.className = 'story-item';
-        storyItem.innerHTML = `<img src="./images/${image}" alt="우리의 이야기 ${index + 1}">`;
+        storyItem.innerHTML = `<img src="./images/${image}" alt="우리의 이야기 ${index + 1}" loading="lazy">`;
         storyItem.addEventListener('click', () => openLightbox(index));
         storyGallery.appendChild(storyItem);
       });
