@@ -2144,18 +2144,30 @@
 
       revealElements.forEach((element, index) => {
         element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
+        // 홀수/짝수 섹션에 따라 왼쪽/오른쪽에서 나타남
+        element.style.transform = index % 2 === 0 ? 'translateX(-50px)' : 'translateX(50px)';
 
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               gsap.to(entry.target, {
                 opacity: 1,
-                y: 0,
-                duration: 0.8,
-                delay: index * 0.1,
-                ease: 'power2.out'
+                x: 0,
+                duration: 0.6,
+                ease: 'expo.out' /* 매우 빠르고 날카로운 감속 */
               });
+              
+              // 내부 제목과 문구 스태거 효과
+              const children = entry.target.querySelectorAll('h2, p, .card, .story-item');
+              gsap.from(children, {
+                opacity: 0,
+                y: 20,
+                stagger: 0.1,
+                duration: 0.5,
+                ease: 'power3.out',
+                delay: 0.2
+              });
+              
               observer.unobserve(entry.target);
             }
           });

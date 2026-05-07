@@ -36,13 +36,26 @@
       padding: 10px; /* 전체 여백 추가로 카드 느낌 강조 */
     }
 
+    /* V2 전용 부유 애니메이션 */
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
     section {
       background: var(--white);
       margin-bottom: 20px;
-      border-radius: 24px; /* 둥근 카드 스타일 */
+      border-radius: 24px;
       border: none;
       box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
       padding: 40px 20px;
+      animation: floating 4s ease-in-out infinite; /* 기본 부유 효과 */
+    }
+
+    /* 카드마다 부유 타이밍 다르게 설정 */
+    section:nth-child(even) {
+      animation-delay: 1s;
     }
 
     .hero {
@@ -2147,9 +2160,10 @@
               gsap.to(entry.target, {
                 opacity: 1,
                 y: 0,
-                duration: 0.8,
+                scale: 1,
+                duration: 1.2,
                 delay: index * 0.1,
-                ease: 'power2.out'
+                ease: 'elastic.out(1, 0.75)' /* 탄성 효과 */
               });
               observer.unobserve(entry.target);
             }
