@@ -20,65 +20,66 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #1a1a1a;
-      --primary-light: #f5f5f5;
-      --accent: #666666;
-      --accent-soft: #dddddd;
+      --primary: #000000;
+      --primary-light: #f0f0f0;
+      --accent: #333333;
+      --accent-soft: #e0e0e0;
       --bg: #ffffff;
       --white: #ffffff;
-      --text: #1a1a1a;
-      --text-light: #666666;
-      --border: #eeeeee;
-    }
-
-    html, body {
-      height: 100%;
-      scroll-behavior: smooth;
+      --text: #000000;
+      --text-light: #555555;
+      --border: #000000; /* 굵은 검정 테두리 */
     }
 
     body {
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--text);
       background-color: var(--bg);
-      max-width: 480px;
-      margin: 0 auto;
-      overflow-x: hidden;
+      max-width: 100%; /* 더 넓은 느낌 */
     }
 
-    /* ════════════════════════════════════
-       TYPOGRAPHY
-    ════════════════════════════════════ */
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 500;
-      line-height: 1.3;
-      color: var(--primary);
+    section {
+      padding: 100px 0; /* 위아래 여백 강조 */
+      border-bottom: 2px solid var(--primary);
     }
 
-    h1 {
-      font-size: 48px;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
+    .container {
+      padding: 0 30px;
     }
 
     h2 {
-      font-size: 32px;
-      margin-bottom: 24px;
-      position: relative;
-      padding-bottom: 16px;
+      font-size: 42px;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      border-bottom: none;
+      margin-bottom: 50px;
+      text-align: left;
+    }
+
+    h2::before {
+      content: '// ';
+      color: var(--accent);
     }
 
     h2::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      position: absolute;
-      bottom: 0;
-      left: 0;
+      display: none;
+    }
+
+    /* V3 전용 스플릿 히어로 */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 0;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .hero-content {
+      padding: 60px 30px;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .gallery-hero {
+      height: 70vh;
+      border-bottom: 2px solid var(--primary);
     }
 
     h3 {
