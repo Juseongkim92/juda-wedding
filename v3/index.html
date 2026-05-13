@@ -20,20 +20,26 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #000000;
-      --primary-light: #f0f0f0;
-      --accent: #333333;
-      --accent-soft: #e0e0e0;
-      --bg: #ffffff;
+      --primary: #2c3e50;
+      --primary-light: #ecf0f1;
+      --accent: #8b9dc3;
+      --accent-soft: #c9d6e8;
+      --bg: #fafbfc;
       --white: #ffffff;
-      --text: #000000;
-      --text-light: #555555;
-      --border: #000000; /* 굵은 검정 테두리 */
+      --text: #2c3e50;
+      --text-light: #7f8c8d;
+      --border: #e8eaed;
     }
 
     body {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
       background-color: var(--bg);
-      max-width: 100%; /* 더 넓은 느낌 */
+      max-width: 480px;
+      margin: 0 auto;
+      overflow-x: hidden;
     }
 
     section {
