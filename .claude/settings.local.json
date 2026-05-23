@@ -10,7 +10,12 @@
       "Bash(git config *)",
       "Bash(git rm *)",
       "WebFetch(domain:toourguest.com)",
-      "Bash(grep -A 8 \"^  \\\\.hero {$\" /workspace/joo/index.html)"
+      "Bash(grep -A 8 \"^  \\\\.hero {$\" /workspace/joo/index.html)",
+      "Bash(git restore *)",
+      "WebFetch(domain:www.bonneyajou.com)",
+      "WebFetch(domain:www.miricanvas.com)",
+      "Bash(cp /workspace/joo/v1/index.html /tmp/v1_backup.html)",
+      "Read(//tmp/**)"
     ]
   }
 }
