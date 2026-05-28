@@ -20,7 +20,8 @@
       "Bash(cp jeju/index.html /tmp/jeju_temp.html)",
       "Bash(cp /tmp/jeju_temp.html daegu/index.html)",
       "Bash(cp /tmp/daegu_temp.html jeju/index.html)",
-      "Bash(sed -i 's/신랑측 혼주 김한섭 · 박희숙/신부측 혼주 조진형 · 주봉은/g' daegu/index.html)"
+      "Bash(sed -i 's/신랑측 혼주 김한섭 · 박희숙/신부측 혼주 조진형 · 주봉은/g' daegu/index.html)",
+      "WebFetch(domain:www.cordially.io)"
     ]
   }
 }
