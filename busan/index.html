@@ -2078,7 +2078,106 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   
+  <script>
+    // Register ScrollTrigger for premium scroll animations
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // PREMIUM SCROLL ANIMATIONS (Cordially-inspired)
+    // ═══════════════════════════════════════════════════════
+    function initScrollAnimations() {
+      if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+      // 1. Hero background slow zoom on scroll (very premium feel)
+      const heroImg = document.querySelector('.hero img');
+      if (heroImg) {
+        gsap.to(heroImg, {
+          scale: 1.18,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
+
+      // 2. Our Story chapter images - elegant zoom + fade on scroll
+      const storySection = document.querySelector('section[style*="var(--bg-soft)"]');
+      if (storySection) {
+        const storyImages = storySection.querySelectorAll('img');
+        storyImages.forEach((img) => {
+          gsap.fromTo(img, 
+            { scale: 0.88, opacity: 0.5 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 1.4,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: img,
+                start: "top 82%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
+      }
+
+      // 3. Details cards - staggered scale reveal + image zoom
+      const detailCards = document.querySelectorAll('.detail-card');
+      if (detailCards.length > 0) {
+        gsap.fromTo(detailCards, 
+          { y: 50, scale: 0.95, opacity: 0 },
+          {
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out",
+            stagger: 0.07,
+            scrollTrigger: {
+              trigger: ".details-grid",
+              start: "top 78%"
+            }
+          }
+        );
+
+        // Extra: subtle zoom on the images inside cards
+        detailCards.forEach(card => {
+          const img = card.querySelector('img');
+          if (img) {
+            gsap.fromTo(img,
+              { scale: 1.08 },
+              {
+                scale: 1,
+                duration: 1.6,
+                ease: "power1.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 85%",
+                  toggleActions: "play none none reverse"
+                }
+              }
+            );
+          }
+        });
+      }
+    }
+
+    // Initialize scroll animations when everything is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initScrollAnimations);
+    } else {
+      initScrollAnimations();
+    }
+  </script>
+
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
