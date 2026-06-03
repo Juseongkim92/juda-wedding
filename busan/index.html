@@ -12,6 +12,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lora:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=46c7a4b1f20f0a93fd0cf46ef6667a68"></script>
 
   <style>
     /* ════════════════════════════════════
@@ -116,6 +119,7 @@
     section {
       padding: 60px 20px;
       border-bottom: 1px solid var(--border);
+      opacity: 0; /* For GSAP */
     }
 
     section:last-of-type {
@@ -132,6 +136,12 @@
     /* ════════════════════════════════════
        MAIN IMAGE HERO
     ════════════════════════════════════ */
+    .hero-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
     .hero-image {
       width: 100%;
       height: auto;
@@ -185,6 +195,39 @@
     .greeting-message {
       margin-top: 12px;
       line-height: 1.9;
+    }
+
+    /* ════════════════════════════════════
+       COUNTDOWN
+    ════════════════════════════════════ */
+    .countdown-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    .countdown-item {
+      padding: 12px 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .countdown-number {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .countdown-label {
+      font-size: 10px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     /* ════════════════════════════════════
@@ -275,9 +318,15 @@
     /* ════════════════════════════════════
        CONTACT SECTION
     ════════════════════════════════════ */
-    .contact-list {
+    .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .contact-column {
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
 
@@ -309,13 +358,13 @@
 
     .contact-info {
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .contact-item {
-      flex: 1;
-      min-width: 120px;
+      display: flex;
+      flex-direction: column;
     }
 
     .contact-label {
@@ -369,11 +418,6 @@
       border-radius: 8px;
       background: var(--border);
       cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .gallery-item:hover {
-      transform: scale(1.02);
     }
 
     .gallery-item img {
@@ -390,43 +434,86 @@
     /* ════════════════════════════════════
        MAP & DIRECTIONS
     ════════════════════════════════════ */
-    .address-box {
-      background: var(--primary-light);
-      padding: 16px;
-      border-radius: 8px;
+    .location-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      background: var(--white);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       margin-bottom: 20px;
-      border-left: 3px solid var(--accent);
     }
 
-    .address-text {
-      font-size: 14px;
-      color: var(--primary);
-      line-height: 1.6;
-      margin-bottom: 8px;
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
     }
 
-    .address-text strong {
-      display: block;
-      margin-bottom: 4px;
+    .info-item {
+      border: 1px solid #f0f0f0;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.2s;
     }
 
-    .copy-address-btn {
-      background: var(--accent);
-      color: var(--white);
-      border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-size: 12px;
+    .info-header {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 8px;
-      width: 100%;
+      font-weight: 600;
+      background: var(--white);
+      font-size: 14px;
     }
 
-    .copy-address-btn:hover {
-      background: var(--primary);
-      transform: translateY(-2px);
+    .info-header:hover {
+      background: #fafafa;
     }
+
+    .info-content {
+      max-height: 0;
+      padding: 0 16px;
+      transition: all 0.3s ease;
+      background: var(--white);
+      font-size: 13px;
+      color: #555;
+      overflow: hidden;
+    }
+    
+    .info-item.active {
+      border-color: var(--accent);
+    }
+
+    .info-item.active .info-content {
+      max-height: 500px;
+      padding: 16px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .info-item.active .arrow {
+      transform: rotate(180deg);
+    }
+
+    .arrow {
+      transition: transform 0.3s;
+      color: var(--accent);
+      display: inline-block;
+      font-size: 12px;
+    }
+
+    .point-label {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .bg-on { background: #fff3e0; color: #e67e22; }
+    .bg-off { background: #e3f2fd; color: #1976d2; }
 
     .map-btn-group {
       display: flex;
@@ -445,6 +532,7 @@
       color: var(--accent);
       cursor: pointer;
       transition: all 0.3s ease;
+      text-align: center;
     }
 
     .map-btn:hover {
@@ -452,6 +540,95 @@
       color: var(--white);
       border-color: var(--accent);
       transform: translateY(-2px);
+    }
+
+    /* ════════════════════════════════════
+       GUESTBOOK
+    ════════════════════════════════════ */
+    .guestbook-form {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .form-group textarea {
+      height: 100px;
+      resize: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: var(--accent);
+    }
+
+    .message-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .message-author {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .message-date {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    .message-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
     }
 
     /* ════════════════════════════════════
@@ -568,6 +745,76 @@
     }
 
     /* ════════════════════════════════════
+       LIGHTBOX MODAL
+    ════════════════════════════════════ */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .lightbox-image {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 40px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-prev { left: -60px; }
+    .lightbox-next { right: -60px; }
+
+    @media (max-width: 600px) {
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
+      .lightbox-nav { background: rgba(0, 0, 0, 0.3); }
+    }
+
+    /* ════════════════════════════════════
        FOOTER
     ════════════════════════════════════ */
     footer {
@@ -594,32 +841,16 @@
       font-size: 12px;
       color: var(--text-light);
     }
-
-    /* ════════════════════════════════════
-       ANIMATIONS
-    ════════════════════════════════════ */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    section {
-      animation: fadeInUp 0.6s ease-out;
-    }
   </style>
 </head>
 <body>
   <!-- ═══════════════════════════════════════════════════════
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
-  <section style="padding: 0; border-bottom: none;">
-    <img src="../images/main.jpg" alt="주성 & 다빈" class="hero-image">
+  <section style="padding: 0; border-bottom: none; opacity: 1;">
+    <div class="hero-container">
+      <img src="../images/main.jpg" alt="주성 & 다빈" class="hero-image">
+    </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -649,6 +880,25 @@
             저희의 영원한 여름이 시작되는 날,<br>
             찬란한 축복으로 함께해 주세요.
           </div>
+        </div>
+      </div>
+
+      <div class="countdown-container">
+        <div class="countdown-item">
+          <span class="countdown-number" id="days">00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="hours">00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="minutes">00</span>
+          <span class="countdown-label">Mins</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="seconds">00</span>
+          <span class="countdown-label">Secs</span>
         </div>
       </div>
     </div>
@@ -684,104 +934,110 @@
     <div class="container">
       <h2>연락처</h2>
 
-      <div class="contact-list">
-        <!-- 신랑 -->
-        <div class="contact-card">
-          <div class="contact-name">김주성</div>
-          <div class="contact-relation">신랑</div>
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-label">연락처</div>
-              <div class="contact-value">
-                <span>010-1234-5678</span>
-                <button class="copy-btn" onclick="copyToClipboard('010-1234-5678')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+      <div class="contact-grid">
+        <!-- 신랑 측 (김한섭, 박희숙, 김주성) -->
+        <div class="contact-column">
+          <!-- 신랑 아버지 -->
+          <div class="contact-card">
+            <div class="contact-name">김한섭</div>
+            <div class="contact-relation">신랑 아버지</div>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-label">연락처</div>
+                <div class="contact-value">
+                  <span>010-0000-0000</span>
+                  <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 신랑 어머니 -->
+          <div class="contact-card">
+            <div class="contact-name">박희숙</div>
+            <div class="contact-relation">신랑 어머니</div>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-label">연락처</div>
+                <div class="contact-value">
+                  <span>010-0000-0000</span>
+                  <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 신랑 -->
+          <div class="contact-card">
+            <div class="contact-name">김주성</div>
+            <div class="contact-relation">신랑</div>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-label">연락처</div>
+                <div class="contact-value">
+                  <span>010-1234-5678</span>
+                  <button class="copy-btn" onclick="copyToClipboard('010-1234-5678')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 신부 -->
-        <div class="contact-card">
-          <div class="contact-name">조다빈</div>
-          <div class="contact-relation">신부</div>
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-label">연락처</div>
-              <div class="contact-value">
-                <span>010-1234-5678</span>
-                <button class="copy-btn" onclick="copyToClipboard('010-1234-5678')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+        <!-- 신부 측 (조진형, 주봉은, 조다빈) -->
+        <div class="contact-column">
+          <!-- 신부 아버지 -->
+          <div class="contact-card">
+            <div class="contact-name">조진형</div>
+            <div class="contact-relation">신부 아버지</div>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-label">연락처</div>
+                <div class="contact-value">
+                  <span>010-0000-0000</span>
+                  <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- 신랑 아버지 -->
-        <div class="contact-card">
-          <div class="contact-name">김한섭</div>
-          <div class="contact-relation">신랑 아버지</div>
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-label">연락처</div>
-              <div class="contact-value">
-                <span>010-0000-0000</span>
-                <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+          <!-- 신부 어머니 -->
+          <div class="contact-card">
+            <div class="contact-name">주봉은</div>
+            <div class="contact-relation">신부 어머니</div>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-label">연락처</div>
+                <div class="contact-value">
+                  <span>010-0000-0000</span>
+                  <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- 신랑 어머니 -->
-        <div class="contact-card">
-          <div class="contact-name">박희숙</div>
-          <div class="contact-relation">신랑 어머니</div>
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-label">연락처</div>
-              <div class="contact-value">
-                <span>010-0000-0000</span>
-                <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 신부 아버지 -->
-        <div class="contact-card">
-          <div class="contact-name">조진형</div>
-          <div class="contact-relation">신부 아버지</div>
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-label">연락처</div>
-              <div class="contact-value">
-                <span>010-0000-0000</span>
-                <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 신부 어머니 -->
-        <div class="contact-card">
-          <div class="contact-name">주봉은</div>
-          <div class="contact-relation">신부 어머니</div>
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-label">연락처</div>
-              <div class="contact-value">
-                <span>010-0000-0000</span>
-                <button class="copy-btn" onclick="copyToClipboard('010-0000-0000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+          <!-- 신부 -->
+          <div class="contact-card">
+            <div class="contact-name">조다빈</div>
+            <div class="contact-relation">신부</div>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-label">연락처</div>
+                <div class="contact-value">
+                  <span>010-1234-5678</span>
+                  <button class="copy-btn" onclick="copyToClipboard('010-1234-5678')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -814,17 +1070,104 @@
     <div class="container">
       <h2>오시는 길</h2>
 
-      <div class="address-box">
+      <div class="location-card">
         <div class="address-text">
           <strong>호텔인터불고 대구 인터빌리지홀</strong><br>
           대구광역시 수성구 팔현길 212
         </div>
         <button class="copy-address-btn" onclick="copyAddress()">주소 복사</button>
+
+        <!-- Kakao Map Interactive -->
+        <div id="kakaoMap" style="width: 100%; margin: 20px 0; border-radius: 8px; overflow: hidden; height: 250px; border: 1px solid var(--border);"></div>
+        <script>
+          const mapContainer = document.getElementById('kakaoMap');
+          const mapOption = {
+            center: new kakao.maps.LatLng(35.8939, 128.6149),
+            level: 3
+          };
+          const map = new kakao.maps.Map(mapContainer, mapOption);
+          const markerPosition = new kakao.maps.LatLng(35.8939, 128.6149);
+          const marker = new kakao.maps.Marker({
+            position: markerPosition
+          });
+          marker.setMap(map);
+          const infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="padding:10px;font-size:13px;"><strong>호텔인터불고 대구</strong><br>대구광역시 수성구 팔현길 212</div>'
+          });
+          infowindow.open(map, marker);
+        </script>
+
+        <div class="info-list">
+          <div class="info-item" onclick="toggleInfo(this)">
+            <div class="info-header">
+              <span>🚌 시내버스 안내</span>
+              <span class="arrow">▼</span>
+            </div>
+            <div class="info-content">
+              <p><span class="point-label bg-on">승차</span> 동대구역 정류장</p>
+              <p><span class="point-label bg-off">하차</span> <strong>651번</strong> (호텔 정문 앞 하차)</p>
+              <p><span class="point-label bg-off">하차</span> <strong>814, 708번</strong> (망우공원 하차, 도보 5분)</p>
+              <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+              <small>* 정문 하차를 원하시면 651, 848, 수성2번이 가장 편리합니다.</small>
+            </div>
+          </div>
+
+          <div class="info-item" onclick="toggleInfo(this)">
+            <div class="info-header">
+              <span>🚇 지하철 및 환승</span>
+              <span class="arrow">▼</span>
+            </div>
+            <div class="info-content">
+              <p><strong>1호선 아양교역</strong> 2번 출구<br>→ 814번 버스 환승 또는 택시 이용 (약 10분)</p>
+              <p style="margin-top:10px;"><strong>2호선 만촌역</strong> 3번 출구<br>→ 848번 버스 환승 또는 택시 이용 (약 15분)</p>
+            </div>
+          </div>
+
+          <div class="info-item" onclick="toggleInfo(this)">
+            <div class="info-header">
+              <span>🚕 택시 및 자가용</span>
+              <span class="arrow">▼</span>
+            </div>
+            <div class="info-content">
+              <p><strong>동대구역 출발:</strong> 약 15분 (약 6,000원)</p>
+              <p><strong>네비게이션:</strong> "호텔인터불고 대구" 검색</p>
+              <p><strong>주차:</strong> 호텔 내 전 구역 무료 주차 지원</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="map-btn-group">
         <button class="map-btn" onclick="openNavi('naver')">📍 네이버 지도</button>
         <button class="map-btn" onclick="openNavi('kakao')">📍 카카오맵</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       GUESTBOOK
+  ═══════════════════════════════════════════════════════ -->
+  <section>
+    <div class="container">
+      <h2>축하 메시지</h2>
+      <p style="text-align: center; margin-bottom: 24px; color: var(--text-light); font-size: 14px;">
+        축하의 한마디를 남겨주세요
+      </p>
+
+      <div class="guestbook-form">
+        <div class="form-group">
+          <label>이름</label>
+          <input type="text" id="guestName" placeholder="성함을 입력해주세요">
+        </div>
+        <div class="form-group">
+          <label>메시지</label>
+          <textarea id="guestMessage" placeholder="따뜻한 한마디를 남겨주세요"></textarea>
+        </div>
+        <button class="submit-btn" onclick="addMessage()">메시지 남기기</button>
+      </div>
+
+      <div id="messageList" class="message-list">
+        <!-- Messages will be added here -->
       </div>
     </div>
   </section>
@@ -995,10 +1338,186 @@
     </div>
   </footer>
 
+  <!-- ═══════════════════════════════════════════════════════
+       LIGHTBOX MODAL
+  ═══════════════════════════════════════════════════════ -->
+  <div id="lightboxModal" class="lightbox-modal">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&lsaquo;</button>
+      <img id="lightboxImage" src="" alt="확대 이미지" class="lightbox-image">
+      <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&rsaquo;</button>
+    </div>
+  </div>
+
   <script>
     // ════════════════════════════════════
-    // ACCOUNT ACCORDION
+    // GSAP ANIMATIONS
     // ════════════════════════════════════
+    function initAnimations() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.utils.toArray('section').forEach((section, index) => {
+        if (index === 0) return; // Skip hero image section
+
+        gsap.to(section, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+    }
+
+    // ════════════════════════════════════
+    // COUNTDOWN TIMER
+    // ════════════════════════════════════
+    function initCountdown() {
+      const weddingDate = new Date('2026-08-22T12:00:00').getTime();
+
+      function update() {
+        const now = new Date().getTime();
+        const diff = weddingDate - now;
+
+        if (diff <= 0) {
+          clearInterval(timer);
+          return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(d).padStart(2, '0');
+        document.getElementById('hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+      }
+
+      update();
+      const timer = setInterval(update, 1000);
+    }
+
+    // ════════════════════════════════════
+    // GALLERY & LIGHTBOX
+    // ════════════════════════════════════
+    let currentImageIndex = 0;
+    const images = [];
+    for (let i = 1; i <= 10; i++) images.push(`../images/img${i}.jpg`);
+
+    function loadGallery() {
+      const gallery = document.getElementById('gallery');
+      images.forEach((src, index) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.onclick = () => openLightbox(index);
+        item.innerHTML = `<img src="${src}" alt="사진 ${index + 1}" loading="lazy">`;
+        gallery.appendChild(item);
+      });
+    }
+
+    function openLightbox(index) {
+      currentImageIndex = index;
+      const modal = document.getElementById('lightboxModal');
+      const img = document.getElementById('lightboxImage');
+      img.src = images[currentImageIndex];
+      modal.style.display = 'flex';
+      gsap.to(modal, { opacity: 1, duration: 0.3 });
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightboxModal');
+      gsap.to(modal, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+    }
+
+    function changeImage(step) {
+      currentImageIndex = (currentImageIndex + step + images.length) % images.length;
+      const img = document.getElementById('lightboxImage');
+      gsap.to(img, {
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.15,
+        onComplete: () => {
+          img.src = images[currentImageIndex];
+          gsap.to(img, { opacity: 1, scale: 1, duration: 0.2 });
+        }
+      });
+    }
+
+    // ════════════════════════════════════
+    // GUESTBOOK FUNCTIONS
+    // ════════════════════════════════════
+    const GUESTBOOK_KEY = 'wedding_guestbook_busan';
+
+    function addMessage() {
+      const nameInput = document.getElementById('guestName');
+      const messageInput = document.getElementById('guestMessage');
+      
+      const name = nameInput.value.trim();
+      const message = messageInput.value.trim();
+
+      if (!name || !message) {
+        alert('이름과 메시지를 모두 입력해주세요.');
+        return;
+      }
+
+      const newMessage = {
+        name: name,
+        message: message,
+        date: new Date().toISOString()
+      };
+
+      const messages = JSON.parse(localStorage.getItem(GUESTBOOK_KEY) || '[]');
+      messages.unshift(newMessage);
+      localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(messages));
+
+      nameInput.value = '';
+      messageInput.value = '';
+      renderMessages();
+      alert('메시지가 등록되었습니다.');
+    }
+
+    function renderMessages() {
+      const container = document.getElementById('messageList');
+      const messages = JSON.parse(localStorage.getItem(GUESTBOOK_KEY) || '[]');
+      
+      if (messages.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:var(--text-light); font-size:13px; padding:20px;">아직 등록된 메시지가 없습니다.</p>';
+        return;
+      }
+
+      container.innerHTML = messages.map(msg => `
+        <div class="message-card">
+          <div class="message-header">
+            <span class="message-author">${msg.name}</span>
+            <span class="message-date">${new Date(msg.date).toLocaleDateString()}</span>
+          </div>
+          <div class="message-text">${msg.message.replace(/\n/g, '<br>')}</div>
+        </div>
+      `).join('');
+    }
+
+    // ════════════════════════════════════
+    // UTILITY FUNCTIONS
+    // ════════════════════════════════════
+    function toggleInfo(element) {
+      element.classList.toggle('active');
+    }
+
     function toggleAccount(element) {
       element.classList.toggle('active');
     }
@@ -1028,6 +1547,8 @@
         window.open('https://naver.me/5k7fh8vo', '_blank');
       } else if (type === 'kakao') {
         window.open('https://place.map.kakao.com/27363708', '_blank');
+      } else if (type === 'tmap') {
+        window.open('https://surl.tmap.co.kr/70830491', '_blank');
       }
     }
 
@@ -1046,15 +1567,13 @@
 
       let html = '';
 
-      // Previous month's days
       for (let i = firstDayOfWeek - 1; i >= 0; i--) {
         html += `<div class="calendar-day other-month">${prevLastDayDate - i}</div>`;
       }
 
-      // Current month's days
       for (let i = 1; i <= lastDayDate; i++) {
         const date = new Date(year, month, i);
-        const isEvent = (i === 22); // Wedding date
+        const isEvent = (i === 22);
         const isSunday = date.getDay() === 0;
         const isSaturday = date.getDay() === 6;
 
@@ -1066,7 +1585,6 @@
         html += `<div class="${classes}">${i}</div>`;
       }
 
-      // Next month's days
       const remainingDays = 42 - (firstDayOfWeek + lastDayDate);
       for (let i = 1; i <= remainingDays; i++) {
         html += `<div class="calendar-day other-month">${i}</div>`;
@@ -1076,27 +1594,17 @@
     }
 
     // ════════════════════════════════════
-    // GALLERY GENERATION
-    // ════════════════════════════════════
-    function loadGallery() {
-      const gallery = document.getElementById('gallery');
-      for (let i = 1; i <= 10; i++) {
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        item.innerHTML = `
-          <img src="../images/img${i}.jpg" alt="사진 ${i}" loading="lazy">
-        `;
-        gallery.appendChild(item);
-      }
-    }
-
-    // ════════════════════════════════════
     // INITIALIZATION
     // ════════════════════════════════════
     document.addEventListener('DOMContentLoaded', () => {
-      generateCalendar(2026, 7); // August 2026 (month is 0-indexed)
+      generateCalendar(2026, 7);
       loadGallery();
+      initCountdown();
+      initAnimations();
+      renderMessages();
     });
   </script>
+</body>
+</html>
 </body>
 </html>
