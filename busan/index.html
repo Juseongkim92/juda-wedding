@@ -280,9 +280,9 @@
        CONTACT SECTION
     ════════════════════════════════════ */
     .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
     .contact-card {
@@ -290,7 +290,6 @@
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 6px;
-      margin-bottom: 12px;
       transition: all 0.3s ease;
     }
 
@@ -462,12 +461,17 @@
     /* ════════════════════════════════════
        ACCOUNT SECTION
     ════════════════════════════════════ */
+    .account-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
     .account-card {
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 16px;
-      margin-bottom: 12px;
       transition: all 0.3s ease;
     }
 
@@ -800,7 +804,7 @@
     <div class="container">
       <h2>축의금 계좌</h2>
 
-      <div class="contact-list">
+      <div class="account-list">
         <!-- 신랑 -->
         <div class="account-card">
           <div class="account-person">김주성 신랑</div>
