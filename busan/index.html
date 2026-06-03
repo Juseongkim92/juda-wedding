@@ -471,7 +471,7 @@
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 16px;
+      overflow: hidden;
       transition: all 0.3s ease;
     }
 
@@ -480,22 +480,59 @@
       box-shadow: 0 2px 8px rgba(139, 157, 195, 0.1);
     }
 
+    .account-header {
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    .account-header:hover {
+      background: var(--primary-light);
+    }
+
     .account-person {
       font-weight: 600;
       color: var(--primary);
-      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .account-toggle {
       font-size: 14px;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    .account-card.active .account-toggle {
+      transform: rotate(180deg);
+    }
+
+    .account-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 16px;
+      background: var(--primary-light);
+    }
+
+    .account-card.active .account-content {
+      max-height: 200px;
+      padding: 12px 16px;
     }
 
     .account-info {
       display: flex;
+      flex-direction: column;
       gap: 8px;
-      flex-wrap: wrap;
     }
 
     .account-item {
-      flex: 1;
-      min-width: 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .account-label {
@@ -504,7 +541,6 @@
       color: var(--accent);
       text-transform: uppercase;
       font-weight: 500;
-      margin-bottom: 4px;
     }
 
     .account-number {
@@ -515,6 +551,7 @@
       gap: 6px;
       font-family: 'Courier New', monospace;
       font-weight: 500;
+      word-break: break-all;
     }
 
     /* ════════════════════════════════════
@@ -806,96 +843,126 @@
 
       <div class="account-list">
         <!-- 신랑 -->
-        <div class="account-card">
-          <div class="account-person">김주성 신랑</div>
-          <div class="account-info">
-            <div class="account-item">
-              <div class="account-label">계좌</div>
-              <div class="account-number">
-                <span>국민 123456-00-000000</span>
-                <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+        <div class="account-card" onclick="toggleAccount(this)">
+          <div class="account-header">
+            <div class="account-person">김주성 신랑</div>
+            <div class="account-toggle">▼</div>
+          </div>
+          <div class="account-content">
+            <div class="account-info">
+              <div class="account-item">
+                <div class="account-label">계좌</div>
+                <div class="account-number">
+                  <span>국민 123456-00-000000</span>
+                  <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('국민 123456-00-000000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- 신부 -->
-        <div class="account-card">
-          <div class="account-person">조다빈 신부</div>
-          <div class="account-info">
-            <div class="account-item">
-              <div class="account-label">계좌</div>
-              <div class="account-number">
-                <span>국민 123456-00-000000</span>
-                <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+        <div class="account-card" onclick="toggleAccount(this)">
+          <div class="account-header">
+            <div class="account-person">조다빈 신부</div>
+            <div class="account-toggle">▼</div>
+          </div>
+          <div class="account-content">
+            <div class="account-info">
+              <div class="account-item">
+                <div class="account-label">계좌</div>
+                <div class="account-number">
+                  <span>국민 123456-00-000000</span>
+                  <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('국민 123456-00-000000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- 신랑 아버지 -->
-        <div class="account-card">
-          <div class="account-person">김한섭 신랑 아버지</div>
-          <div class="account-info">
-            <div class="account-item">
-              <div class="account-label">계좌</div>
-              <div class="account-number">
-                <span>국민 123456-00-000000</span>
-                <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+        <div class="account-card" onclick="toggleAccount(this)">
+          <div class="account-header">
+            <div class="account-person">김한섭 아버지</div>
+            <div class="account-toggle">▼</div>
+          </div>
+          <div class="account-content">
+            <div class="account-info">
+              <div class="account-item">
+                <div class="account-label">계좌</div>
+                <div class="account-number">
+                  <span>국민 123456-00-000000</span>
+                  <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('국민 123456-00-000000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- 신랑 어머니 -->
-        <div class="account-card">
-          <div class="account-person">박희숙 신랑 어머니</div>
-          <div class="account-info">
-            <div class="account-item">
-              <div class="account-label">계좌</div>
-              <div class="account-number">
-                <span>국민 123456-00-000000</span>
-                <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+        <div class="account-card" onclick="toggleAccount(this)">
+          <div class="account-header">
+            <div class="account-person">박희숙 어머니</div>
+            <div class="account-toggle">▼</div>
+          </div>
+          <div class="account-content">
+            <div class="account-info">
+              <div class="account-item">
+                <div class="account-label">계좌</div>
+                <div class="account-number">
+                  <span>국민 123456-00-000000</span>
+                  <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('국민 123456-00-000000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- 신부 아버지 -->
-        <div class="account-card">
-          <div class="account-person">조진형 신부 아버지</div>
-          <div class="account-info">
-            <div class="account-item">
-              <div class="account-label">계좌</div>
-              <div class="account-number">
-                <span>국민 123456-00-000000</span>
-                <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+        <div class="account-card" onclick="toggleAccount(this)">
+          <div class="account-header">
+            <div class="account-person">조진형 아버지</div>
+            <div class="account-toggle">▼</div>
+          </div>
+          <div class="account-content">
+            <div class="account-info">
+              <div class="account-item">
+                <div class="account-label">계좌</div>
+                <div class="account-number">
+                  <span>국민 123456-00-000000</span>
+                  <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('국민 123456-00-000000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- 신부 어머니 -->
-        <div class="account-card">
-          <div class="account-person">주봉은 신부 어머니</div>
-          <div class="account-info">
-            <div class="account-item">
-              <div class="account-label">계좌</div>
-              <div class="account-number">
-                <span>국민 123456-00-000000</span>
-                <button class="copy-btn" onclick="copyToClipboard('국민 123456-00-000000')" title="복사">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                </button>
+        <div class="account-card" onclick="toggleAccount(this)">
+          <div class="account-header">
+            <div class="account-person">주봉은 어머니</div>
+            <div class="account-toggle">▼</div>
+          </div>
+          <div class="account-content">
+            <div class="account-info">
+              <div class="account-item">
+                <div class="account-label">계좌</div>
+                <div class="account-number">
+                  <span>국민 123456-00-000000</span>
+                  <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('국민 123456-00-000000')" title="복사">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -934,6 +1001,13 @@
   </footer>
 
   <script>
+    // ════════════════════════════════════
+    // ACCOUNT ACCORDION
+    // ════════════════════════════════════
+    function toggleAccount(element) {
+      element.classList.toggle('active');
+    }
+
     // ════════════════════════════════════
     // UTILITY FUNCTIONS
     // ════════════════════════════════════
