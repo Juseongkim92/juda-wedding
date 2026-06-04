@@ -21,17 +21,18 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* 색감 조정: 아래 6개 변수만 바꾸면 전체 톤이 함께 바뀝니다 */
-      --primary: #4a4038;
-      --primary-light: rgba(250, 246, 240, 0.9);
-      --accent: #9a7d6b;
-      --accent-soft: #e8ddd3;
-      --bg: #f7f2ec;
-      --white: rgba(255, 252, 248, 0.92);
-      --text: #3f3832;
-      --text-light: #73685f;
-      --border: rgba(205, 192, 178, 0.82);
-      --shadow: rgba(74, 64, 56, 0.12);
+      /* 색감 조정: 하늘·푸른 들판(main.jpg) — :root 변수만 바꾸면 전체 톤이 함께 바뀝니다 */
+      --primary: #2e5f75;
+      --primary-light: rgba(232, 246, 252, 0.9);
+      --accent: #5baed4;
+      --accent-soft: #b8e3f2;
+      --meadow: #6dad8a;
+      --bg: #eef7fc;
+      --white: rgba(255, 255, 255, 0.92);
+      --text: #2f4f5c;
+      --text-light: #5a7d8c;
+      --border: rgba(176, 212, 228, 0.85);
+      --shadow: rgba(91, 174, 212, 0.14);
       --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-display: 'Noto Serif KR', serif;
       --font-greeting: 'Nanum Myeongjo', serif;
@@ -66,7 +67,7 @@
       height: 116%;
       transform: translateX(-50%) scale(1.18);
       background: url('../images/main.jpg') center / cover no-repeat;
-      filter: blur(34px) saturate(1.06);
+      filter: blur(34px) saturate(1.12);
       z-index: -2;
       pointer-events: none;
     }
@@ -82,9 +83,9 @@
       transform: translateX(-50%);
       background: linear-gradient(
         180deg,
-        rgba(250, 246, 240, 0.72) 0%,
-        rgba(245, 238, 230, 0.78) 45%,
-        rgba(240, 232, 224, 0.74) 100%
+        rgba(248, 252, 255, 0.68) 0%,
+        rgba(232, 245, 252, 0.76) 45%,
+        rgba(224, 242, 236, 0.72) 100%
       );
       z-index: -1;
       pointer-events: none;
@@ -247,7 +248,7 @@
     .greeting-card {
       text-align: center;
       padding: 28px 20px;
-      background: linear-gradient(160deg, rgba(255, 252, 248, 0.94), rgba(245, 236, 228, 0.82));
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(229, 244, 252, 0.84));
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border);
@@ -359,9 +360,10 @@
     }
 
     .calendar-day.event {
-      background: var(--accent);
+      background: linear-gradient(145deg, var(--accent), var(--meadow));
       color: var(--white);
       font-weight: 600;
+      border: none;
     }
 
     /* ════════════════════════════════════
@@ -646,8 +648,8 @@
       margin-right: 5px;
     }
 
-    .bg-on { background: #fff3e0; color: #e67e22; }
-    .bg-off { background: #e3f2fd; color: #1976d2; }
+    .bg-on { background: #e8f4fc; color: #2e7a9e; }
+    .bg-off { background: #e5f5ea; color: var(--meadow); }
 
     .address-box {
       display: flex;
