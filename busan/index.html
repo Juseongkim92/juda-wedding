@@ -405,17 +405,46 @@
     ════════════════════════════════════ */
     .gallery {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
     }
 
     .gallery-item {
       position: relative;
       aspect-ratio: 1;
       overflow: hidden;
-      border-radius: 8px;
+      border-radius: 6px;
       background: var(--border);
       cursor: pointer;
+    }
+
+    .gallery-item.is-collapsed {
+      display: none;
+    }
+
+    .gallery-expand-btn {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--primary);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .gallery-expand-btn:hover {
+      border-color: var(--accent);
+      background: var(--primary-light);
+    }
+
+    .gallery-expand-btn[hidden] {
+      display: none;
     }
 
     .gallery-item img {
@@ -781,6 +810,14 @@
       border-radius: 4px;
     }
 
+    .lightbox-counter {
+      margin-top: 12px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
     .lightbox-close {
       position: absolute;
       top: -40px;
@@ -1061,8 +1098,12 @@
         <!-- Gallery items will be dynamically loaded -->
       </div>
 
-      <p style="text-align: center; font-size: 13px; color: var(--text-light); margin-top: 20px;">
-        💕 사진을 클릭하면 확대되어 볼 수 있습니다
+      <button type="button" id="galleryExpandBtn" class="gallery-expand-btn" onclick="expandGallery()" hidden>
+        사진 더 보기
+      </button>
+
+      <p style="text-align: center; font-size: 13px; color: var(--text-light); margin-top: 16px;">
+        💕 사진을 탭하면 크게 볼 수 있어요
       </p>
     </div>
   </section>
@@ -1334,6 +1375,7 @@
       <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&lsaquo;</button>
       <img id="lightboxImage" src="" alt="확대 이미지" class="lightbox-image">
       <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&rsaquo;</button>
+      <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
     </div>
   </div>
 
@@ -1396,25 +1438,61 @@
     // GALLERY & LIGHTBOX
     // ════════════════════════════════════
     let currentImageIndex = 0;
-    const images = [];
-    for (let i = 1; i <= 10; i++) images.push(`../images/img${i}.jpg`);
+    const GALLERY_PREVIEW_COUNT = 6;
+    const GALLERY_IMAGES = [];
+    for (let i = 1; i <= 10; i++) GALLERY_IMAGES.push(`../images/img${i}.jpg`);
+    // 새 사진 추가 시: GALLERY_IMAGES.push('../images/img11.jpg');
+
+    function updateLightboxCounter() {
+      const counter = document.getElementById('lightboxCounter');
+      if (counter) {
+        counter.textContent = `${currentImageIndex + 1} / ${GALLERY_IMAGES.length}`;
+      }
+    }
+
+    function updateGalleryExpandBtn() {
+      const btn = document.getElementById('galleryExpandBtn');
+      if (!btn) return;
+      const hiddenCount = GALLERY_IMAGES.length - GALLERY_PREVIEW_COUNT;
+      if (hiddenCount <= 0) {
+        btn.hidden = true;
+        return;
+      }
+      const collapsed = document.querySelectorAll('#gallery .gallery-item.is-collapsed').length;
+      if (collapsed === 0) {
+        btn.hidden = true;
+        return;
+      }
+      btn.hidden = false;
+      btn.textContent = `사진 ${collapsed}장 더 보기`;
+    }
 
     function loadGallery() {
       const gallery = document.getElementById('gallery');
-      images.forEach((src, index) => {
+      gallery.innerHTML = '';
+      GALLERY_IMAGES.forEach((src, index) => {
         const item = document.createElement('div');
-        item.className = 'gallery-item';
+        item.className = 'gallery-item' + (index >= GALLERY_PREVIEW_COUNT ? ' is-collapsed' : '');
         item.onclick = () => openLightbox(index);
         item.innerHTML = `<img src="${src}" alt="사진 ${index + 1}" loading="lazy">`;
         gallery.appendChild(item);
       });
+      updateGalleryExpandBtn();
+    }
+
+    function expandGallery() {
+      document.querySelectorAll('#gallery .gallery-item.is-collapsed').forEach((item) => {
+        item.classList.remove('is-collapsed');
+      });
+      updateGalleryExpandBtn();
     }
 
     function openLightbox(index) {
       currentImageIndex = index;
       const modal = document.getElementById('lightboxModal');
       const img = document.getElementById('lightboxImage');
-      img.src = images[currentImageIndex];
+      img.src = GALLERY_IMAGES[currentImageIndex];
+      updateLightboxCounter();
       modal.style.display = 'flex';
       gsap.to(modal, { opacity: 1, duration: 0.3 });
       document.body.style.overflow = 'hidden';
@@ -1433,14 +1511,15 @@
     }
 
     function changeImage(step) {
-      currentImageIndex = (currentImageIndex + step + images.length) % images.length;
+      currentImageIndex = (currentImageIndex + step + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
       const img = document.getElementById('lightboxImage');
       gsap.to(img, {
         opacity: 0,
         scale: 0.95,
         duration: 0.15,
         onComplete: () => {
-          img.src = images[currentImageIndex];
+          img.src = GALLERY_IMAGES[currentImageIndex];
+          updateLightboxCounter();
           gsap.to(img, { opacity: 1, scale: 1, duration: 0.2 });
         }
       });
