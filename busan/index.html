@@ -21,15 +21,16 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #2c3e50;
-      --primary-light: #ecf0f1;
-      --accent: #8b9dc3;
-      --accent-soft: #c9d6e8;
-      --bg: #fafbfc;
+      --primary: #3d6b7a;
+      --primary-light: #e5f4fa;
+      --accent: #6eb5d8;
+      --accent-soft: #b8e3f2;
+      --bg: #f2f9fc;
       --white: #ffffff;
-      --text: #2c3e50;
-      --text-light: #7f8c8d;
-      --border: #e8eaed;
+      --text: #3d5a68;
+      --text-light: #6d8a96;
+      --border: #d4e8f0;
+      --shadow: rgba(110, 181, 216, 0.15);
     }
 
     html, body {
@@ -42,7 +43,7 @@
       font-size: 16px;
       line-height: 1.6;
       color: var(--text);
-      background-color: var(--bg);
+      background: linear-gradient(180deg, #f8fcff 0%, var(--bg) 45%, #eef7fb 100%);
       max-width: 480px;
       margin: 0 auto;
       overflow-x: hidden;
@@ -154,6 +155,10 @@
     .greeting-box {
       text-align: center;
       margin-bottom: 40px;
+      padding: 24px 16px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(229, 244, 250, 0.75));
+      border: 1px solid var(--border);
+      border-radius: 12px;
     }
 
     .bride-groom {
@@ -284,9 +289,14 @@
        CONTACT SECTION
     ════════════════════════════════════ */
     .contact-accordion {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .contact-side-group {
+      min-width: 0;
     }
 
     .contact-side-toggle {
@@ -294,13 +304,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 16px;
+      gap: 6px;
+      padding: 12px 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: var(--white);
       color: var(--primary);
       font-family: 'Noto Sans KR', sans-serif;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -333,7 +344,7 @@
     }
 
     .contact-side-group.is-open .contact-panel {
-      max-height: 520px;
+      max-height: 680px;
     }
 
     .contact-column {
@@ -344,7 +355,7 @@
     }
 
     .contact-card {
-      padding: 16px;
+      padding: 12px;
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -353,14 +364,14 @@
 
     .contact-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 2px 8px rgba(139, 157, 195, 0.1);
+      box-shadow: 0 2px 8px var(--shadow);
     }
 
     .contact-name {
       font-weight: 600;
       color: var(--primary);
-      margin-bottom: 8px;
-      font-size: 14px;
+      margin-bottom: 6px;
+      font-size: 13px;
     }
 
     .contact-relation {
@@ -698,7 +709,7 @@
 
     .account-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 2px 8px rgba(139, 157, 195, 0.1);
+      box-shadow: 0 2px 8px var(--shadow);
     }
 
     .account-header {
