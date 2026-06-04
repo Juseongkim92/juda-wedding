@@ -21,16 +21,17 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #3d6b7a;
-      --primary-light: rgba(229, 244, 250, 0.88);
-      --accent: #6eb5d8;
-      --accent-soft: #b8e3f2;
-      --bg: #f2f9fc;
-      --white: rgba(255, 255, 255, 0.92);
-      --text: #3d5a68;
-      --text-light: #6d8a96;
-      --border: rgba(212, 232, 240, 0.85);
-      --shadow: rgba(110, 181, 216, 0.15);
+      /* 색감 조정: 아래 6개 변수만 바꾸면 전체 톤이 함께 바뀝니다 */
+      --primary: #4a4038;
+      --primary-light: rgba(250, 246, 240, 0.9);
+      --accent: #9a7d6b;
+      --accent-soft: #e8ddd3;
+      --bg: #f7f2ec;
+      --white: rgba(255, 252, 248, 0.92);
+      --text: #3f3832;
+      --text-light: #73685f;
+      --border: rgba(205, 192, 178, 0.82);
+      --shadow: rgba(74, 64, 56, 0.12);
       --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-display: 'Noto Serif KR', serif;
       --font-greeting: 'Nanum Myeongjo', serif;
@@ -81,9 +82,9 @@
       transform: translateX(-50%);
       background: linear-gradient(
         180deg,
-        rgba(248, 252, 255, 0.7) 0%,
-        rgba(242, 249, 252, 0.78) 45%,
-        rgba(238, 247, 251, 0.74) 100%
+        rgba(250, 246, 240, 0.72) 0%,
+        rgba(245, 238, 230, 0.78) 45%,
+        rgba(240, 232, 224, 0.74) 100%
       );
       z-index: -1;
       pointer-events: none;
@@ -111,6 +112,12 @@
       position: relative;
       padding-bottom: 16px;
       text-align: center;
+    }
+
+    h2.section-title-hidden {
+      display: none;
+      margin: 0;
+      padding: 0;
     }
 
     h2::after {
@@ -240,7 +247,7 @@
     .greeting-card {
       text-align: center;
       padding: 28px 20px;
-      background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(229, 244, 250, 0.82));
+      background: linear-gradient(160deg, rgba(255, 252, 248, 0.94), rgba(245, 236, 228, 0.82));
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border);
@@ -394,7 +401,7 @@
       background: var(--primary-light);
     }
 
-    .contact-side-group.is-open .contact-side-toggle {
+    .contact-accordion.is-open .contact-side-toggle {
       border-color: var(--accent);
       background: var(--primary-light);
     }
@@ -405,18 +412,18 @@
       transition: transform 0.3s ease;
     }
 
-    .contact-side-group.is-open .contact-side-arrow {
+    .contact-accordion.is-open .contact-side-arrow {
       transform: rotate(180deg);
     }
 
     .contact-panel {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease;
+      transition: max-height 0.4s ease;
     }
 
-    .contact-side-group.is-open .contact-panel {
-      max-height: 680px;
+    .contact-accordion.is-open .contact-panel {
+      max-height: 900px;
     }
 
     .contact-column {
@@ -1108,9 +1115,9 @@
   <!-- ═══════════════════════════════════════════════════════
        CONTACT INFO
   ═══════════════════════════════════════════════════════ -->
-  <section>
+  <section style="padding-top: 40px;">
     <div class="container">
-      <h2>연락처</h2>
+      <h2 class="section-title-hidden">연락처</h2>
 
       <div class="contact-accordion">
         <div class="contact-side-group">
@@ -1241,9 +1248,9 @@
   <!-- ═══════════════════════════════════════════════════════
        GALLERY
   ═══════════════════════════════════════════════════════ -->
-  <section>
+  <section style="padding-top: 40px;">
     <div class="container">
-      <h2>갤러리</h2>
+      <h2 class="section-title-hidden">갤러리</h2>
 
       <div class="gallery" id="gallery">
         <!-- Gallery items will be dynamically loaded -->
@@ -1263,7 +1270,7 @@
   ═══════════════════════════════════════════════════════ -->
   <section class="map-section" style="opacity: 1;">
     <div class="container">
-      <h2>오시는 길</h2>
+      <h2 class="section-title-hidden">오시는 길</h2>
 
       <div class="location-card">
         <div class="address-box">
@@ -1322,7 +1329,7 @@
 
       <div class="map-btn-group">
         <button type="button" class="map-btn" onclick="openNavi('naver')" title="네이버 지도">
-          <img src="../images/icons/navermap.jpg" alt="네이버 지도" />
+          <img src="../images/icons/navermap.png" alt="네이버 지도" />
         </button>
         <button type="button" class="map-btn" onclick="openNavi('kakao')" title="카카오맵">
           <img src="../images/icons/kakaomap.png" alt="카카오맵" />
@@ -1336,7 +1343,7 @@
   ═══════════════════════════════════════════════════════ -->
   <section>
     <div class="container">
-      <h2>축하 메시지</h2>
+      <h2 class="section-title-hidden">축하 메시지</h2>
       <p style="text-align: center; margin-bottom: 24px; color: var(--text-light); font-size: 14px;">
         축하의 한마디를 남겨주세요
       </p>
@@ -1364,7 +1371,7 @@
   ═══════════════════════════════════════════════════════ -->
   <section>
     <div class="container">
-      <h2>축의금 계좌</h2>
+      <h2 class="section-title-hidden">축의금 계좌</h2>
 
       <div class="account-grid">
         <!-- 신랑 측 -->
@@ -1501,7 +1508,7 @@
   ═══════════════════════════════════════════════════════ -->
   <section>
     <div class="container">
-      <h2>우리의 여정</h2>
+      <h2 class="section-title-hidden">우리의 여정</h2>
 
       <div class="video-player">
         <video controls playsinline poster="../images/gallery/img1.jpg">
@@ -1719,9 +1726,12 @@
     }
 
     function toggleContactSide(button) {
-      const group = button.closest('.contact-side-group');
-      const isOpen = group.classList.toggle('is-open');
-      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      const accordion = button.closest('.contact-accordion');
+      const willOpen = !accordion.classList.contains('is-open');
+      accordion.classList.toggle('is-open', willOpen);
+      accordion.querySelectorAll('.contact-side-toggle').forEach((btn) => {
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      });
     }
 
     function toggleAccount(element) {
