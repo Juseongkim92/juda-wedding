@@ -14,7 +14,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lora:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=863f17269c2df781bda1f8280d9dbeb0" async></script>
+  <!-- Maps SDK requires JavaScript key (not REST). Register: juseongkim92.github.io -->
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=863f17269c2df781bda1f8280d9dbeb0" async onerror="window.__kakaoMapSdkFailed=true"></script>
 
   <style>
     /* ════════════════════════════════════
@@ -1535,10 +1536,18 @@
       }
     }
 
+    function showKakaoMapFallback() {
+      const mapContainer = document.getElementById('kakaoMap');
+      if (!mapContainer || mapContainer.dataset.fallbackShown) return;
+      mapContainer.dataset.fallbackShown = 'true';
+      mapContainer.innerHTML =
+        '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#f4f6f8;color:#7f8c8d;font-size:14px;text-align:center;padding:16px;line-height:1.6;">지도를 불러올 수 없습니다.<br>아래 <strong>카카오맵</strong> 버튼으로 확인해 주세요.</div>';
+    }
+
     function initKakaoMap() {
       const mapContainer = document.getElementById('kakaoMap');
       if (!mapContainer) return;
-      if (!window.kakao || !window.kakao.maps) return;
+
       const mapOption = {
         center: new kakao.maps.LatLng(35.8939, 128.6149),
         level: 3
@@ -1551,6 +1560,19 @@
         content: '<div style="padding:10px;font-size:13px;"><strong>호텔인터불고 대구</strong><br>대구광역시 수성구 팔현길 212</div>'
       });
       infowindow.open(map, marker);
+      mapContainer.dataset.loaded = 'true';
+    }
+
+    function startKakaoMap() {
+      if (window.__kakaoMapSdkFailed) {
+        showKakaoMapFallback();
+        return;
+      }
+      if (!window.kakao || !window.kakao.maps) {
+        showKakaoMapFallback();
+        return;
+      }
+      kakao.maps.load(initKakaoMap);
     }
 
     // ════════════════════════════════════
@@ -1605,16 +1627,25 @@
       renderMessages();
 
       const waitForKakao = setInterval(() => {
+        if (window.__kakaoMapSdkFailed) {
+          clearInterval(waitForKakao);
+          showKakaoMapFallback();
+          return;
+        }
         if (window.kakao && window.kakao.maps) {
           clearInterval(waitForKakao);
-          initKakaoMap();
+          startKakaoMap();
         }
       }, 100);
 
-      setTimeout(() => clearInterval(waitForKakao), 5000);
+      setTimeout(() => {
+        clearInterval(waitForKakao);
+        const mapEl = document.getElementById('kakaoMap');
+        if (mapEl && !mapEl.dataset.loaded && !mapEl.dataset.fallbackShown) {
+          showKakaoMapFallback();
+        }
+      }, 5000);
     });
   </script>
-</body>
-</html>
 </body>
 </html>
