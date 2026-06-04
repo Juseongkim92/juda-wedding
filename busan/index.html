@@ -403,7 +403,7 @@
       background: var(--primary-light);
     }
 
-    .contact-accordion.is-open .contact-side-toggle {
+    .contact-side-group.is-open .contact-side-toggle {
       border-color: var(--accent);
       background: var(--primary-light);
     }
@@ -414,7 +414,7 @@
       transition: transform 0.3s ease;
     }
 
-    .contact-accordion.is-open .contact-side-arrow {
+    .contact-side-group.is-open .contact-side-arrow {
       transform: rotate(180deg);
     }
 
@@ -424,8 +424,8 @@
       transition: max-height 0.4s ease;
     }
 
-    .contact-accordion.is-open .contact-panel {
-      max-height: 900px;
+    .contact-side-group.is-open .contact-panel {
+      max-height: 680px;
     }
 
     .contact-column {
@@ -669,21 +669,35 @@
       color: var(--text);
     }
 
-    .copy-address-btn {
+    .address-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       flex-shrink: 0;
+    }
+
+    .copy-address-btn,
+    .map-btn {
+      flex: 0 0 auto;
       border: none;
       background: transparent;
       padding: 4px;
       cursor: pointer;
       line-height: 0;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .copy-address-btn:hover {
+    .copy-address-btn:hover,
+    .map-btn:hover {
       transform: scale(1.08);
+      opacity: 0.88;
     }
 
-    .copy-address-btn:active {
+    .copy-address-btn:active,
+    .map-btn:active {
       transform: scale(0.95);
     }
 
@@ -693,42 +707,11 @@
       display: block;
     }
 
-    .map-btn-group {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      margin-top: 16px;
-    }
-
-    .map-btn {
-      flex: 0 0 auto;
-      padding: 6px;
-      border: none;
-      background: transparent;
-      border-radius: 0;
-      cursor: pointer;
-      line-height: 0;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     .map-btn img {
-      height: 36px;
+      height: 32px;
       width: auto;
       object-fit: contain;
       display: block;
-    }
-
-    .map-btn:hover {
-      transform: scale(1.08);
-      opacity: 0.88;
-    }
-
-    .map-btn:active {
-      transform: scale(0.95);
     }
 
     /* ════════════════════════════════════
@@ -1080,7 +1063,8 @@
             서로를 향한<br>
             오늘의 찬란한 사랑을<br>
             오래도록 잃지 않겠습니다.<br><br>
-            눈부신 순간도 평범한 하루도 소중히 여기며,<br>
+            눈부신 순간도 <br>
+            평범한 하루도 소중히 여기며,<br>
             시간이 흐를수록 깊어지는 마음으로<br>
             서로의 곁을 지키겠습니다.<br><br>
             저희의 영원한 여름이 시작되는 날,<br>
@@ -1281,9 +1265,17 @@
             웨딩인터빌리지<br>
             <!-- 대구광역시 수성구 팔현길 212 -->
           </div>
-          <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
-            <img src="../images/icons/copy.png" alt="" width="28" height="28" />
-          </button>
+          <div class="address-actions">
+            <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
+              <img src="../images/icons/copy.png" alt="" width="28" height="28" />
+            </button>
+            <button type="button" class="map-btn" onclick="openNavi('naver')" title="네이버 지도">
+              <img src="../images/icons/navermap.png" alt="네이버 지도" />
+            </button>
+            <button type="button" class="map-btn" onclick="openNavi('kakao')" title="카카오맵">
+              <img src="../images/icons/kakaomap.png" alt="카카오맵" />
+            </button>
+          </div>
         </div>
 
         <!-- Kakao Map Interactive -->
@@ -1327,15 +1319,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="map-btn-group">
-        <button type="button" class="map-btn" onclick="openNavi('naver')" title="네이버 지도">
-          <img src="../images/icons/navermap.png" alt="네이버 지도" />
-        </button>
-        <button type="button" class="map-btn" onclick="openNavi('kakao')" title="카카오맵">
-          <img src="../images/icons/kakaomap.png" alt="카카오맵" />
-        </button>
       </div>
     </div>
   </section>
@@ -1728,12 +1711,9 @@
     }
 
     function toggleContactSide(button) {
-      const accordion = button.closest('.contact-accordion');
-      const willOpen = !accordion.classList.contains('is-open');
-      accordion.classList.toggle('is-open', willOpen);
-      accordion.querySelectorAll('.contact-side-toggle').forEach((btn) => {
-        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-      });
+      const group = button.closest('.contact-side-group');
+      const isOpen = group.classList.toggle('is-open');
+      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
     function toggleAccount(element) {
