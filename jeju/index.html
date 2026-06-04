@@ -7,7 +7,7 @@
   <meta property="og:title" content="신랑측 혼주 김한섭 · 박희숙 초대의 글" />
   <meta property="og:description" content="저희 아들 주성이의 혼례에 초대합니다." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/img1.jpg" />
+  <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/gallery/img1.jpg" />
   <meta property="og:url" content="https://juseongkim92.github.io/juda-wedding/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1826,8 +1826,8 @@
     <div class="container">
       <h2>Our Journey</h2>
       <div class="video-player">
-        <video controls playsinline poster="../images/img1.jpg">
-          <source src="../udo_video.mp4" type="video/mp4">
+        <video controls playsinline poster="../images/gallery/img1.jpg">
+          <source src="../media/udo_video.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
@@ -1880,7 +1880,7 @@
     // ════════════════════════════════════
     function initCarousel() {
       const carouselTrack = document.getElementById('carouselTrack');
-      const imageCount = 10; // img1.jpg ~ img10.jpg
+      const imageCount = 14; // images/gallery/img1.jpg ~ img14.jpg
       let currentIndex = 0;
 
       // Create carousel items
@@ -1894,7 +1894,7 @@
           overflow: hidden;
         `;
         carouselItem.innerHTML = `
-          <img src="../images/img${i}.jpg" alt="우리의 시작 ${i}"
+          <img src="../images/gallery/img${i}.jpg" alt="우리의 시작 ${i}"
                style="width: 100%; height: 100%; object-fit: cover; display: block;"
                loading="lazy">
           <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(44, 62, 80, 0.2) 0%, transparent 100%);"></div>
@@ -2139,7 +2139,7 @@
     // STORY GALLERY & LIGHTBOX
     // ════════════════════════════════════
     let currentStoryIndex = 0;
-    const storyImages = ['story1.jpg', 'story2.jpg', 'story3.jpg', 'story4.jpg', 'story5.jpg'];
+    const storyImages = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg'];
 
     function initStoryGallery() {
       const storyGallery = document.getElementById('storyGallery');
@@ -2147,7 +2147,7 @@
       storyImages.forEach((image, index) => {
         const storyItem = document.createElement('div');
         storyItem.className = 'story-item';
-        storyItem.innerHTML = `<img src="../images/${image}" alt="우리의 이야기 ${index + 1}" loading="lazy">`;
+        storyItem.innerHTML = `<img src="../images/gallery/${image}" alt="우리의 이야기 ${index + 1}" loading="lazy">`;
         storyItem.addEventListener('click', () => openLightbox(index));
         storyGallery.appendChild(storyItem);
       });
@@ -2171,7 +2171,7 @@
       const image = document.getElementById('lightboxImage');
       const counter = document.getElementById('lightboxCounter');
 
-      image.src = `../images/${storyImages[currentStoryIndex]}`;
+      image.src = `../images/gallery/${storyImages[currentStoryIndex]}`;
       counter.textContent = `${currentStoryIndex + 1}/${storyImages.length}`;
     }
 

@@ -1366,8 +1366,8 @@
       <h2>우리의 여정</h2>
 
       <div class="video-player">
-        <video controls playsinline poster="../images/img1.jpg">
-          <source src="../udo_video.mp4" type="video/mp4">
+        <video controls playsinline poster="../images/gallery/img1.jpg">
+          <source src="../media/udo_video.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
@@ -1431,8 +1431,8 @@
     let currentImageIndex = 0;
     const GALLERY_PREVIEW_COUNT = 6;
     const GALLERY_IMAGES = [];
-    for (let i = 1; i <= 10; i++) GALLERY_IMAGES.push(`../images/img${i}.jpg`);
-    // 새 사진 추가 시: GALLERY_IMAGES.push('../images/img11.jpg');
+    for (let i = 1; i <= 14; i++) GALLERY_IMAGES.push(`../images/gallery/img${i}.jpg`);
+    // 새 사진 추가 시: GALLERY_IMAGES.push('../images/gallery/img15.jpg');
 
     function updateLightboxCounter() {
       const counter = document.getElementById('lightboxCounter');
