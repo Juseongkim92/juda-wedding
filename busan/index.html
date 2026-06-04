@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>주성 & 다빈 결혼합니다</title>
   <meta property="og:title" content="주성 & 다빈 결혼합니다" />
-  <meta property="og:description" content="2026년 8월 22일 토요일 · 호델인터불고 대구 인터빌리지" />
+  <meta property="og:description" content="2026년 8월 22일 토요일 · 바르미호텔인터불고 대구 웨딩인터빌리지" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/main.jpg" />
   <meta property="og:url" content="https://juseongkim92.github.io/juda-wedding/busan/" />
@@ -861,7 +861,7 @@
 
         <div class="wedding-info">
           <strong>2026년 8월 22일 토요일 낮 12시</strong><br>
-          호텔인터불고 대구 인터빌리지홀
+          바르미호텔인터불고 대구 웨딩인터빌리지
         </div>
 
         <div class="divider"></div>
@@ -1070,7 +1070,7 @@
 
       <div class="location-card">
         <div class="address-text">
-          <strong>호텔인터불고 대구 인터빌리지홀</strong><br>
+          <strong>바르미호텔인터불고 대구 웨딩인터빌리지</strong><br>
           대구광역시 수성구 팔현길 212
         </div>
         <button class="copy-address-btn" onclick="copyAddress()">주소 복사</button>
@@ -1111,7 +1111,7 @@
             </div>
             <div class="info-content">
               <p><strong>동대구역 출발:</strong> 약 15분 (약 6,000원)</p>
-              <p><strong>네비게이션:</strong> "호텔인터불고 대구" 검색</p>
+              <p><strong>네비게이션:</strong> "바르미호텔인터불고 대구" 검색</p>
               <p><strong>주차:</strong> 호텔 내 전 구역 무료 주차 지원</p>
             </div>
           </div>
@@ -1516,7 +1516,7 @@
     }
 
     function copyAddress() {
-      const addr = '대구광역시 수성구 팔현길 212';
+      const addr = WEDDING_VENUE.address;
       navigator.clipboard.writeText(addr).then(() => {
         alert('주소가 복사되었습니다!');
       }).catch(() => {
@@ -1524,11 +1524,20 @@
       });
     }
 
+    const WEDDING_VENUE = {
+      name: '바르미호텔인터불고 대구 웨딩인터빌리지',
+      address: '대구광역시 수성구 팔현길 212',
+      kakaoPlaceId: '1126984414',
+      kakaoLink: 'https://kko.to/GSeoSIRki3',
+      fallbackLat: 35.8939,
+      fallbackLng: 128.6149
+    };
+
     function openNavi(type) {
       if (type === 'naver') {
         window.open('https://naver.me/5k7fh8vo', '_blank');
       } else if (type === 'kakao') {
-        window.open('https://place.map.kakao.com/27363708', '_blank');
+        window.open(WEDDING_VENUE.kakaoLink, '_blank');
       } else if (type === 'tmap') {
         window.open('https://surl.tmap.co.kr/70830491', '_blank');
       }
@@ -1542,20 +1551,19 @@
         '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#f4f6f8;color:#7f8c8d;font-size:14px;text-align:center;padding:16px;line-height:1.6;">지도를 불러올 수 없습니다.<br>아래 <strong>카카오맵</strong> 버튼으로 확인해 주세요.</div>';
     }
 
-    function initKakaoMap() {
+    function renderKakaoMap(lat, lng, title) {
       const mapContainer = document.getElementById('kakaoMap');
       if (!mapContainer) return;
 
-      const mapOption = {
-        center: new kakao.maps.LatLng(35.8939, 128.6149),
+      const position = new kakao.maps.LatLng(lat, lng);
+      const map = new kakao.maps.Map(mapContainer, {
+        center: position,
         level: 3
-      };
-      const map = new kakao.maps.Map(mapContainer, mapOption);
-      const markerPosition = new kakao.maps.LatLng(35.8939, 128.6149);
-      const marker = new kakao.maps.Marker({ position: markerPosition });
+      });
+      const marker = new kakao.maps.Marker({ position });
       marker.setMap(map);
       const infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="padding:10px;font-size:13px;"><strong>호텔인터불고 대구</strong><br>대구광역시 수성구 팔현길 212</div>'
+        content: `<div style="padding:10px;font-size:13px;"><strong>${title}</strong><br>${WEDDING_VENUE.address}</div>`
       });
       infowindow.open(map, marker);
       mapContainer.dataset.loaded = 'true';
@@ -1571,6 +1579,37 @@
           onEnter: relayout
         });
       }
+    }
+
+    function initKakaoMap() {
+      const fallback = () => renderKakaoMap(
+        WEDDING_VENUE.fallbackLat,
+        WEDDING_VENUE.fallbackLng,
+        WEDDING_VENUE.name
+      );
+
+      if (!kakao.maps.services) {
+        fallback();
+        return;
+      }
+
+      const places = new kakao.maps.services.Places();
+      places.keywordSearch(WEDDING_VENUE.name, (data, status) => {
+        if (status === kakao.maps.services.Status.OK && data.length) {
+          const place = data.find((p) => p.id === WEDDING_VENUE.kakaoPlaceId) || data[0];
+          renderKakaoMap(place.y, place.x, place.place_name);
+          return;
+        }
+
+        const geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(WEDDING_VENUE.address, (result, geoStatus) => {
+          if (geoStatus === kakao.maps.services.Status.OK && result.length) {
+            renderKakaoMap(result[0].y, result[0].x, WEDDING_VENUE.name);
+          } else {
+            fallback();
+          }
+        });
+      });
     }
 
     function bootKakaoMap() {
@@ -1640,7 +1679,7 @@
       renderMessages();
     });
   </script>
-  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a567f3eef35fca02b29ec325fd0b8971"></script>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a567f3eef35fca02b29ec325fd0b8971&libraries=services"></script>
   <script>
     bootKakaoMap();
   </script>
