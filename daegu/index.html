@@ -349,40 +349,6 @@
     }
 
     /* ════════════════════════════════════
-       COUNTDOWN
-    ════════════════════════════════════ */
-    .countdown-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 0;
-    }
-
-    .countdown-item {
-      text-align: center;
-      padding: 16px 12px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-    }
-
-    .countdown-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 32px;
-      font-weight: 600;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .countdown-label {
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--text-light);
-    }
-
-    /* ════════════════════════════════════
        FAMILY INFO
     ════════════════════════════════════ */
     .family-list {
@@ -1295,31 +1261,10 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
-       COUNTDOWN
+       CALENDAR
   ═══════════════════════════════════════════════════════ -->
   <section>
     <div class="container">
-      <h2>결혼식까지</h2>
-
-      <div class="countdown-container">
-        <div class="countdown-item">
-          <div class="countdown-number" id="days">0</div>
-          <div class="countdown-label">Days</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-number" id="hours">0</div>
-          <div class="countdown-label">Hours</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-number" id="minutes">0</div>
-          <div class="countdown-label">Minutes</div>
-        </div>
-        <div class="countdown-item">
-          <div class="countdown-number" id="seconds">0</div>
-          <div class="countdown-label">Seconds</div>
-        </div>
-      </div>
-
       <div class="calendar-container">
         <div class="calendar-header">8월 2026</div>
         <div class="calendar">
@@ -1930,39 +1875,6 @@
     */
 
     // ════════════════════════════════════
-    // COUNTDOWN TIMER
-    // ════════════════════════════════════
-    function updateCountdown() {
-      const weddingDate = new Date('2026-08-22T12:00:00').getTime();
-
-      function tick() {
-        const now = new Date().getTime();
-        const distance = weddingDate - now;
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById('days').textContent = String(days).padStart(2, '0');
-        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-
-        if (distance < 0) {
-          clearInterval(countdownInterval);
-          document.getElementById('days').textContent = '00';
-          document.getElementById('hours').textContent = '00';
-          document.getElementById('minutes').textContent = '00';
-          document.getElementById('seconds').textContent = '00';
-        }
-      }
-
-      tick();
-      const countdownInterval = setInterval(tick, 1000);
-    }
-
-    // ════════════════════════════════════
     // CAROUSEL INITIALIZATION (AUTO-ROTATING)
     // ════════════════════════════════════
     function initCarousel() {
@@ -2409,7 +2321,6 @@
     // INITIALIZATION
     // ════════════════════════════════════
     document.addEventListener('DOMContentLoaded', () => {
-      updateCountdown();
       initCarousel();
       initStoryGallery();
       renderMessages();
