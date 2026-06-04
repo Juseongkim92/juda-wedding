@@ -686,36 +686,40 @@
 
     .map-btn-group {
       display: flex;
-      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
       margin-top: 16px;
     }
 
     .map-btn {
-      flex: 1;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      background: var(--white);
-      border-radius: 8px;
+      flex: 0 0 auto;
+      padding: 6px;
+      border: none;
+      background: transparent;
+      border-radius: 0;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      line-height: 0;
+      transition: transform 0.2s ease, opacity 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
     }
 
     .map-btn img {
-      height: 28px;
+      height: 36px;
       width: auto;
-      max-width: 100%;
       object-fit: contain;
       display: block;
     }
 
     .map-btn:hover {
-      border-color: var(--accent-soft);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px var(--shadow);
+      transform: scale(1.08);
+      opacity: 0.88;
+    }
+
+    .map-btn:active {
+      transform: scale(0.95);
     }
 
     /* ════════════════════════════════════
@@ -1264,8 +1268,9 @@
       <div class="location-card">
         <div class="address-box">
           <div class="address-text">
-            <strong>바르미호텔인터불고 대구 웨딩인터빌리지</strong><br>
-            대구광역시 수성구 팔현길 212
+            바르미호텔인터불고 대구<br>
+            웨딩인터빌리지<br>
+            <!-- 대구광역시 수성구 팔현길 212 -->
           </div>
           <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
             <img src="../images/icons/copy.png" alt="" width="28" height="28" />
