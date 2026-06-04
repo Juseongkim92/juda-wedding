@@ -283,16 +283,64 @@
     /* ════════════════════════════════════
        CONTACT SECTION
     ════════════════════════════════════ */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .contact-accordion {
+      display: flex;
+      flex-direction: column;
       gap: 12px;
+    }
+
+    .contact-side-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--primary);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .contact-side-toggle:hover {
+      border-color: var(--accent);
+      background: var(--primary-light);
+    }
+
+    .contact-side-group.is-open .contact-side-toggle {
+      border-color: var(--accent);
+      background: var(--primary-light);
+    }
+
+    .contact-side-arrow {
+      font-size: 12px;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    .contact-side-group.is-open .contact-side-arrow {
+      transform: rotate(180deg);
+    }
+
+    .contact-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .contact-side-group.is-open .contact-panel {
+      max-height: 520px;
     }
 
     .contact-column {
       display: flex;
       flex-direction: column;
       gap: 12px;
+      padding-top: 12px;
     }
 
     .contact-card {
@@ -923,8 +971,13 @@
     <div class="container">
       <h2>연락처</h2>
 
-      <div class="contact-grid">
-        <!-- 신랑 측 (김한섭, 박희숙, 김주성) -->
+      <div class="contact-accordion">
+        <div class="contact-side-group">
+          <button type="button" class="contact-side-toggle" aria-expanded="false" onclick="toggleContactSide(this)">
+            <span>신랑측</span>
+            <span class="contact-side-arrow" aria-hidden="true">▼</span>
+          </button>
+          <div class="contact-panel">
         <div class="contact-column">
           <!-- 신랑 아버지 -->
           <div class="contact-card">
@@ -977,8 +1030,15 @@
             </div>
           </div>
         </div>
+          </div>
+        </div>
 
-        <!-- 신부 측 (조진형, 주봉은, 조다빈) -->
+        <div class="contact-side-group">
+          <button type="button" class="contact-side-toggle" aria-expanded="false" onclick="toggleContactSide(this)">
+            <span>신부측</span>
+            <span class="contact-side-arrow" aria-hidden="true">▼</span>
+          </button>
+          <div class="contact-panel">
         <div class="contact-column">
           <!-- 신부 아버지 -->
           <div class="contact-card">
@@ -1029,6 +1089,8 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
           </div>
         </div>
       </div>
@@ -1505,6 +1567,12 @@
     // ════════════════════════════════════
     function toggleInfo(element) {
       element.classList.toggle('active');
+    }
+
+    function toggleContactSide(button) {
+      const group = button.closest('.contact-side-group');
+      const isOpen = group.classList.toggle('is-open');
+      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
     function toggleAccount(element) {
