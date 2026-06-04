@@ -14,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lora:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=863f17269c2df781bda1f8280d9dbeb0" async></script>
 
   <style>
     /* ════════════════════════════════════
@@ -1076,17 +1077,8 @@
         </div>
         <button class="copy-address-btn" onclick="copyAddress()">주소 복사</button>
 
-        <!-- Kakao RoughMap -->
-        <div id="daumRoughmapContainer1603088042748" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%; margin: 20px 0; border-radius: 8px; overflow: hidden; height: 250px; border: 1px solid var(--border);"></div>
-        <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
-        <script charset="UTF-8">
-          new daum.roughmap.Lander({
-            "timestamp" : "1603088042748",
-            "key" : "22j9p",
-            "mapWidth" : "100%",
-            "mapHeight" : "250"
-          }).render();
-        </script>
+        <!-- Kakao Map Interactive -->
+        <div id="kakaoMap" style="width: 100%; margin: 20px 0; border-radius: 8px; overflow: hidden; height: 250px; border: 1px solid var(--border);"></div>
 
         <div class="info-list">
           <div class="info-item" onclick="toggleInfo(this)">
@@ -1543,6 +1535,24 @@
       }
     }
 
+    function initKakaoMap() {
+      const mapContainer = document.getElementById('kakaoMap');
+      if (!mapContainer) return;
+      if (!window.kakao || !window.kakao.maps) return;
+      const mapOption = {
+        center: new kakao.maps.LatLng(35.8939, 128.6149),
+        level: 3
+      };
+      const map = new kakao.maps.Map(mapContainer, mapOption);
+      const markerPosition = new kakao.maps.LatLng(35.8939, 128.6149);
+      const marker = new kakao.maps.Marker({ position: markerPosition });
+      marker.setMap(map);
+      const infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="padding:10px;font-size:13px;"><strong>호텔인터불고 대구</strong><br>대구광역시 수성구 팔현길 212</div>'
+      });
+      infowindow.open(map, marker);
+    }
+
     // ════════════════════════════════════
     // CALENDAR GENERATION
     // ════════════════════════════════════
@@ -1593,6 +1603,15 @@
       initCountdown();
       initAnimations();
       renderMessages();
+
+      const waitForKakao = setInterval(() => {
+        if (window.kakao && window.kakao.maps) {
+          clearInterval(waitForKakao);
+          initKakaoMap();
+        }
+      }, 100);
+
+      setTimeout(() => clearInterval(waitForKakao), 5000);
     });
   </script>
 </body>
