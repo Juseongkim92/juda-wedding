@@ -598,6 +598,48 @@
     .bg-on { background: #fff3e0; color: #e67e22; }
     .bg-off { background: #e3f2fd; color: #1976d2; }
 
+    .address-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--primary-light);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .address-text {
+      font-size: 15px;
+      line-height: 1.55;
+      flex: 1;
+      color: var(--text);
+    }
+
+    .copy-address-btn {
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+      padding: 4px;
+      cursor: pointer;
+      line-height: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .copy-address-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .copy-address-btn:active {
+      transform: scale(0.95);
+    }
+
+    .copy-address-btn img {
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+
     .map-btn-group {
       display: flex;
       gap: 8px;
@@ -606,23 +648,30 @@
 
     .map-btn {
       flex: 1;
-      padding: 12px;
+      padding: 10px 12px;
       border: 1px solid var(--border);
       background: var(--white);
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--accent);
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+    }
+
+    .map-btn img {
+      height: 28px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .map-btn:hover {
-      background: var(--accent);
-      color: var(--white);
-      border-color: var(--accent);
+      border-color: var(--accent-soft);
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
     }
 
     /* ════════════════════════════════════
@@ -1153,7 +1202,6 @@
       </button>
 
       <p style="text-align: center; font-size: 13px; color: var(--text-light); margin-top: 16px;">
-        💕 사진을 탭하면 크게 볼 수 있어요
       </p>
     </div>
   </section>
@@ -1166,11 +1214,15 @@
       <h2>오시는 길</h2>
 
       <div class="location-card">
-        <div class="address-text">
-          <strong>바르미호텔인터불고 대구 웨딩인터빌리지</strong><br>
-          대구광역시 수성구 팔현길 212
+        <div class="address-box">
+          <div class="address-text">
+            <strong>바르미호텔인터불고 대구 웨딩인터빌리지</strong><br>
+            대구광역시 수성구 팔현길 212
+          </div>
+          <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
+            <img src="../images/icons/copy.png" alt="" width="28" height="28" />
+          </button>
         </div>
-        <button class="copy-address-btn" onclick="copyAddress()">주소 복사</button>
 
         <!-- Kakao Map Interactive -->
         <div id="kakaoMap" style="width: 100%; margin: 20px 0; border-radius: 8px; overflow: hidden; height: 250px; border: 1px solid var(--border);"></div>
@@ -1216,8 +1268,12 @@
       </div>
 
       <div class="map-btn-group">
-        <button class="map-btn" onclick="openNavi('naver')">📍 네이버 지도</button>
-        <button class="map-btn" onclick="openNavi('kakao')">📍 카카오맵</button>
+        <button type="button" class="map-btn" onclick="openNavi('naver')" title="네이버 지도">
+          <img src="../images/icons/navermap.jpg" alt="네이버 지도" />
+        </button>
+        <button type="button" class="map-btn" onclick="openNavi('kakao')" title="카카오맵">
+          <img src="../images/icons/kakaomap.png" alt="카카오맵" />
+        </button>
       </div>
     </div>
   </section>
