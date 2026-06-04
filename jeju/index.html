@@ -1268,7 +1268,7 @@
       </defs>
       <text font-size="15" fill="white" font-family="'Playfair Display', serif" font-weight="400" letter-spacing="3.5" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
         <textPath href="#circlePath">
-          SAVE THE DATE· 26.08.22 · JUSEONG & DAPIN· 
+          SAVE THE DATE· 26.08.22 · JUSEONG & DABIN· 
 
         </textPath>
       </text>
@@ -1400,18 +1400,20 @@
   }
 </style>
 
-<section class="location-section">
+<section class="location-section map-section" style="opacity: 1;">
   <div class="container">
     <h2 style="text-align:center; margin-bottom:24px;">오시는 길</h2>
 
     <div class="card">
       <div class="address-box">
         <div class="address-text">
-          <strong>호텔인터불고 대구 (인터빌리지홀)</strong><br>
+          <strong>바르미호텔인터불고 대구 웨딩인터빌리지</strong><br>
           대구광역시 수성구 팔현길 212
         </div>
         <button class="copy-btn" onclick="copyAddress()">주소 복사</button>
       </div>
+
+      <div id="kakaoMap" style="width: 100%; margin: 20px 0; border-radius: 8px; overflow: hidden; height: 250px; border: 1px solid var(--border, #e8eaed);"></div>
 
       <div class="info-list">
         <div class="info-item" onclick="toggleInfo(this)">
@@ -1446,7 +1448,7 @@
           </div>
           <div class="info-content">
             <p><strong>동대구역 출발:</strong> 약 15분 (약 6,000원)</p>
-            <p><strong>네비게이션:</strong> "호텔인터불고 대구" 검색</p>
+            <p><strong>네비게이션:</strong> "바르미호텔인터불고 대구" 검색</p>
             <p><strong>주차:</strong> 호텔 내 전 구역 무료 주차 지원</p>
           </div>
         </div>
@@ -1461,26 +1463,104 @@
 </section>
 
 <script>
-  // 아코디언 토글
+  const WEDDING_VENUE = {
+    name: '바르미호텔인터불고 대구 웨딩인터빌리지',
+    address: '대구광역시 수성구 팔현길 212',
+    kakaoPlaceId: '1126984414',
+    kakaoLink: 'https://kko.to/GSeoSIRki3',
+    fallbackLat: 35.8939,
+    fallbackLng: 128.6149
+  };
+
   function toggleInfo(element) {
     element.classList.toggle('active');
   }
 
-  // 주소 복사 기능
   function copyAddress() {
-    const addr = "대구광역시 수성구 팔현길 212";
-    navigator.clipboard.writeText(addr).then(() => {
-      alert("주소가 복사되었습니다. 원하시는 앱에 붙여넣기 하세요!");
+    navigator.clipboard.writeText(WEDDING_VENUE.address).then(() => {
+      alert('주소가 복사되었습니다. 원하시는 앱에 붙여넣기 하세요!');
     });
   }
 
-  // 내비게이션 실행
   function openNavi(type) {
     if (type === 'naver') {
       window.open('https://naver.me/5k7fh8vo', '_blank');
     } else if (type === 'kakao') {
-      window.open('https://place.map.kakao.com/27363708', '_blank');
+      window.open(WEDDING_VENUE.kakaoLink, '_blank');
     }
+  }
+
+  function showKakaoMapFallback() {
+    const mapContainer = document.getElementById('kakaoMap');
+    if (!mapContainer || mapContainer.dataset.fallbackShown) return;
+    mapContainer.dataset.fallbackShown = 'true';
+    mapContainer.innerHTML =
+      '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:#f4f6f8;color:#7f8c8d;font-size:14px;text-align:center;padding:16px;line-height:1.6;">지도를 불러올 수 없습니다.<br>아래 <strong>카카오맵</strong> 버튼으로 확인해 주세요.</div>';
+  }
+
+  function renderKakaoMap(lat, lng, title) {
+    const mapContainer = document.getElementById('kakaoMap');
+    if (!mapContainer) return;
+
+    const position = new kakao.maps.LatLng(lat, lng);
+    const map = new kakao.maps.Map(mapContainer, { center: position, level: 3 });
+    const marker = new kakao.maps.Marker({ position });
+    marker.setMap(map);
+    const infowindow = new kakao.maps.InfoWindow({
+      content: `<div style="padding:10px;font-size:13px;"><strong>${title}</strong><br>${WEDDING_VENUE.address}</div>`
+    });
+    infowindow.open(map, marker);
+    mapContainer.dataset.loaded = 'true';
+
+    const relayout = () => map.relayout();
+    setTimeout(relayout, 100);
+    setTimeout(relayout, 500);
+  }
+
+  function initKakaoMap() {
+    const fallback = () => renderKakaoMap(
+      WEDDING_VENUE.fallbackLat,
+      WEDDING_VENUE.fallbackLng,
+      WEDDING_VENUE.name
+    );
+
+    if (!kakao.maps.services) {
+      fallback();
+      return;
+    }
+
+    const places = new kakao.maps.services.Places();
+    places.keywordSearch(WEDDING_VENUE.name, (data, status) => {
+      if (status === kakao.maps.services.Status.OK && data.length) {
+        const place = data.find((p) => p.id === WEDDING_VENUE.kakaoPlaceId) || data[0];
+        renderKakaoMap(place.y, place.x, place.place_name);
+        return;
+      }
+
+      const geocoder = new kakao.maps.services.Geocoder();
+      geocoder.addressSearch(WEDDING_VENUE.address, (result, geoStatus) => {
+        if (geoStatus === kakao.maps.services.Status.OK && result.length) {
+          renderKakaoMap(result[0].y, result[0].x, WEDDING_VENUE.name);
+        } else {
+          fallback();
+        }
+      });
+    });
+  }
+
+  function bootKakaoMap() {
+    if (typeof kakao === 'undefined' || !kakao.maps || typeof kakao.maps.load !== 'function') {
+      showKakaoMapFallback();
+      return;
+    }
+    kakao.maps.load(() => {
+      try {
+        initKakaoMap();
+      } catch (err) {
+        console.error('Kakao map init failed:', err);
+        showKakaoMapFallback();
+      }
+    });
   }
 </script>
 
@@ -1806,7 +1886,7 @@
     <p>💕 김주성 & 조다빈</p>
     <p>2026년 8월 22일 토요일</p>
     <div class="footer-divider"></div>
-    <p>대구 인터불고만촌 인터빌리지</p>
+    <p>바르미호텔인터불고 대구 웨딩인터빌리지</p>
     <p style="margin-top: 16px; font-size: 12px;">문의 및 축의금 계좌는 초대 문자를 참고해주세요</p>
     <div class="footer-credit">
       Made with ❤️ for the happiest day
@@ -2202,8 +2282,7 @@
     // MAP & UTILITIES
     // ════════════════════════════════════
     function openMap() {
-      const address = '대구 구미시 인터불고 만촌동 인터빌리지';
-      const encodedAddress = encodeURIComponent(address);
+      const encodedAddress = encodeURIComponent(WEDDING_VENUE.address);
       window.open(`https://map.naver.com/index.nhn?query=${encodedAddress}`, '_blank');
     }
 
@@ -2328,5 +2407,7 @@
       initCalendar();
     });
   </script>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a567f3eef35fca02b29ec325fd0b8971&libraries=services"></script>
+  <script>bootKakaoMap();</script>
 </body>
 </html>
