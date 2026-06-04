@@ -1098,7 +1098,7 @@
         <!-- Gallery items will be dynamically loaded -->
       </div>
 
-      <button type="button" id="galleryExpandBtn" class="gallery-expand-btn" onclick="expandGallery()" hidden>
+      <button type="button" id="galleryExpandBtn" class="gallery-expand-btn" onclick="toggleGallery()" hidden>
         사진 더 보기
       </button>
 
@@ -1450,7 +1450,16 @@
       }
     }
 
-    function updateGalleryExpandBtn() {
+    function setGalleryExpanded(expanded) {
+      document.querySelectorAll('#gallery .gallery-item').forEach((item, index) => {
+        if (index >= GALLERY_PREVIEW_COUNT) {
+          item.classList.toggle('is-collapsed', !expanded);
+        }
+      });
+      updateGalleryToggleBtn(expanded);
+    }
+
+    function updateGalleryToggleBtn(expanded) {
       const btn = document.getElementById('galleryExpandBtn');
       if (!btn) return;
       const hiddenCount = GALLERY_IMAGES.length - GALLERY_PREVIEW_COUNT;
@@ -1458,13 +1467,9 @@
         btn.hidden = true;
         return;
       }
-      const collapsed = document.querySelectorAll('#gallery .gallery-item.is-collapsed').length;
-      if (collapsed === 0) {
-        btn.hidden = true;
-        return;
-      }
       btn.hidden = false;
-      btn.textContent = `사진 ${collapsed}장 더 보기`;
+      btn.textContent = expanded ? '사진 접기' : `사진 ${hiddenCount}장 더 보기`;
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     }
 
     function loadGallery() {
@@ -1477,14 +1482,13 @@
         item.innerHTML = `<img src="${src}" alt="사진 ${index + 1}" loading="lazy">`;
         gallery.appendChild(item);
       });
-      updateGalleryExpandBtn();
+      updateGalleryToggleBtn(false);
     }
 
-    function expandGallery() {
-      document.querySelectorAll('#gallery .gallery-item.is-collapsed').forEach((item) => {
-        item.classList.remove('is-collapsed');
-      });
-      updateGalleryExpandBtn();
+    function toggleGallery() {
+      const btn = document.getElementById('galleryExpandBtn');
+      const isExpanded = btn?.getAttribute('aria-expanded') === 'true';
+      setGalleryExpanded(!isExpanded);
     }
 
     function openLightbox(index) {
