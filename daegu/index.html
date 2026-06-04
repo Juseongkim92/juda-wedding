@@ -1472,6 +1472,14 @@
     fallbackLng: 128.6149
   };
 
+  function getMapInfoContent(title, address) {
+    return (
+      '<div style="box-sizing:border-box;width:168px;padding:10px 8px;font-size:12px;line-height:1.45;text-align:center;word-break:keep-all;overflow-wrap:break-word;white-space:normal;">' +
+      `<strong style="display:block;margin-bottom:4px;font-size:12px;font-weight:600;">${title}</strong>` +
+      `<span style="color:#555;font-size:11px;">${address}</span></div>`
+    );
+  }
+
   function toggleInfo(element) {
     element.classList.toggle('active');
   }
@@ -1507,7 +1515,8 @@
     const marker = new kakao.maps.Marker({ position });
     marker.setMap(map);
     const infowindow = new kakao.maps.InfoWindow({
-      content: `<div style="padding:10px;font-size:13px;"><strong>${title}</strong><br>${WEDDING_VENUE.address}</div>`
+      content: getMapInfoContent(title, WEDDING_VENUE.address),
+      removable: false
     });
     infowindow.open(map, marker);
     mapContainer.dataset.loaded = 'true';
