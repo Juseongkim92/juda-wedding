@@ -152,52 +152,75 @@
     /* ════════════════════════════════════
        GREETING SECTION
     ════════════════════════════════════ */
-    .greeting-box {
+    .greeting-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .couple-intro {
       text-align: center;
-      margin-bottom: 40px;
-      padding: 24px 16px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(229, 244, 250, 0.75));
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      padding: 8px 4px 4px;
     }
 
     .bride-groom {
       font-size: 32px;
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Playfair Display', 'Noto Sans KR', serif;
       font-weight: 500;
-      margin: 12px 0 8px 0;
+      margin: 0 0 12px;
       color: var(--primary);
+      letter-spacing: -0.3px;
     }
 
     .bride-groom em {
-      color: var(--primary);
+      color: var(--accent);
       font-style: normal;
+      font-weight: 600;
     }
 
     .wedding-info {
       font-size: 15px;
       color: var(--text-light);
-      line-height: 1.8;
-      margin: 20px 0;
+      line-height: 1.85;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .wedding-info strong {
+      display: block;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .greeting-card {
+      text-align: center;
+      padding: 28px 20px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.98), rgba(229, 244, 250, 0.85));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px var(--shadow);
     }
 
     .greeting-text {
-      margin: 24px 0;
       font-size: 14px;
       line-height: 1.9;
       color: var(--text);
     }
 
     .quote {
+      font-family: 'Lora', 'Noto Sans KR', serif;
       font-size: 13px;
       color: var(--text-light);
       font-style: italic;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--accent-soft);
     }
 
     .greeting-message {
-      margin-top: 12px;
-      line-height: 1.9;
+      line-height: 2;
+      color: var(--text);
     }
 
     /* ════════════════════════════════════
@@ -924,17 +947,16 @@
        GREETING & WEDDING INFO
   ═══════════════════════════════════════════════════════ -->
   <section style="padding: 20px 20px 60px 20px;">
-    <div class="container">
-      <div class="greeting-box">
+    <div class="container greeting-section">
+      <div class="couple-intro">
         <div class="bride-groom">김<em>주성</em> & 조<em>다빈</em></div>
-
         <div class="wedding-info">
-          <strong>2026년 8월 22일 토요일 낮 12시</strong><br>
+          <strong>2026년 8월 22일 토요일 낮 12시</strong>
           바르미호텔인터불고 대구 웨딩인터빌리지
         </div>
+      </div>
 
-        <div class="divider"></div>
-
+      <div class="greeting-card">
         <div class="greeting-text">
           <div class="quote">"하지만 그대의 영원한 여름은 지지 않고"<br>— 윌리엄 셰익스피어, 『소네트 18』</div>
           <div class="greeting-message">
