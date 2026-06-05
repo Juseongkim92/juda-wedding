@@ -33,6 +33,17 @@
       --text-light: #a3b5bf;
       --border: rgba(220, 234, 242, 0.75);
       --shadow: rgba(168, 212, 230, 0.1);
+
+      /* ── Hero 페이드·블러 (busan/index.html <style> 상단에서 조정) ──
+         --hero-fade-solid  선명하게 유지되는 구간 끝 (%) — 클수록 페이드 짧음 (예: 85%)
+         --hero-fade-mid    중간 페이드 (%) — 예: 92%
+         --hero-blur-px     블러 강도 — 작을수록 선명 (예: 20px), 클수록 몽환 (예: 40px)
+         --hero-veil-opacity 하단 밝기 막 (0~1) — 0 이면 없음, 0.35 정도면 은은 */
+      --hero-fade-solid: 82%;
+      --hero-fade-mid: 93%;
+      --hero-blur-px: 24px;
+      --hero-veil-opacity: 0.18;
+
       --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-display: 'Noto Serif KR', serif;
       --font-greeting: 'Nanum Myeongjo', serif;
@@ -182,18 +193,18 @@
     ════════════════════════════════════ */
     .hero-section {
       position: relative;
-      z-index: 2;
+      z-index: 1;
       padding: 0 !important;
       border-bottom: none !important;
       opacity: 1 !important;
-      overflow: visible;
-      margin-bottom: -24px;
+      overflow: hidden;
+      margin-bottom: 0;
     }
 
     .hero-stage {
       position: relative;
       width: 100%;
-      overflow: visible;
+      overflow: hidden;
     }
 
     .hero-blur {
@@ -201,9 +212,9 @@
       top: -4%;
       left: -7%;
       right: -7%;
-      bottom: -64px;
+      bottom: 0;
       background: url('../images/main.jpg') center / cover no-repeat;
-      filter: blur(28px) saturate(0.94) brightness(1.03);
+      filter: blur(var(--hero-blur-px)) saturate(0.94) brightness(1.03);
       transform: scale(1.04);
       z-index: 0;
       pointer-events: none;
@@ -221,15 +232,15 @@
       -webkit-mask-image: linear-gradient(
         to bottom,
         #000 0%,
-        #000 72%,
-        rgba(0, 0, 0, 0.55) 88%,
+        #000 var(--hero-fade-solid),
+        rgba(0, 0, 0, 0.45) var(--hero-fade-mid),
         transparent 100%
       );
       mask-image: linear-gradient(
         to bottom,
         #000 0%,
-        #000 72%,
-        rgba(0, 0, 0, 0.55) 88%,
+        #000 var(--hero-fade-solid),
+        rgba(0, 0, 0, 0.45) var(--hero-fade-mid),
         transparent 100%
       );
     }
@@ -239,16 +250,21 @@
       left: 0;
       right: 0;
       top: 0;
-      bottom: -64px;
+      bottom: 0;
       z-index: 2;
       pointer-events: none;
       background: linear-gradient(
         to bottom,
         transparent 0%,
-        transparent 58%,
-        rgba(255, 255, 255, 0.08) 78%,
-        rgba(248, 252, 255, 0.35) 100%
+        transparent 62%,
+        rgba(248, 252, 255, calc(var(--hero-veil-opacity) * 0.45)) 85%,
+        rgba(248, 252, 255, var(--hero-veil-opacity)) 100%
       );
+    }
+
+    .greeting-block-section {
+      position: relative;
+      z-index: 3;
     }
 
     /* ════════════════════════════════════
@@ -262,7 +278,9 @@
 
     .couple-intro {
       text-align: center;
-      padding: 8px 4px 4px;
+      padding: 12px 8px 8px;
+      position: relative;
+      z-index: 1;
     }
 
     .bride-groom {
@@ -1099,7 +1117,7 @@
   <!-- ═══════════════════════════════════════════════════════
        GREETING & WEDDING INFO
   ═══════════════════════════════════════════════════════ -->
-  <section style="padding: 28px 20px 60px 20px;">
+  <section class="greeting-block-section" style="padding: 32px 20px 60px 20px;">
     <div class="container greeting-section">
       <div class="couple-intro">
         <div class="bride-groom">김주성 & 조다빈</div>
