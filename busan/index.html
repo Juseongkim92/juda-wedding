@@ -41,6 +41,7 @@
          --hero-blur-px          블러 강도 */
       --hero-main-fade-solid: 58%;
       --hero-main-fade-end: 96%;
+      --page-bg-overlay: 0.42;
       --hero-flip-height: 120px;
       --hero-blur-px: 28px;
 
@@ -60,10 +61,39 @@
       font-size: 16px;
       line-height: 1.6;
       color: var(--text);
-      background: linear-gradient(180deg, #fbfdff 0%, var(--bg) 24%, var(--bg) 100%);
+      background: var(--bg);
       max-width: 480px;
       margin: 0 auto;
       overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 50%;
+      width: 100%;
+      max-width: 480px;
+      height: 100%;
+      transform: translateX(-50%);
+      background: url('../images/background.png') center top / cover no-repeat;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 50%;
+      width: 100%;
+      max-width: 480px;
+      height: 100%;
+      transform: translateX(-50%);
+      background: rgba(248, 252, 255, var(--page-bg-overlay));
+      z-index: -1;
+      pointer-events: none;
     }
 
     /* ════════════════════════════════════
@@ -160,7 +190,7 @@
       border-bottom: none !important;
       opacity: 1 !important;
       overflow: hidden;
-      background: var(--bg);
+      background: transparent;
     }
 
     .hero-main-wrap {
@@ -236,8 +266,8 @@
       background: linear-gradient(
         to bottom,
         transparent 0%,
-        rgba(248, 252, 255, 0.55) 55%,
-        var(--bg) 100%
+        rgba(248, 252, 255, 0.2) 60%,
+        rgba(248, 252, 255, 0.45) 100%
       );
     }
 
