@@ -7,7 +7,7 @@
   <meta property="og:title" content="주성 & 다빈 결혼합니다" />
   <meta property="og:description" content="2026년 8월 22일 토요일 · 호텔 인터불고 대구 웨딩인터빌리지" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/main.jpg" />
+  <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/main3.jpg" />
   <meta property="og:url" content="https://juseongkim92.github.io/juda-wedding/busan/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -178,12 +178,33 @@
        MAIN IMAGE HERO
     ════════════════════════════════════ */
     .hero-section {
+      position: relative;
       padding: 0 !important;
       border-bottom: none !important;
       opacity: 1 !important;
       overflow: hidden;
       background: transparent;
       line-height: 0;
+    }
+
+    .hero-names {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: calc(env(safe-area-inset-top, 0px) + 40px) 24px 0;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-shadow:
+        0 2px 16px rgba(26, 35, 50, 0.4),
+        0 1px 4px rgba(26, 35, 50, 0.3);
+      pointer-events: none;
+      line-height: 1.35;
     }
 
     .hero-image {
@@ -1091,7 +1112,8 @@
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
-    <img src="../images/main.jpg" alt="주성 & 다빈" class="hero-image" id="heroImage" title="화면을 터치하면 음악이 재생됩니다">
+    <img src="../images/main3.jpg" alt="주성 & 다빈" class="hero-image" id="heroImage" title="화면을 터치하면 음악이 재생됩니다">
+    <p class="hero-names">김주성 &amp; 조다빈</p>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -1100,8 +1122,7 @@
   <section class="greeting-block-section" style="padding: 32px 20px 60px 20px;">
     <div class="container greeting-section">
       <div class="couple-intro">
-        <div class="bride-groom">김주성 & 조다빈</div>
-        <div class="wedding-info">
+        <div class="wedding-info" style="border-top: none; padding-top: 0;">
           <strong>2026년 8월 22일 토요일 낮 12시</strong>
           호텔 인터불고 대구 웨딩인터빌리지
         </div>
@@ -1971,7 +1992,8 @@
     // BGM — YouTube IFrame API
     // ════════════════════════════════════
     // const BGM_VIDEO_ID = 'YBzJ0jmHv-4';
-    const BGM_VIDEO_ID = 'DLjfRkIxUQ8';
+    // const BGM_VIDEO_ID = 'DLjfRkIxUQ8';
+    const BGM_VIDEO_ID = 'aCcbTcQQNSw';
     let ytPlayer = null;
     let bgmReady = false;
     let bgmPlaying = false;
