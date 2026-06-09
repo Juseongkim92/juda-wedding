@@ -34,16 +34,8 @@
       --border: rgba(220, 234, 242, 0.75);
       --shadow: rgba(168, 212, 230, 0.1);
 
-      /* ── Hero: main 하단 블러 + 상하반전 블러 띠 ──
-         --hero-main-fade-solid  main 선명 구간 끝 (%) — 클수록 하단 블러 짧음
-         --hero-main-fade-end    main 페이드 끝 (%)
-         --hero-flip-height      뒤집은 블러 띠 높이
-         --hero-blur-px          블러 강도 */
-      --hero-main-fade-solid: 58%;
-      --hero-main-fade-end: 96%;
+      /* 페이지 배경(background.png) 위 흰 막 — 0~1, 낮을수록 배경 선명 */
       --page-bg-overlay: 0.42;
-      --hero-flip-height: 120px;
-      --hero-blur-px: 28px;
 
       --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-display: 'Noto Serif KR', serif;
@@ -183,7 +175,7 @@
     }
 
     /* ════════════════════════════════════
-       MAIN IMAGE HERO — main 하단 블러 + 상하반전 블러 띠
+       MAIN IMAGE HERO
     ════════════════════════════════════ */
     .hero-section {
       padding: 0 !important;
@@ -193,82 +185,13 @@
       background: transparent;
     }
 
-    .hero-main-wrap {
-      position: relative;
-      line-height: 0;
-      overflow: hidden;
-    }
-
-    .hero-main-blur {
-      position: absolute;
-      top: -4%;
-      left: -6%;
-      right: -6%;
-      bottom: -4%;
-      background: url('../images/main.jpg') center / cover no-repeat;
-      filter: blur(var(--hero-blur-px)) saturate(0.94) brightness(1.03);
-      transform: scale(1.03);
-      z-index: 0;
-      pointer-events: none;
-    }
-
     .hero-image {
-      position: relative;
-      z-index: 1;
       display: block;
       width: 100%;
       height: auto;
       max-height: 70vh;
       object-fit: cover;
       object-position: center center;
-      -webkit-mask-image: linear-gradient(
-        to bottom,
-        #000 0%,
-        #000 var(--hero-main-fade-solid),
-        rgba(0, 0, 0, 0.45) var(--hero-main-fade-end),
-        transparent 100%
-      );
-      mask-image: linear-gradient(
-        to bottom,
-        #000 0%,
-        #000 var(--hero-main-fade-solid),
-        rgba(0, 0, 0, 0.45) var(--hero-main-fade-end),
-        transparent 100%
-      );
-    }
-
-    .hero-flip-blur {
-      position: relative;
-      width: 100%;
-      height: var(--hero-flip-height);
-      margin-top: -32px;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .hero-flip-blur::before {
-      content: '';
-      position: absolute;
-      left: -6%;
-      right: -6%;
-      top: 0;
-      height: 160%;
-      background: url('../images/main.jpg') center bottom / cover no-repeat;
-      transform: scaleY(-1);
-      filter: blur(var(--hero-blur-px)) saturate(0.94) brightness(1.03);
-    }
-
-    .hero-flip-blur::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(248, 252, 255, 0.2) 60%,
-        rgba(248, 252, 255, 0.45) 100%
-      );
     }
 
     .greeting-block-section {
@@ -1115,11 +1038,7 @@
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
-    <div class="hero-main-wrap">
-      <div class="hero-main-blur" aria-hidden="true"></div>
-      <img src="../images/main.jpg" alt="주성 & 다빈" class="hero-image">
-    </div>
-    <div class="hero-flip-blur" aria-hidden="true"></div>
+    <img src="../images/main.jpg" alt="주성 & 다빈" class="hero-image">
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
