@@ -21,21 +21,21 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* 파스텔 스카이 — :root 변수만 바꾸면 전체 톤이 함께 바뀝니다 */
-      --primary: #7a96a8;
-      --primary-light: rgba(252, 254, 255, 0.88);
-      --accent: #a8d4e6;
-      --accent-soft: #e3f2f8;
-      --meadow: #bdd8cb;
+      /* 배경 위 가독성 — 제목·본문은 짙은 네이비/블랙 계열 */
+      --primary: #1a2d42;
+      --primary-light: rgba(255, 255, 255, 0.92);
+      --accent: #2a4a66;
+      --accent-soft: #c5d5e3;
+      --meadow: #3d6b5a;
       --bg: #f8fcff;
-      --white: rgba(255, 255, 255, 0.9);
-      --text: #7a909c;
-      --text-light: #a3b5bf;
+      --white: rgba(255, 255, 255, 0.94);
+      --text: #1a2332;
+      --text-light: #3d4f63;
       --border: rgba(220, 234, 242, 0.75);
       --shadow: rgba(168, 212, 230, 0.1);
 
       /* 페이지 배경(background.png) 위 흰 막 — 0~1, 낮을수록 배경 선명 */
-      --page-bg-overlay: 0.42;
+      --page-bg-overlay: 0.48;
 
       --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-display: 'Noto Serif KR', serif;
@@ -224,7 +224,7 @@
     }
 
     .bride-groom em {
-      color: #8ebdd4;
+      color: var(--primary);
       font-style: normal;
       font-weight: 600;
     }
@@ -352,7 +352,7 @@
     }
 
     .calendar-day.sunday {
-      color: #d9b0b0;
+      color: #b85454;
     }
 
     .calendar-day.saturday {
@@ -648,8 +648,8 @@
       margin-right: 5px;
     }
 
-    .bg-on { background: #f0f7fb; color: #9ebdd0; }
-    .bg-off { background: #f2f8f5; color: #a8c4b5; }
+    .bg-on { background: #eef4f8; color: #2a4a66; }
+    .bg-off { background: #edf3ef; color: #3d6b5a; }
 
     .address-box {
       display: flex;
@@ -764,7 +764,7 @@
     }
 
     .submit-btn:hover {
-      background: #8ebdd4;
+      background: #1f3a52;
     }
 
     .message-list {
