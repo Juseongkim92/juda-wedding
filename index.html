@@ -195,6 +195,8 @@
       object-fit: cover;
       /* 가로 사진(3:2) → 좌우만 살짝 잘리고 위아래는 화면에 맞춤 */
       object-position: center center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .greeting-block-section {
@@ -1089,7 +1091,7 @@
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
-    <img src="images/main.jpg" alt="주성 & 다빈" class="hero-image">
+    <img src="images/main.jpg" alt="주성 & 다빈" class="hero-image" id="heroImage" title="탭하여 음악 재생">
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -1956,6 +1958,9 @@
 
       const bgmBtn = document.getElementById('bgmToggle');
       if (bgmBtn) bgmBtn.addEventListener('click', toggleBgm);
+
+      const heroImage = document.getElementById('heroImage');
+      if (heroImage) heroImage.addEventListener('click', startBgmFromHero);
     });
 
     // ════════════════════════════════════
@@ -1966,6 +1971,7 @@
     let ytPlayer = null;
     let bgmReady = false;
     let bgmPlaying = false;
+    let bgmRequested = false;
 
     function setBgmUi(playing) {
       bgmPlaying = playing;
@@ -1988,10 +1994,17 @@
     }
 
     function startBgm() {
-      if (!bgmReady || !ytPlayer) return;
+      if (!bgmReady || !ytPlayer) return false;
       if (typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
       ytPlayer.setVolume(100);
       ytPlayer.playVideo();
+      return true;
+    }
+
+    function startBgmFromHero() {
+      if (bgmPlaying) return;
+      bgmRequested = true;
+      startBgm();
     }
 
     function onYouTubeIframeAPIReady() {
@@ -2000,8 +2013,8 @@
         width: '1',
         videoId: BGM_VIDEO_ID,
         playerVars: {
-          autoplay: 1,
-          mute: 0,
+          autoplay: 0,
+          mute: 1,
           controls: 0,
           disablekb: 1,
           fs: 0,
@@ -2015,7 +2028,7 @@
         events: {
           onReady: () => {
             bgmReady = true;
-            startBgm();
+            if (bgmRequested) startBgm();
           },
           onStateChange: (event) => {
             if (event.data === YT.PlayerState.PLAYING) {
