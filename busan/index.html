@@ -183,14 +183,17 @@
       opacity: 1 !important;
       overflow: hidden;
       background: transparent;
+      line-height: 0;
     }
 
     .hero-image {
       display: block;
       width: 100%;
-      height: auto;
-      max-height: 70vh;
+      height: 100svh;
+      height: 100vh; /* 100svh 미지원 폴백 */
+      max-height: none;
       object-fit: cover;
+      /* 가로 사진(3:2) → 좌우만 살짝 잘리고 위아래는 화면에 맞춤 */
       object-position: center center;
     }
 
@@ -1038,7 +1041,7 @@
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
-    <img src="../images/main.jpg" alt="주성 & 다빈" class="hero-image">
+    <img src="../images/main2.jpg" alt="주성 & 다빈" class="hero-image">
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
