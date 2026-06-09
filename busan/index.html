@@ -1036,9 +1036,124 @@
     }
 
     /* ════════════════════════════════════
-       BGM (YouTube)
+       INTRO COVER + BGM (YouTube)
     ════════════════════════════════════ */
+    body.invite-locked {
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .intro-cover {
+      position: fixed;
+      inset: 0;
+      left: 50%;
+      width: 100%;
+      max-width: 480px;
+      transform: translateX(-50%);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.65s ease;
+    }
+
+    .intro-cover.is-closing {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .intro-cover.is-dismissed {
+      visibility: hidden;
+      z-index: -1;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .intro-cover__media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #1a2332;
+    }
+
+    .intro-cover__media .youtube-player-host {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .intro-cover__veil {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(26, 35, 50, 0.35) 0%,
+        rgba(26, 35, 50, 0.55) 50%,
+        rgba(26, 35, 50, 0.65) 100%
+      );
+      pointer-events: none;
+    }
+
+    .intro-cover__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 24px;
+      width: 100%;
+    }
+
+    .intro-cover__label {
+      font-family: var(--font-greeting);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .intro-cover__names {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 36px;
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .intro-cover__btn {
+      display: inline-block;
+      padding: 16px 36px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--primary);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .intro-cover__btn:hover {
+      transform: scale(1.04);
+      background: #fff;
+    }
+
+    .intro-cover__hint {
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
     .bgm-fab {
+      display: none;
       position: fixed;
       right: 16px;
       bottom: 20px;
@@ -1070,8 +1185,12 @@
       border-color: var(--primary);
     }
 
-    .youtube-player-host {
-      position: absolute;
+    body.invite-opened .bgm-fab {
+      display: flex;
+    }
+
+    .youtube-player-host--hidden {
+      position: fixed;
       width: 1px;
       height: 1px;
       opacity: 0;
@@ -1082,7 +1201,23 @@
     }
   </style>
 </head>
-<body>
+<body class="invite-locked">
+  <!-- ═══════════════════════════════════════════════════════
+       INTRO — 유튜브 뮤트 배경 + 청첩장 열기
+  ═══════════════════════════════════════════════════════ -->
+  <div id="introCover" class="intro-cover">
+    <div class="intro-cover__media">
+      <div id="ytPlayer" class="youtube-player-host" aria-hidden="true"></div>
+    </div>
+    <div class="intro-cover__veil" aria-hidden="true"></div>
+    <div class="intro-cover__content">
+      <p class="intro-cover__label">Wedding Invitation</p>
+      <p class="intro-cover__names">김주성 &amp; 조다빈</p>
+      <button type="button" id="openInviteBtn" class="intro-cover__btn">청첩장 열기</button>
+      <p class="intro-cover__hint">버튼을 누르면 음악과 함께 초대장이 열립니다</p>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════════════════
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
@@ -1568,7 +1703,6 @@
   <!-- ═══════════════════════════════════════════════════════
        LIGHTBOX MODAL
   ═══════════════════════════════════════════════════════ -->
-  <div id="ytPlayer" class="youtube-player-host" aria-hidden="true"></div>
   <button type="button" id="bgmToggle" class="bgm-fab" aria-label="배경음악 켜기" title="배경음악">♪</button>
 
   <div id="lightboxModal" class="lightbox-modal">
@@ -1955,15 +2089,24 @@
 
       const bgmBtn = document.getElementById('bgmToggle');
       if (bgmBtn) bgmBtn.addEventListener('click', toggleBgm);
+
+      const openBtn = document.getElementById('openInviteBtn');
+      if (openBtn) openBtn.addEventListener('click', openInvitation);
+
+      if (sessionStorage.getItem('busanInviteOpened') === '1') {
+        dismissIntroCover(false);
+      }
     });
 
     // ════════════════════════════════════
-    // BGM — YouTube IFrame API
+    // BGM — YouTube IFrame API + Intro cover
     // ════════════════════════════════════
     const BGM_VIDEO_ID = 'YBzJ0jmHv-4';
+    const INVITE_OPENED_KEY = 'busanInviteOpened';
     let ytPlayer = null;
     let bgmReady = false;
     let bgmPlaying = false;
+    let inviteOpened = false;
 
     function setBgmUi(playing) {
       bgmPlaying = playing;
@@ -1979,17 +2122,60 @@
       if (bgmPlaying) {
         ytPlayer.pauseVideo();
       } else {
+        if (typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
+        ytPlayer.setVolume(100);
         ytPlayer.playVideo();
       }
     }
 
+    function startBgmWithSound() {
+      if (!bgmReady || !ytPlayer) return;
+      if (typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
+      ytPlayer.setVolume(100);
+      ytPlayer.playVideo();
+    }
+
+    function tryMutedAutoplay() {
+      if (!bgmReady || !ytPlayer || inviteOpened) return;
+      if (typeof ytPlayer.mute === 'function') ytPlayer.mute();
+      ytPlayer.playVideo();
+    }
+
+    function dismissIntroCover(startMusic) {
+      if (document.body.classList.contains('invite-opened')) {
+        if (startMusic) startBgmWithSound();
+        return;
+      }
+
+      const cover = document.getElementById('introCover');
+      inviteOpened = true;
+      document.body.classList.remove('invite-locked');
+      document.body.classList.add('invite-opened');
+      sessionStorage.setItem(INVITE_OPENED_KEY, '1');
+
+      if (cover) {
+        cover.classList.add('is-closing');
+        window.setTimeout(() => cover.classList.add('is-dismissed'), 650);
+      }
+
+      if (startMusic) {
+        startBgmWithSound();
+      }
+    }
+
+    function openInvitation() {
+      if (inviteOpened) return;
+      dismissIntroCover(true);
+    }
+
     function onYouTubeIframeAPIReady() {
       ytPlayer = new YT.Player('ytPlayer', {
-        height: '1',
-        width: '1',
+        height: '100%',
+        width: '100%',
         videoId: BGM_VIDEO_ID,
         playerVars: {
-          autoplay: 0,
+          autoplay: 1,
+          mute: 1,
           controls: 0,
           disablekb: 1,
           fs: 0,
@@ -2003,8 +2189,14 @@
         events: {
           onReady: () => {
             bgmReady = true;
+            if (sessionStorage.getItem(INVITE_OPENED_KEY) === '1') {
+              dismissIntroCover(false);
+            } else {
+              tryMutedAutoplay();
+            }
           },
           onStateChange: (event) => {
+            if (!inviteOpened) return;
             if (event.data === YT.PlayerState.PLAYING) {
               setBgmUi(true);
             } else if (
