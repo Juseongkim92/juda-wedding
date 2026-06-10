@@ -1881,11 +1881,20 @@
       <div class="guestbook-form">
         <div class="form-group">
           <label>이름</label>
-          <input type="text" id="guestName" placeholder="성함을 입력해주세요">
+          <input
+            type="text"
+            id="guestName"
+            maxlength="20"
+            placeholder="성함을 입력해주세요"
+          >
         </div>
         <div class="form-group">
           <label>메시지</label>
-          <textarea id="guestMessage" placeholder="따뜻한 한마디를 남겨주세요"></textarea>
+          <textarea
+            id="guestMessage"
+            maxlength="300"
+            placeholder="따뜻한 한마디를 남겨주세요"
+          ></textarea>
         </div>
         <button class="submit-btn" onclick="addMessage()">메시지 남기기</button>
       </div>
@@ -2293,59 +2302,6 @@
     }
 
     // ════════════════════════════════════
-    // GUESTBOOK FUNCTIONS
-    // ════════════════════════════════════
-    const GUESTBOOK_KEY = 'wedding_guestbook_busan';
-
-    function addMessage() {
-      const nameInput = document.getElementById('guestName');
-      const messageInput = document.getElementById('guestMessage');
-      
-      const name = nameInput.value.trim();
-      const message = messageInput.value.trim();
-
-      if (!name || !message) {
-        alert('이름과 메시지를 모두 입력해주세요.');
-        return;
-      }
-
-      const newMessage = {
-        name: name,
-        message: message,
-        date: new Date().toISOString()
-      };
-
-      const messages = JSON.parse(localStorage.getItem(GUESTBOOK_KEY) || '[]');
-      messages.unshift(newMessage);
-      localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(messages));
-
-      nameInput.value = '';
-      messageInput.value = '';
-      renderMessages();
-      alert('메시지가 등록되었습니다.');
-    }
-
-    function renderMessages() {
-      const container = document.getElementById('messageList');
-      const messages = JSON.parse(localStorage.getItem(GUESTBOOK_KEY) || '[]');
-      
-      if (messages.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:var(--text-light); font-size:13px; padding:20px;">아직 등록된 메시지가 없습니다.</p>';
-        return;
-      }
-
-      container.innerHTML = messages.map(msg => `
-        <div class="message-card">
-          <div class="message-header">
-            <span class="message-author">${msg.name}</span>
-            <span class="message-date">${new Date(msg.date).toLocaleDateString()}</span>
-          </div>
-          <div class="message-text">${msg.message.replace(/\n/g, '<br>')}</div>
-        </div>
-      `).join('');
-    }
-
-    // ════════════════════════════════════
     // UTILITY FUNCTIONS
     // ════════════════════════════════════
     function toggleInfo(element) {
@@ -2592,7 +2548,6 @@
       generateCalendar(2026, 7);
       loadGallery();
       initAnimations();
-      renderMessages();
 
       const bgmBtn = document.getElementById('bgmToggle');
       if (bgmBtn) bgmBtn.addEventListener('click', toggleBgm);
@@ -2687,6 +2642,166 @@
         }
       });
     }
+  </script>
+  <script type="module">
+    import { initializeApp } from
+      'https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js';
+
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      orderBy,
+      limit,
+      onSnapshot,
+      serverTimestamp
+    } from
+      'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
+
+    // Firebase 콘솔에서 복사한 설정 값으로 교체
+    const firebaseConfig = {
+      apiKey: '여기에 실제 값 입력',
+      authDomain: '여기에 실제 값 입력',
+      projectId: '여기에 실제 값 입력',
+      storageBucket: '여기에 실제 값 입력',
+      messagingSenderId: '여기에 실제 값 입력',
+      appId: '여기에 실제 값 입력'
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const guestbookRef = collection(db, 'guestbook');
+
+    function escapeHtml(value) {
+      const div = document.createElement('div');
+      div.textContent = String(value ?? '');
+      return div.innerHTML;
+    }
+
+    function formatDate(timestamp) {
+      if (!timestamp || typeof timestamp.toDate !== 'function') {
+        return new Date().toLocaleDateString('ko-KR');
+      }
+
+      return timestamp.toDate().toLocaleDateString('ko-KR');
+    }
+
+    function renderFirebaseMessages(snapshot) {
+      const container = document.getElementById('messageList');
+      if (!container) return;
+
+      if (snapshot.empty) {
+        container.innerHTML = `
+          <p style="
+            text-align:center;
+            color:var(--text-light);
+            font-size:13px;
+            padding:20px;
+          ">
+            아직 등록된 메시지가 없습니다.
+          </p>
+        `;
+        return;
+      }
+
+      container.innerHTML = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        const safeName = escapeHtml(data.name);
+        const safeMessage = escapeHtml(data.message).replace(/\n/g, '<br>');
+
+        return `
+          <div class="message-card">
+            <div class="message-header">
+              <span class="message-author">${safeName}</span>
+              <span class="message-date">${formatDate(data.createdAt)}</span>
+            </div>
+
+            <div class="message-text">${safeMessage}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.addMessage = async function addMessage() {
+      const nameInput = document.getElementById('guestName');
+      const messageInput = document.getElementById('guestMessage');
+      const submitButton = document.querySelector(
+        '.guestbook-form .submit-btn'
+      );
+
+      const name = nameInput.value.trim();
+      const message = messageInput.value.trim();
+
+      if (!name || !message) {
+        alert('이름과 메시지를 모두 입력해주세요.');
+        return;
+      }
+
+      if (name.length > 20) {
+        alert('이름은 20자 이하로 입력해주세요.');
+        return;
+      }
+
+      if (message.length > 300) {
+        alert('메시지는 300자 이하로 입력해주세요.');
+        return;
+      }
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = '등록 중...';
+      }
+
+      try {
+        await addDoc(guestbookRef, {
+          name,
+          message,
+          createdAt: serverTimestamp()
+        });
+
+        nameInput.value = '';
+        messageInput.value = '';
+
+        alert('메시지가 등록되었습니다.');
+      } catch (error) {
+        console.error('Guestbook write failed:', error);
+        alert('메시지를 등록하지 못했습니다. 잠시 후 다시 시도해주세요.');
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = '메시지 남기기';
+        }
+      }
+    };
+
+    const guestbookQuery = query(
+      guestbookRef,
+      orderBy('createdAt', 'desc'),
+      limit(100)
+    );
+
+    onSnapshot(
+      guestbookQuery,
+      renderFirebaseMessages,
+      (error) => {
+        console.error('Guestbook read failed:', error);
+
+        const container = document.getElementById('messageList');
+        if (!container) return;
+
+        container.innerHTML = `
+          <p style="
+            text-align:center;
+            color:var(--text-light);
+            font-size:13px;
+            padding:20px;
+          ">
+            축하 메시지를 불러오지 못했습니다.
+          </p>
+        `;
+      }
+    );
   </script>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a567f3eef35fca02b29ec325fd0b8971&libraries=services"></script>
