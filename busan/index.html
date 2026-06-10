@@ -2091,7 +2091,7 @@
         &times;
       </button>
 
-      <h3 id="contactModalTitle" class="contact-modal-title">연락하기</h3>
+      <h3 id="contactModalTitle" class="contact-modal-title">축하인사하기</h3>
 
       <div class="contact-modal-group">
         <div class="contact-modal-group-title">신랑측</div>
@@ -2565,8 +2565,8 @@
     // BGM — YouTube IFrame API
     // ════════════════════════════════════
     // const BGM_VIDEO_ID = 'YBzJ0jmHv-4';
-    // const BGM_VIDEO_ID = 'DLjfRkIxUQ8';
-    const BGM_VIDEO_ID = 'aCcbTcQQNSw';
+    const BGM_VIDEO_ID = 'DLjfRkIxUQ8';
+    // const BGM_VIDEO_ID = 'aCcbTcQQNSw';
     let ytPlayer = null;
     let bgmReady = false;
     let bgmPlaying = false;
@@ -2661,13 +2661,14 @@
 
     // Firebase 콘솔에서 복사한 설정 값으로 교체
     const firebaseConfig = {
-      apiKey: '여기에 실제 값 입력',
-      authDomain: '여기에 실제 값 입력',
-      projectId: '여기에 실제 값 입력',
-      storageBucket: '여기에 실제 값 입력',
-      messagingSenderId: '여기에 실제 값 입력',
-      appId: '여기에 실제 값 입력'
+      apiKey: "AIzaSyC3cpH1pHx9W-rq0PMCHVxJE42-o4F9S0Q",
+      authDomain: "juda-wedding.firebaseapp.com",
+      projectId: "juda-wedding",
+      storageBucket: "juda-wedding.firebasestorage.app",
+      messagingSenderId: "600205928200",
+      appId: "1:600205928200:web:ec8468ae8bb4bca0202ebd"
     };
+
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
