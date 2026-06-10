@@ -7,7 +7,7 @@
   <meta property="og:title" content="주성 & 다빈 결혼합니다" />
   <meta property="og:description" content="2026년 8월 22일 토요일 · 호텔 인터불고 대구 웨딩인터빌리지" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/main3.jpg" />
+  <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/main2.jpg" />
   <meta property="og:url" content="https://juseongkim92.github.io/juda-wedding/busan/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1189,46 +1189,46 @@
        GIFT ACCOUNT ACCORDION
     ════════════════════════════════════ */
     .gift-account-accordion {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .gift-account-group {
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      background: rgba(255, 255, 255, 0.88);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
 
     .gift-account-toggle {
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 18px;
-      border: none;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
       color: var(--primary);
       font-family: var(--font-body);
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      transition: filter 0.2s ease;
+      transition:
+        filter 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
-    .gift-account-group--groom .gift-account-toggle {
+    .gift-account-toggle--groom {
       background: rgba(220, 227, 213, 0.72);
       color: #526249;
     }
 
-    .gift-account-group--bride .gift-account-toggle {
+    .gift-account-toggle--bride {
       background: rgba(238, 228, 216, 0.78);
       color: #886a43;
     }
 
     .gift-account-toggle:hover {
       filter: brightness(0.98);
+    }
+
+    .gift-account-toggle.is-active {
+      box-shadow: inset 0 0 0 1px rgba(74, 111, 138, 0.28);
     }
 
     .gift-account-toggle-label {
@@ -1246,23 +1246,26 @@
 
     .gift-account-arrow {
       display: inline-block;
-      font-size: 21px;
+      font-size: 18px;
       line-height: 1;
       transition: transform 0.3s ease;
     }
 
-    .gift-account-group.is-open .gift-account-arrow {
+    .gift-account-toggle.is-active .gift-account-arrow {
       transform: rotate(180deg);
     }
 
     .gift-account-panel {
+      grid-column: 1 / -1;
       max-height: 0;
       overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 2px;
       background: rgba(255, 255, 255, 0.92);
       transition: max-height 0.42s ease;
     }
 
-    .gift-account-group.is-open .gift-account-panel {
+    .gift-account-panel.is-open {
       max-height: 520px;
     }
 
@@ -1550,7 +1553,7 @@
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
-    <img src="../images/main3.jpg" alt="주성 & 다빈" class="hero-image" id="heroImage" title="화면을 터치하면 음악이 재생됩니다">
+    <img src="../images/main2.jpg" alt="주성 & 다빈" class="hero-image" id="heroImage" title="화면을 터치하면 음악이 재생됩니다">
     <p class="hero-names">김주성 &amp; 조다빈</p>
   </section>
 
@@ -1674,9 +1677,6 @@
             </button>
             <button type="button" class="map-btn" onclick="openNavi('tmap')" title="T map">
               <img src="../images/icons/tmap.png" alt="T map" />
-            </button>
-            <button type="button" class="map-btn" onclick="openNavi('google')" title="Google Maps">
-              <img src="../images/icons/googlemap.png" alt="Google Maps" />
             </button>
           </div>
         </div>
@@ -1972,111 +1972,121 @@
       <h2>마음 전하실 곳</h2>
 
       <div class="gift-account-accordion">
-        <div class="gift-account-group gift-account-group--groom">
-          <button
-            type="button"
-            class="gift-account-toggle"
-            aria-expanded="false"
-            onclick="toggleGiftAccount(this)"
-          >
-            <span class="gift-account-toggle-label">
-              <span class="gift-account-side-icon" aria-hidden="true">♙</span>
-              <span>신랑측</span>
-            </span>
-            <span class="gift-account-arrow" aria-hidden="true">⌄</span>
-          </button>
+        <button
+          type="button"
+          class="gift-account-toggle gift-account-toggle--groom"
+          data-side="groom"
+          aria-expanded="false"
+          aria-controls="giftAccountPanelGroom"
+          onclick="toggleGiftAccount(this)"
+        >
+          <span class="gift-account-toggle-label">
+            <span class="gift-account-side-icon" aria-hidden="true">♙</span>
+            <span>신랑측</span>
+          </span>
+          <span class="gift-account-arrow" aria-hidden="true">⌄</span>
+        </button>
 
-          <div class="gift-account-panel">
-            <div class="gift-account-list">
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>김주성</strong>
-                  <span>신랑</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-bank">국민은행</span>
-                  <span class="gift-account-number">123456-00-000000</span>
-                  <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-                </div>
+        <button
+          type="button"
+          class="gift-account-toggle gift-account-toggle--bride"
+          data-side="bride"
+          aria-expanded="false"
+          aria-controls="giftAccountPanelBride"
+          onclick="toggleGiftAccount(this)"
+        >
+          <span class="gift-account-toggle-label">
+            <span class="gift-account-side-icon" aria-hidden="true">♙</span>
+            <span>신부측</span>
+          </span>
+          <span class="gift-account-arrow" aria-hidden="true">⌄</span>
+        </button>
+
+        <div
+          id="giftAccountPanelGroom"
+          class="gift-account-panel gift-account-panel--groom"
+          role="region"
+          aria-label="신랑측 계좌"
+        >
+          <div class="gift-account-list">
+            <div class="gift-account-item">
+              <div class="gift-account-person">
+                <strong>김주성</strong>
+                <span>신랑</span>
               </div>
-
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>김한섭</strong>
-                  <span>신랑 아버지</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-bank">국민은행</span>
-                  <span class="gift-account-number">123456-00-000000</span>
-                  <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-                </div>
+              <div class="gift-account-detail">
+                <span class="gift-account-bank">국민은행</span>
+                <span class="gift-account-number">123456-00-000000</span>
+                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
               </div>
+            </div>
 
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>박희숙</strong>
-                  <span>신랑 어머니</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-bank">국민은행</span>
-                  <span class="gift-account-number">123456-00-000000</span>
-                  <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-                </div>
+            <div class="gift-account-item">
+              <div class="gift-account-person">
+                <strong>김한섭</strong>
+                <span>신랑 아버지</span>
+              </div>
+              <div class="gift-account-detail">
+                <span class="gift-account-bank">국민은행</span>
+                <span class="gift-account-number">123456-00-000000</span>
+                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
+              </div>
+            </div>
+
+            <div class="gift-account-item">
+              <div class="gift-account-person">
+                <strong>박희숙</strong>
+                <span>신랑 어머니</span>
+              </div>
+              <div class="gift-account-detail">
+                <span class="gift-account-bank">국민은행</span>
+                <span class="gift-account-number">123456-00-000000</span>
+                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="gift-account-group gift-account-group--bride">
-          <button
-            type="button"
-            class="gift-account-toggle"
-            aria-expanded="false"
-            onclick="toggleGiftAccount(this)"
-          >
-            <span class="gift-account-toggle-label">
-              <span class="gift-account-side-icon" aria-hidden="true">♙</span>
-              <span>신부측</span>
-            </span>
-            <span class="gift-account-arrow" aria-hidden="true">⌄</span>
-          </button>
-
-          <div class="gift-account-panel">
-            <div class="gift-account-list">
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>조다빈</strong>
-                  <span>신부</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-bank">국민은행</span>
-                  <span class="gift-account-number">123456-00-000000</span>
-                  <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-                </div>
+        <div
+          id="giftAccountPanelBride"
+          class="gift-account-panel gift-account-panel--bride"
+          role="region"
+          aria-label="신부측 계좌"
+        >
+          <div class="gift-account-list">
+            <div class="gift-account-item">
+              <div class="gift-account-person">
+                <strong>조다빈</strong>
+                <span>신부</span>
               </div>
-
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>조진형</strong>
-                  <span>신부 아버지</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-bank">국민은행</span>
-                  <span class="gift-account-number">123456-00-000000</span>
-                  <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-                </div>
+              <div class="gift-account-detail">
+                <span class="gift-account-bank">국민은행</span>
+                <span class="gift-account-number">123456-00-000000</span>
+                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
               </div>
+            </div>
 
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>주봉은</strong>
-                  <span>신부 어머니</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-bank">국민은행</span>
-                  <span class="gift-account-number">123456-00-000000</span>
-                  <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-                </div>
+            <div class="gift-account-item">
+              <div class="gift-account-person">
+                <strong>조진형</strong>
+                <span>신부 아버지</span>
+              </div>
+              <div class="gift-account-detail">
+                <span class="gift-account-bank">국민은행</span>
+                <span class="gift-account-number">123456-00-000000</span>
+                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
+              </div>
+            </div>
+
+            <div class="gift-account-item">
+              <div class="gift-account-person">
+                <strong>주봉은</strong>
+                <span>신부 어머니</span>
+              </div>
+              <div class="gift-account-detail">
+                <span class="gift-account-bank">국민은행</span>
+                <span class="gift-account-number">123456-00-000000</span>
+                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
               </div>
             </div>
           </div>
@@ -2446,9 +2456,29 @@
     }
 
     function toggleGiftAccount(button) {
-      const group = button.closest('.gift-account-group');
-      const isOpen = group.classList.toggle('is-open');
-      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      const accordion = button.closest('.gift-account-accordion');
+      if (!accordion) return;
+
+      const side = button.dataset.side;
+      const panel = accordion.querySelector(`.gift-account-panel--${side}`);
+      const toggles = accordion.querySelectorAll('.gift-account-toggle');
+      const panels = accordion.querySelectorAll('.gift-account-panel');
+      const willOpen = !button.classList.contains('is-active');
+
+      toggles.forEach((toggle) => {
+        toggle.classList.remove('is-active');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+
+      panels.forEach((item) => {
+        item.classList.remove('is-open');
+      });
+
+      if (willOpen && panel) {
+        button.classList.add('is-active');
+        button.setAttribute('aria-expanded', 'true');
+        panel.classList.add('is-open');
+      }
     }
 
     document.addEventListener('keydown', (event) => {
@@ -2483,9 +2513,6 @@
       kakaoPlaceId: '1126984414',
       kakaoLink: 'https://kko.to/GSeoSIRki3',
       tmapLink: 'https://tmap.life/b9a2b9e9',
-      googleLink:
-        'https://www.google.com/maps/search/?api=1&query=' +
-        encodeURIComponent('호텔 인터불고 대구 웨딩인터빌리지 대구 수성구 팔현길 212'),
       fallbackLat: 35.8939,
       fallbackLng: 128.6149
     };
@@ -2505,8 +2532,6 @@
         window.open(WEDDING_VENUE.kakaoLink, '_blank');
       } else if (type === 'tmap') {
         window.open(WEDDING_VENUE.tmapLink, '_blank');
-      } else if (type === 'google') {
-        window.open(WEDDING_VENUE.googleLink, '_blank');
       }
     }
 
