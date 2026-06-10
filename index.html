@@ -625,6 +625,20 @@
       transform: scale(0.98);
     }
 
+    .intro-action-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .intro-action-buttons .contact-open-btn {
+      margin-top: 0;
+      min-width: 132px;
+    }
+
     /* ════════════════════════════════════
        CONTACT MODAL
     ════════════════════════════════════ */
@@ -681,10 +695,71 @@
       white-space: nowrap;
     }
 
-    .gift-account-pending {
+    .gift-modal-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .gift-modal-item:last-child {
+      border-bottom: none;
+    }
+
+    .gift-modal-person {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+
+    .gift-modal-person strong {
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .gift-modal-person span {
+      color: var(--text-light);
+      font-size: 11px;
+    }
+
+    .gift-modal-account {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .gift-modal-bank {
       color: var(--text-light);
       font-size: 12px;
-      line-height: 1.5;
+    }
+
+    .gift-modal-number {
+      color: var(--primary);
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    .gift-modal-copy {
+      margin-left: auto;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: transparent;
+      color: var(--accent);
+      font-family: var(--font-body);
+      font-size: 11px;
+      cursor: pointer;
+      transition:
+        border-color 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .gift-modal-copy:hover {
+      border-color: var(--accent);
+      color: var(--primary);
     }
 
     .contact-modal-close {
@@ -1230,154 +1305,6 @@
     }
 
     /* ════════════════════════════════════
-       GIFT ACCOUNT ACCORDION
-    ════════════════════════════════════ */
-    .gift-account-accordion {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .gift-account-toggle {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 16px 12px;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--primary);
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition:
-        filter 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    .gift-account-toggle--groom {
-      background: rgba(220, 227, 213, 0.72);
-      color: #526249;
-    }
-
-    .gift-account-toggle--bride {
-      background: rgba(238, 228, 216, 0.78);
-      color: #886a43;
-    }
-
-    .gift-account-toggle:hover {
-      filter: brightness(0.98);
-    }
-
-    .gift-account-toggle.is-active {
-      box-shadow: inset 0 0 0 1px rgba(74, 111, 138, 0.28);
-    }
-
-    .gift-account-toggle-label {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .gift-account-side-icon {
-      font-family: serif;
-      font-size: 20px;
-      line-height: 1;
-      opacity: 0.78;
-    }
-
-    .gift-account-arrow {
-      display: inline-block;
-      font-size: 18px;
-      line-height: 1;
-      transition: transform 0.3s ease;
-    }
-
-    .gift-account-toggle.is-active .gift-account-arrow {
-      transform: rotate(180deg);
-    }
-
-    .gift-account-panel {
-      grid-column: 1 / -1;
-      max-height: 0;
-      overflow: hidden;
-      background: transparent;
-      transition: max-height 0.42s ease;
-    }
-
-    .gift-account-panel.is-open {
-      max-height: 520px;
-    }
-
-    .gift-account-list {
-      padding: 4px 16px 10px;
-    }
-
-    .gift-account-item {
-      padding: 15px 2px;
-    }
-
-    .gift-account-person {
-      display: flex;
-      align-items: baseline;
-      gap: 7px;
-      margin-bottom: 9px;
-    }
-
-    .gift-account-person strong {
-      color: var(--primary);
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .gift-account-person span {
-      color: var(--text-light);
-      font-size: 11px;
-    }
-
-    .gift-account-detail {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .gift-account-bank {
-      color: var(--text-light);
-      font-size: 12px;
-    }
-
-    .gift-account-number {
-      color: var(--primary);
-      font-family: 'Courier New', monospace;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: -0.03em;
-    }
-
-    .gift-account-copy {
-      margin-left: auto;
-      padding: 5px 9px;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      background: #fff;
-      color: var(--accent);
-      font-family: var(--font-body);
-      font-size: 11px;
-      cursor: pointer;
-      transition:
-        border-color 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .gift-account-copy:hover {
-      border-color: var(--accent);
-      background: var(--primary-light);
-    }
-
-    /* ════════════════════════════════════
        VIDEO SECTION
     ════════════════════════════════════ */
     .video-player {
@@ -1639,9 +1566,14 @@
           <strong class="family-name">다빈</strong>
         </div>
 
-        <button type="button" class="contact-open-btn" onclick="openContactModal()">
-          마음 전하기
-        </button>
+        <div class="intro-action-buttons">
+          <button type="button" class="contact-open-btn" onclick="openContactModal()">
+            마음 전하기
+          </button>
+          <button type="button" class="contact-open-btn" onclick="openGiftAccountModal()">
+            마음 전하실 곳
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -2010,126 +1942,6 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
-       ACCOUNT INFO
-  ═══════════════════════════════════════════════════════ -->
-  <section>
-    <div class="container">
-      <h2>마음 전하실 곳</h2>
-      <p class="section-note">계좌번호는 초대 문자를 참고해 주세요.</p>
-
-      <div class="gift-account-accordion">
-        <button
-          type="button"
-          class="gift-account-toggle gift-account-toggle--groom"
-          data-side="groom"
-          aria-expanded="false"
-          aria-controls="giftAccountPanelGroom"
-          onclick="toggleGiftAccount(this)"
-        >
-          <span class="gift-account-toggle-label">
-            <span class="gift-account-side-icon" aria-hidden="true">♙</span>
-            <span>신랑측</span>
-          </span>
-          <span class="gift-account-arrow" aria-hidden="true">⌄</span>
-        </button>
-
-        <button
-          type="button"
-          class="gift-account-toggle gift-account-toggle--bride"
-          data-side="bride"
-          aria-expanded="false"
-          aria-controls="giftAccountPanelBride"
-          onclick="toggleGiftAccount(this)"
-        >
-          <span class="gift-account-toggle-label">
-            <span class="gift-account-side-icon" aria-hidden="true">♙</span>
-            <span>신부측</span>
-          </span>
-          <span class="gift-account-arrow" aria-hidden="true">⌄</span>
-        </button>
-
-        <div
-          id="giftAccountPanelGroom"
-          class="gift-account-panel gift-account-panel--groom"
-          role="region"
-          aria-label="신랑측 계좌"
-        >
-          <div class="gift-account-list">
-            <div class="gift-account-item">
-              <div class="gift-account-person">
-                <strong>김주성</strong>
-                <span>신랑</span>
-              </div>
-              <div class="gift-account-detail">
-                <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
-              </div>
-            </div>
-
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>김한섭</strong>
-                  <span>신랑 아버지</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
-                </div>
-              </div>
-
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>박희숙</strong>
-                  <span>신랑 어머니</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
-                </div>
-              </div>
-          </div>
-        </div>
-
-        <div
-          id="giftAccountPanelBride"
-          class="gift-account-panel gift-account-panel--bride"
-          role="region"
-          aria-label="신부측 계좌"
-        >
-          <div class="gift-account-list">
-            <div class="gift-account-item">
-              <div class="gift-account-person">
-                <strong>조다빈</strong>
-                <span>신부</span>
-              </div>
-              <div class="gift-account-detail">
-                <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
-              </div>
-            </div>
-
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>조진형</strong>
-                  <span>신부 아버지</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
-                </div>
-              </div>
-
-              <div class="gift-account-item">
-                <div class="gift-account-person">
-                  <strong>주봉은</strong>
-                  <span>신부 어머니</span>
-                </div>
-                <div class="gift-account-detail">
-                  <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════
        JOURNEY & THANKS
   ═══════════════════════════════════════════════════════ -->
   <section class="journey-section">
@@ -2236,6 +2048,104 @@
           <div>
             <div class="contact-modal-name">주봉은</div>
             <span class="contact-modal-relation">신부 어머니</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       GIFT ACCOUNT MODAL
+  ═══════════════════════════════════════════════════════ -->
+  <div id="giftAccountModal" class="contact-modal" onclick="closeGiftAccountModalByBackdrop(event)">
+    <div class="contact-modal-card" role="dialog" aria-modal="true" aria-labelledby="giftAccountModalTitle">
+      <button
+        type="button"
+        class="contact-modal-close"
+        onclick="closeGiftAccountModal()"
+        aria-label="닫기"
+      >
+        &times;
+      </button>
+
+      <h3 id="giftAccountModalTitle" class="contact-modal-title">마음 전하실 곳</h3>
+
+      <div class="contact-modal-group">
+        <div class="contact-modal-group-title">신랑측</div>
+
+        <div class="gift-modal-item">
+          <div class="gift-modal-person">
+            <strong>김주성</strong>
+            <span>신랑</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">국민은행</span>
+            <span class="gift-modal-number">123456-00-000000</span>
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
+          </div>
+        </div>
+
+        <div class="gift-modal-item">
+          <div class="gift-modal-person">
+            <strong>김한섭</strong>
+            <span>신랑 아버지</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">국민은행</span>
+            <span class="gift-modal-number">123456-00-000000</span>
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
+          </div>
+        </div>
+
+        <div class="gift-modal-item">
+          <div class="gift-modal-person">
+            <strong>박희숙</strong>
+            <span>신랑 어머니</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">국민은행</span>
+            <span class="gift-modal-number">123456-00-000000</span>
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-modal-group">
+        <div class="contact-modal-group-title">신부측</div>
+
+        <div class="gift-modal-item">
+          <div class="gift-modal-person">
+            <strong>조다빈</strong>
+            <span>신부</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">국민은행</span>
+            <span class="gift-modal-number">123456-00-000000</span>
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
+          </div>
+        </div>
+
+        <div class="gift-modal-item">
+          <div class="gift-modal-person">
+            <strong>조진형</strong>
+            <span>신부 아버지</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">국민은행</span>
+            <span class="gift-modal-number">123456-00-000000</span>
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
+          </div>
+        </div>
+
+        <div class="gift-modal-item">
+          <div class="gift-modal-person">
+            <strong>주봉은</strong>
+            <span>신부 어머니</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">국민은행</span>
+            <span class="gift-modal-number">123456-00-000000</span>
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
           </div>
         </div>
       </div>
@@ -2433,35 +2343,47 @@
       }
     }
 
-    function toggleGiftAccount(button) {
-      const accordion = button.closest('.gift-account-accordion');
-      if (!accordion) return;
+    function openGiftAccountModal() {
+      const modal = document.getElementById('giftAccountModal');
+      if (!modal) return;
 
-      const side = button.dataset.side;
-      const panel = accordion.querySelector(`.gift-account-panel--${side}`);
-      const toggles = accordion.querySelectorAll('.gift-account-toggle');
-      const panels = accordion.querySelectorAll('.gift-account-panel');
-      const willOpen = !button.classList.contains('is-active');
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
 
-      toggles.forEach((toggle) => {
-        toggle.classList.remove('is-active');
-        toggle.setAttribute('aria-expanded', 'false');
+      requestAnimationFrame(() => {
+        gsap.to(modal, {
+          opacity: 1,
+          duration: 0.25,
+          ease: 'power2.out'
+        });
       });
+    }
 
-      panels.forEach((item) => {
-        item.classList.remove('is-open');
+    function closeGiftAccountModal() {
+      const modal = document.getElementById('giftAccountModal');
+      if (!modal || !modal.classList.contains('is-open')) return;
+
+      gsap.to(modal, {
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power2.in',
+        onComplete: () => {
+          modal.classList.remove('is-open');
+          document.body.style.overflow = 'auto';
+        }
       });
+    }
 
-      if (willOpen && panel) {
-        button.classList.add('is-active');
-        button.setAttribute('aria-expanded', 'true');
-        panel.classList.add('is-open');
+    function closeGiftAccountModalByBackdrop(event) {
+      if (event.target.id === 'giftAccountModal') {
+        closeGiftAccountModal();
       }
     }
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         closeContactModal();
+        closeGiftAccountModal();
       }
     });
 
@@ -2474,6 +2396,10 @@
       }).catch(() => {
         alert('복사에 실패했습니다.');
       });
+    }
+
+    function copyGiftAccount(bank, number) {
+      copyToClipboard(`${bank} ${number}`);
     }
 
     function copyAddress() {
