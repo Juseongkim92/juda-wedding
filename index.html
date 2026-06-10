@@ -190,7 +190,7 @@
 
     .hero-names {
       position: absolute;
-      top: 0;
+      top: 40px;
       left: 0;
       right: 0;
       z-index: 2;
@@ -2514,7 +2514,7 @@
       places.keywordSearch(WEDDING_VENUE.name, (data, status) => {
         if (status === kakao.maps.services.Status.OK && data.length) {
           const place = data.find((p) => p.id === WEDDING_VENUE.kakaoPlaceId) || data[0];
-          renderKakaoMap(place.y, place.x, place.place_name);
+          renderKakaoMap(place.y, place.x, WEDDING_VENUE.name);
           return;
         }
 
