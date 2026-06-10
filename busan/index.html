@@ -625,18 +625,10 @@
       transform: scale(0.98);
     }
 
-    .intro-action-buttons {
+    .section-action {
       display: flex;
       justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .intro-action-buttons .contact-open-btn {
-      margin-top: 0;
-      min-width: 132px;
+      margin-top: 8px;
     }
 
     /* ════════════════════════════════════
@@ -1552,7 +1544,7 @@
         </div>
       </div>
 
-      <!-- 양가 소개 및 마음 전하기 -->
+      <!-- 양가 소개 및 연락처 안내 -->
       <div class="family-intro">
         <div class="family-line">
           <span class="family-parents">김한섭 · 박희숙</span>
@@ -1566,14 +1558,9 @@
           <strong class="family-name">다빈</strong>
         </div>
 
-        <div class="intro-action-buttons">
-          <button type="button" class="contact-open-btn" onclick="openContactModal()">
-            마음 전하기
-          </button>
-          <button type="button" class="contact-open-btn" onclick="openGiftAccountModal()">
-            마음 전하실 곳
-          </button>
-        </div>
+        <button type="button" class="contact-open-btn" onclick="openContactModal()">
+          연락처 안내
+        </button>
       </div>
     </div>
   </section>
@@ -1942,6 +1929,20 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
+       ACCOUNT INFO
+  ═══════════════════════════════════════════════════════ -->
+  <section>
+    <div class="container">
+      <h2>마음 전하실 곳</h2>
+      <div class="section-action">
+        <button type="button" class="contact-open-btn" onclick="openGiftAccountModal()">
+          마음 전하실 곳
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
        JOURNEY & THANKS
   ═══════════════════════════════════════════════════════ -->
   <section class="journey-section">
@@ -1999,8 +2000,7 @@
         &times;
       </button>
 
-      <h3 id="contactModalTitle" class="contact-modal-title">마음 전하기</h3>
-      <p class="contact-modal-note">연락처는 초대 문자를 참고해 주세요.</p>
+      <h3 id="contactModalTitle" class="contact-modal-title">연락처 안내</h3>
 
       <div class="contact-modal-group">
         <div class="contact-modal-group-title">신랑측</div>
