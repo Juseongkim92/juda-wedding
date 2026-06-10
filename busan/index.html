@@ -874,27 +874,35 @@
 
     .address-box {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 14px;
       background: var(--primary-light);
-      padding: 15px;
+      padding: 16px 15px;
       border-radius: 8px;
       margin-bottom: 20px;
     }
 
     .address-text {
       font-size: 15px;
-      line-height: 1.55;
-      flex: 1;
+      line-height: 1.65;
+      width: 100%;
       color: var(--text);
+      text-align: center;
+      word-break: keep-all;
+    }
+
+    .address-text .address-line {
+      display: block;
     }
 
     .address-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 10px;
       flex-shrink: 0;
+      padding-top: 2px;
     }
 
     .copy-address-btn,
@@ -1493,9 +1501,8 @@
       <div class="location-card">
         <div class="address-box">
           <div class="address-text">
-            호텔 인터불고 대구<br>
-            웨딩인터빌리지<br>
-            <!-- 대구광역시 수성구 팔현길 212 -->
+            <span class="address-line">호텔 인터불고 대구</span>
+            <span class="address-line">웨딩인터빌리지</span>
           </div>
           <div class="address-actions">
             <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
