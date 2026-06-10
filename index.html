@@ -44,8 +44,7 @@
     }
 
     html {
-      scroll-snap-type: y proximity;
-      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
     }
 
     html, body {
@@ -162,12 +161,23 @@
     section {
       position: relative;
       z-index: 1;
+      min-height: 100svh;
+      min-height: 100dvh;
       padding: 60px 20px;
       border-bottom: 1px solid var(--border);
       background: transparent;
       opacity: 0; /* For GSAP */
-      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: max(40px, 10dvh);
+      box-sizing: border-box;
+      scroll-snap-align: start;
       scroll-snap-stop: always;
+    }
+
+    section > .container {
+      width: 100%;
     }
 
     section:last-of-type {
@@ -186,8 +196,10 @@
     ════════════════════════════════════ */
     .hero-section {
       position: relative;
+      min-height: auto !important;
       padding: 0 !important;
       border-bottom: none !important;
+      display: block !important;
       scroll-snap-align: start;
       opacity: 1 !important;
       overflow: hidden;
@@ -2215,6 +2227,43 @@
     // ════════════════════════════════════
     // GSAP ANIMATIONS
     // ════════════════════════════════════
+    let sectionSnapTrigger = null;
+
+    function initSectionSnap() {
+      const sections = gsap.utils.toArray('section');
+      if (!sections.length) return;
+
+      if (sectionSnapTrigger) {
+        sectionSnapTrigger.kill();
+        sectionSnapTrigger = null;
+      }
+
+      sectionSnapTrigger = ScrollTrigger.create({
+        snap: {
+          snapTo: (progress, self) => {
+            const scrollPos = self.scroll();
+            const maxScroll = ScrollTrigger.maxScroll(window) || 1;
+            let nearestTop = sections[0].offsetTop;
+            let minDistance = Math.abs(scrollPos - nearestTop);
+
+            sections.forEach((section) => {
+              const top = section.offsetTop;
+              const distance = Math.abs(scrollPos - top);
+              if (distance < minDistance) {
+                minDistance = distance;
+                nearestTop = top;
+              }
+            });
+
+            return nearestTop / maxScroll;
+          },
+          duration: { min: 0.35, max: 0.65 },
+          delay: 0.06,
+          ease: 'power2.inOut'
+        }
+      });
+    }
+
     function initAnimations() {
       gsap.registerPlugin(ScrollTrigger);
 
@@ -2222,18 +2271,24 @@
         if (index === 0) return; // Skip hero image section
         if (section.classList.contains('map-section')) return;
 
-        gsap.to(section, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
+        gsap.fromTo(section,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.85,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 72%',
+              toggleActions: 'play none none reverse'
+            }
           }
-        });
+        );
       });
+
+      initSectionSnap();
+      ScrollTrigger.addEventListener('refreshInit', initSectionSnap);
     }
 
     // ════════════════════════════════════
