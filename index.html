@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>주성 & 다빈 결혼합니다</title>
-  <meta property="og:title" content="주성 & 다빈 결혼합니다" />
+  <title>김주성 · 조다빈 결혼합니다</title>
+  <meta property="og:title" content="김주성 · 조다빈 결혼합니다" />
   <meta property="og:description" content="2026년 8월 22일 토요일 · 호텔 인터불고 대구 웨딩인터빌리지" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/main2.jpg" />
@@ -154,6 +154,19 @@
       padding: 0 20px;
     }
 
+    .section-note {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    h2 + .section-note {
+      margin-top: -10px;
+      margin-bottom: 22px;
+    }
+
     section {
       position: relative;
       z-index: 1;
@@ -162,7 +175,7 @@
       padding: 60px 20px;
       border-bottom: 1px solid var(--border);
       background: transparent;
-      opacity: 0; /* For GSAP */
+      opacity: 1;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -236,6 +249,14 @@
       object-position: center center;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .gallery-item img,
+    .lightbox-image {
+      -webkit-user-drag: none;
+      user-select: none;
     }
 
     .greeting-block-section {
@@ -636,14 +657,34 @@
     }
 
     .contact-modal-title {
-      margin-bottom: 22px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 10px;
       color: var(--primary);
       font-family: var(--font-display);
       font-size: 21px;
       font-weight: 600;
       text-align: center;
+    }
+
+    .contact-modal-note {
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--text-light);
+    }
+
+    .contact-pending-note {
+      font-size: 12px;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    .gift-account-pending {
+      color: var(--text-light);
+      font-size: 12px;
+      line-height: 1.5;
     }
 
     .contact-modal-close {
@@ -1122,6 +1163,11 @@
       background: #1f3a52;
     }
 
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .message-list {
       display: flex;
       flex-direction: column;
@@ -1544,7 +1590,16 @@
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
-    <img src="images/main2.jpg" alt="주성 & 다빈" class="hero-image" id="heroImage" title="화면을 터치하면 음악이 재생됩니다">
+    <img
+      src="images/main2.jpg"
+      alt="김주성 · 조다빈"
+      class="hero-image"
+      id="heroImage"
+      title="화면을 터치하면 음악이 재생됩니다"
+      loading="eager"
+      fetchpriority="high"
+      draggable="false"
+    >
     <p class="hero-names">김주성 <span class="hero-name-bullet" aria-hidden="true">·</span> 조다빈</p>
   </section>
 
@@ -1636,16 +1691,13 @@
       <button type="button" id="galleryExpandBtn" class="gallery-expand-btn" onclick="toggleGallery()" hidden>
         사진 더 보기
       </button>
-
-      <p style="text-align: center; font-size: 13px; color: var(--text-light); margin-top: 16px;">
-      </p>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
        DIRECTIONS & MAP
   ═══════════════════════════════════════════════════════ -->
-  <section class="map-section" style="opacity: 1;">
+  <section class="map-section">
     <div class="container">
       <h2>오시는 길</h2>
 
@@ -1913,8 +1965,11 @@
   <section>
     <div class="container">
       <h2>축하 메시지</h2>
-      <p style="text-align: center; margin-bottom: 24px; color: var(--text-light); font-size: 14px;">
+      <p style="text-align: center; margin-bottom: 8px; color: var(--text-light); font-size: 14px;">
         축하의 한마디를 남겨주세요
+      </p>
+      <p class="section-note" style="margin-top: 0; margin-bottom: 24px;">
+        비밀번호를 설정하면 본인만 메시지를 삭제할 수 있습니다.
       </p>
 
       <div class="guestbook-form">
@@ -1960,6 +2015,7 @@
   <section>
     <div class="container">
       <h2>마음 전하실 곳</h2>
+      <p class="section-note">계좌번호는 초대 문자를 참고해 주세요.</p>
 
       <div class="gift-account-accordion">
         <button
@@ -2005,35 +2061,29 @@
                 <span>신랑</span>
               </div>
               <div class="gift-account-detail">
-                <span class="gift-account-bank">국민은행</span>
-                <span class="gift-account-number">123456-00-000000</span>
-                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
+                <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
               </div>
             </div>
 
-            <div class="gift-account-item">
-              <div class="gift-account-person">
-                <strong>김한섭</strong>
-                <span>신랑 아버지</span>
+              <div class="gift-account-item">
+                <div class="gift-account-person">
+                  <strong>김한섭</strong>
+                  <span>신랑 아버지</span>
+                </div>
+                <div class="gift-account-detail">
+                  <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
+                </div>
               </div>
-              <div class="gift-account-detail">
-                <span class="gift-account-bank">국민은행</span>
-                <span class="gift-account-number">123456-00-000000</span>
-                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-              </div>
-            </div>
 
-            <div class="gift-account-item">
-              <div class="gift-account-person">
-                <strong>박희숙</strong>
-                <span>신랑 어머니</span>
+              <div class="gift-account-item">
+                <div class="gift-account-person">
+                  <strong>박희숙</strong>
+                  <span>신랑 어머니</span>
+                </div>
+                <div class="gift-account-detail">
+                  <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
+                </div>
               </div>
-              <div class="gift-account-detail">
-                <span class="gift-account-bank">국민은행</span>
-                <span class="gift-account-number">123456-00-000000</span>
-                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -2050,35 +2100,29 @@
                 <span>신부</span>
               </div>
               <div class="gift-account-detail">
-                <span class="gift-account-bank">국민은행</span>
-                <span class="gift-account-number">123456-00-000000</span>
-                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
+                <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
               </div>
             </div>
 
-            <div class="gift-account-item">
-              <div class="gift-account-person">
-                <strong>조진형</strong>
-                <span>신부 아버지</span>
+              <div class="gift-account-item">
+                <div class="gift-account-person">
+                  <strong>조진형</strong>
+                  <span>신부 아버지</span>
+                </div>
+                <div class="gift-account-detail">
+                  <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
+                </div>
               </div>
-              <div class="gift-account-detail">
-                <span class="gift-account-bank">국민은행</span>
-                <span class="gift-account-number">123456-00-000000</span>
-                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-              </div>
-            </div>
 
-            <div class="gift-account-item">
-              <div class="gift-account-person">
-                <strong>주봉은</strong>
-                <span>신부 어머니</span>
+              <div class="gift-account-item">
+                <div class="gift-account-person">
+                  <strong>주봉은</strong>
+                  <span>신부 어머니</span>
+                </div>
+                <div class="gift-account-detail">
+                  <span class="gift-account-pending">초대 문자를 참고해 주세요</span>
+                </div>
               </div>
-              <div class="gift-account-detail">
-                <span class="gift-account-bank">국민은행</span>
-                <span class="gift-account-number">123456-00-000000</span>
-                <button type="button" class="gift-account-copy" onclick="copyToClipboard('국민은행 123456-00-000000')">복사</button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -2094,9 +2138,9 @@
 
       <div class="thanks-card journey-card">
         <div class="video-player">
-          <video controls playsinline poster="images/cover.JPG">
+          <video controls playsinline preload="metadata" poster="images/cover.JPG">
             <source src="media/udo_video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
+            브라우저가 동영상 재생을 지원하지 않습니다.
           </video>
         </div>
 
@@ -2138,12 +2182,13 @@
         type="button"
         class="contact-modal-close"
         onclick="closeContactModal()"
-        aria-label="연락처 닫기"
+        aria-label="닫기"
       >
         &times;
       </button>
 
-      <h3 id="contactModalTitle" class="contact-modal-title">축하인사하기</h3>
+      <h3 id="contactModalTitle" class="contact-modal-title">마음 전하기</h3>
+      <p class="contact-modal-note">연락처는 초대 문자를 참고해 주세요.</p>
 
       <div class="contact-modal-group">
         <div class="contact-modal-group-title">신랑측</div>
@@ -2153,10 +2198,6 @@
             <div class="contact-modal-name">김주성</div>
             <span class="contact-modal-relation">신랑</span>
           </div>
-          <div class="contact-modal-actions">
-            <a class="contact-action-btn" href="tel:01012345678">전화</a>
-            <a class="contact-action-btn" href="sms:01012345678">문자</a>
-          </div>
         </div>
 
         <div class="contact-modal-person">
@@ -2164,20 +2205,12 @@
             <div class="contact-modal-name">김한섭</div>
             <span class="contact-modal-relation">신랑 아버지</span>
           </div>
-          <div class="contact-modal-actions">
-            <a class="contact-action-btn" href="tel:01000000000">전화</a>
-            <a class="contact-action-btn" href="sms:01000000000">문자</a>
-          </div>
         </div>
 
         <div class="contact-modal-person">
           <div>
             <div class="contact-modal-name">박희숙</div>
             <span class="contact-modal-relation">신랑 어머니</span>
-          </div>
-          <div class="contact-modal-actions">
-            <a class="contact-action-btn" href="tel:01000000000">전화</a>
-            <a class="contact-action-btn" href="sms:01000000000">문자</a>
           </div>
         </div>
       </div>
@@ -2190,10 +2223,6 @@
             <div class="contact-modal-name">조다빈</div>
             <span class="contact-modal-relation">신부</span>
           </div>
-          <div class="contact-modal-actions">
-            <a class="contact-action-btn" href="tel:01012345678">전화</a>
-            <a class="contact-action-btn" href="sms:01012345678">문자</a>
-          </div>
         </div>
 
         <div class="contact-modal-person">
@@ -2201,20 +2230,12 @@
             <div class="contact-modal-name">조진형</div>
             <span class="contact-modal-relation">신부 아버지</span>
           </div>
-          <div class="contact-modal-actions">
-            <a class="contact-action-btn" href="tel:01000000000">전화</a>
-            <a class="contact-action-btn" href="sms:01000000000">문자</a>
-          </div>
         </div>
 
         <div class="contact-modal-person">
           <div>
             <div class="contact-modal-name">주봉은</div>
             <span class="contact-modal-relation">신부 어머니</span>
-          </div>
-          <div class="contact-modal-actions">
-            <a class="contact-action-btn" href="tel:01000000000">전화</a>
-            <a class="contact-action-btn" href="sms:01000000000">문자</a>
           </div>
         </div>
       </div>
@@ -2238,28 +2259,34 @@
     // GSAP ANIMATIONS
     // ════════════════════════════════════
     function initAnimations() {
+      const sections = gsap.utils.toArray('section').filter(
+        (section) => !section.classList.contains('hero-section')
+      );
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.set(sections, { opacity: 1, y: 0 });
+        return;
+      }
+
       gsap.registerPlugin(ScrollTrigger);
 
-      gsap.utils.toArray('section').forEach((section, index) => {
-        if (index === 0) return; // Skip hero image section
-        if (section.classList.contains('map-section')) return;
-
-        gsap.fromTo(section,
-          { opacity: 0, y: 28 },
+      sections.forEach((section) => {
+        gsap.fromTo(
+          section,
+          { opacity: 0, y: 16 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.85,
+            duration: 0.7,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: section,
-              start: 'top 72%',
-              toggleActions: 'play none none reverse'
+              start: 'top 88%',
+              once: true
             }
           }
         );
       });
-
     }
 
     // ════════════════════════════════════
@@ -2307,7 +2334,7 @@
         const item = document.createElement('div');
         item.className = 'gallery-item' + (index >= GALLERY_PREVIEW_COUNT ? ' is-collapsed' : '');
         item.onclick = () => openLightbox(index);
-        item.innerHTML = `<img src="${src}" alt="사진 ${index + 1}" loading="lazy">`;
+        item.innerHTML = `<img src="${src}" alt="사진 ${index + 1}" loading="lazy" draggable="false">`;
         gallery.appendChild(item);
       });
       updateGalleryToggleBtn(false);
@@ -2733,7 +2760,6 @@
     } from
       'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
 
-    // Firebase 콘솔에서 복사한 설정 값으로 교체
     const firebaseConfig = {
       apiKey: "AIzaSyC3cpH1pHx9W-rq0PMCHVxJE42-o4F9S0Q",
       authDomain: "juda-wedding.firebaseapp.com",
