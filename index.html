@@ -631,6 +631,41 @@
       margin-top: 8px;
     }
 
+    .gift-side-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .gift-side-btn {
+      margin-top: 0;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .gift-side-btn--groom {
+      border-color: rgba(82, 98, 73, 0.4);
+      color: #526249;
+      background: rgba(220, 227, 213, 0.28);
+    }
+
+    .gift-side-btn--groom:hover {
+      border-color: #526249;
+      color: #3f4d3a;
+    }
+
+    .gift-side-btn--bride {
+      border-color: rgba(136, 106, 67, 0.4);
+      color: #886a43;
+      background: rgba(238, 228, 216, 0.32);
+    }
+
+    .gift-side-btn--bride:hover {
+      border-color: #886a43;
+      color: #6f542f;
+    }
+
     /* ════════════════════════════════════
        CONTACT MODAL
     ════════════════════════════════════ */
@@ -1934,9 +1969,20 @@
   <section>
     <div class="container">
       <h2>마음 전하실 곳</h2>
-      <div class="section-action">
-        <button type="button" class="contact-open-btn" onclick="openGiftAccountModal()">
-          마음 전하실 곳
+      <div class="gift-side-actions">
+        <button
+          type="button"
+          class="contact-open-btn gift-side-btn gift-side-btn--groom"
+          onclick="openGiftAccountModal('groom')"
+        >
+          신랑측
+        </button>
+        <button
+          type="button"
+          class="contact-open-btn gift-side-btn gift-side-btn--bride"
+          onclick="openGiftAccountModal('bride')"
+        >
+          신부측
         </button>
       </div>
     </div>
@@ -2068,10 +2114,9 @@
         &times;
       </button>
 
-      <h3 id="giftAccountModalTitle" class="contact-modal-title">마음 전하실 곳</h3>
+      <h3 id="giftAccountModalTitle" class="contact-modal-title">신랑측</h3>
 
-      <div class="contact-modal-group">
-        <div class="contact-modal-group-title">신랑측</div>
+      <div id="giftModalGroom" class="contact-modal-group">
 
         <div class="gift-modal-item">
           <div class="gift-modal-person">
@@ -2110,9 +2155,7 @@
         </div>
       </div>
 
-      <div class="contact-modal-group">
-        <div class="contact-modal-group-title">신부측</div>
-
+      <div id="giftModalBride" class="contact-modal-group" hidden>
         <div class="gift-modal-item">
           <div class="gift-modal-person">
             <strong>조다빈</strong>
@@ -2343,9 +2386,17 @@
       }
     }
 
-    function openGiftAccountModal() {
+    function openGiftAccountModal(side) {
       const modal = document.getElementById('giftAccountModal');
-      if (!modal) return;
+      const title = document.getElementById('giftAccountModalTitle');
+      const groomPanel = document.getElementById('giftModalGroom');
+      const bridePanel = document.getElementById('giftModalBride');
+      if (!modal || !title || !groomPanel || !bridePanel) return;
+
+      const isBride = side === 'bride';
+      title.textContent = isBride ? '신부측' : '신랑측';
+      groomPanel.hidden = isBride;
+      bridePanel.hidden = !isBride;
 
       modal.classList.add('is-open');
       document.body.style.overflow = 'hidden';
