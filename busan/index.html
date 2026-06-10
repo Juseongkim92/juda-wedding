@@ -2869,8 +2869,21 @@
         if (!confirm('이 메시지를 삭제할까요?')) return;
 
         await deleteDoc(doc(db, 'guestbook', docId));
+        alert('메시지가 삭제되었습니다.');
       } catch (error) {
         console.error('Guestbook delete failed:', error);
+
+        const isPermissionDenied =
+          error?.code === 'permission-denied' ||
+          String(error?.message || '').toLowerCase().includes('permission');
+
+        if (isPermissionDenied) {
+          alert(
+            '삭제 권한이 없습니다.\nFirebase 콘솔 → Firestore → 규칙에서 guestbook 삭제(allow delete)를 허용해 주세요.'
+          );
+          return;
+        }
+
         alert('메시지를 삭제하지 못했습니다. 잠시 후 다시 시도해주세요.');
       }
     }

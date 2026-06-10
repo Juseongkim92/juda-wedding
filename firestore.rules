@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /guestbook/{docId} {
+      allow read: if true;
+
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.name.size() > 0
+                    && request.resource.data.name.size() <= 20
+                    && request.resource.data.message is string
+                    && request.resource.data.message.size() > 0
+                    && request.resource.data.message.size() <= 300
+                    && (
+                      !('deletePassword' in request.resource.data)
+                      || (
+                        request.resource.data.deletePassword is string
+                        && request.resource.data.deletePassword.size() > 0
+                        && request.resource.data.deletePassword.size() <= 20
+                      )
+                    );
+
+      // 비밀번호 검증은 클라이언트에서 수행합니다.
+      allow delete: if true;
+    }
+  }
+}
