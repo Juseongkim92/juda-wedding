@@ -1945,6 +1945,16 @@
             placeholder="따뜻한 한마디를 남겨주세요"
           ></textarea>
         </div>
+        <div class="form-group">
+          <label>비밀번호 (선택)</label>
+          <input
+            type="password"
+            id="guestPassword"
+            maxlength="20"
+            placeholder="삭제할 때 필요합니다"
+            autocomplete="new-password"
+          >
+        </div>
         <button class="submit-btn" onclick="addMessage()">메시지 남기기</button>
       </div>
 
@@ -2737,6 +2747,7 @@
       collection,
       addDoc,
       deleteDoc,
+      getDoc,
       doc,
       query,
       orderBy,
@@ -2799,7 +2810,6 @@
         const data = doc.data();
         const safeName = escapeHtml(data.name);
         const safeMessage = escapeHtml(data.message).replace(/\n/g, '<br>');
-
         return `
           <div class="message-card">
             <div class="message-header">
@@ -2823,18 +2833,39 @@
       }).join('');
     }
 
-    async function deleteGuestMessage(docId) {
-      const password = prompt('삭제 비밀번호를 입력해주세요.');
-      if (!password) return;
+    function isDeletePasswordValid(inputPassword, storedPassword) {
+      const entered = String(inputPassword ?? '').trim();
+      if (!entered) return false;
 
-      if (password !== GUESTBOOK_DELETE_PASSWORD) {
-        alert('비밀번호가 일치하지 않습니다.');
-        return;
+      if (storedPassword && entered === String(storedPassword).trim()) {
+        return true;
       }
 
-      if (!confirm('이 메시지를 삭제할까요?')) return;
+      return entered === GUESTBOOK_DELETE_PASSWORD;
+    }
+
+    async function deleteGuestMessage(docId) {
+      const password = prompt(
+        '비밀번호를 입력해주세요.\n(등록 시 설정한 비밀번호 또는 관리자 비밀번호)'
+      );
+      if (password === null) return;
 
       try {
+        const docSnap = await getDoc(doc(db, 'guestbook', docId));
+        if (!docSnap.exists()) {
+          alert('메시지를 찾을 수 없습니다.');
+          return;
+        }
+
+        const storedPassword = docSnap.data().deletePassword || '';
+
+        if (!isDeletePasswordValid(password, storedPassword)) {
+          alert('비밀번호가 일치하지 않습니다.');
+          return;
+        }
+
+        if (!confirm('이 메시지를 삭제할까요?')) return;
+
         await deleteDoc(doc(db, 'guestbook', docId));
       } catch (error) {
         console.error('Guestbook delete failed:', error);
@@ -2854,12 +2885,14 @@
     window.addMessage = async function addMessage() {
       const nameInput = document.getElementById('guestName');
       const messageInput = document.getElementById('guestMessage');
+      const passwordInput = document.getElementById('guestPassword');
       const submitButton = document.querySelector(
         '.guestbook-form .submit-btn'
       );
 
       const name = nameInput.value.trim();
       const message = messageInput.value.trim();
+      const deletePassword = passwordInput.value.trim();
 
       if (!name || !message) {
         alert('이름과 메시지를 모두 입력해주세요.');
@@ -2882,14 +2915,21 @@
       }
 
       try {
-        await addDoc(guestbookRef, {
+        const payload = {
           name,
           message,
           createdAt: serverTimestamp()
-        });
+        };
+
+        if (deletePassword) {
+          payload.deletePassword = deletePassword;
+        }
+
+        await addDoc(guestbookRef, payload);
 
         nameInput.value = '';
         messageInput.value = '';
+        passwordInput.value = '';
 
         alert('메시지가 등록되었습니다.');
       } catch (error) {
