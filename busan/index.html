@@ -900,7 +900,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 8px 10px;
       flex-shrink: 0;
       padding-top: 2px;
     }
@@ -1501,8 +1502,8 @@
       <div class="location-card">
         <div class="address-box">
           <div class="address-text">
-            <span class="address-line">호텔 인터불고 대구</span>
-            <span class="address-line">웨딩인터빌리지</span>
+            <span class="address-line">호텔 인터불고 대구 웨딩인터빌리지</span>
+            <span class="address-line">대구 수성구 팔현길 212</span>
           </div>
           <div class="address-actions">
             <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
@@ -1513,6 +1514,12 @@
             </button>
             <button type="button" class="map-btn" onclick="openNavi('kakao')" title="카카오맵">
               <img src="../images/icons/kakaomap.png" alt="카카오맵" />
+            </button>
+            <button type="button" class="map-btn" onclick="openNavi('tmap')" title="T map">
+              <img src="../images/icons/tmap.png" alt="T map" />
+            </button>
+            <button type="button" class="map-btn" onclick="openNavi('google')" title="Google Maps">
+              <img src="../images/icons/googlemap.png" alt="Google Maps" />
             </button>
           </div>
         </div>
@@ -2116,9 +2123,11 @@
 
     const WEDDING_VENUE = {
       name: '호텔 인터불고 대구 웨딩인터빌리지',
-      address: '대구광역시 수성구 팔현길 212',
+      address: '대구 수성구 팔현길 212',
       kakaoPlaceId: '1126984414',
       kakaoLink: 'https://kko.to/GSeoSIRki3',
+      tmapLink: 'https://tmap.life/b9a2b9e9',
+      googleLink: 'https://www.google.com/maps?q=%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C+%EC%88%98%EC%84%B1%EA%B5%AC+%EB%A7%8C%EC%B4%8C%EB%8F%99+300+%ED%98%B8%ED%85%94+%EC%9D%B8%ED%84%B0%EB%B6%88%EA%B3%A0+%EC%9B%A8%EB%94%A9%ED%99%80&ftid=0x35660a0cf3db26d5:0x7d951b0ead6a1746&entry=gps',
       fallbackLat: 35.8939,
       fallbackLng: 128.6149
     };
@@ -2137,7 +2146,9 @@
       } else if (type === 'kakao') {
         window.open(WEDDING_VENUE.kakaoLink, '_blank');
       } else if (type === 'tmap') {
-        window.open('https://surl.tmap.co.kr/70830491', '_blank');
+        window.open(WEDDING_VENUE.tmapLink, '_blank');
+      } else if (type === 'google') {
+        window.open(WEDDING_VENUE.googleLink, '_blank');
       }
     }
 
