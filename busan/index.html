@@ -1345,8 +1345,13 @@
     /* ════════════════════════════════════
        THANKS MESSAGE
     ════════════════════════════════════ */
-    .journey-section .thanks-card {
-      margin-top: 32px;
+    .journey-card .video-player {
+      margin-bottom: 28px;
+    }
+
+    .journey-card .thanks-message {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
     }
 
     .thanks-card {
@@ -2065,14 +2070,14 @@
     <div class="container">
       <h2>우리의 여정</h2>
 
-      <div class="video-player">
-        <video controls playsinline poster="../images/gallery/img1.jpg">
-          <source src="../media/udo_video.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
+      <div class="thanks-card journey-card">
+        <div class="video-player">
+          <video controls playsinline poster="../images/gallery/img1.jpg">
+            <source src="../media/udo_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
 
-      <div class="thanks-card">
         <p class="thanks-message">
           저희의 오늘이 있기까지<br>
           늘 따뜻한 사랑과 응원으로<br>
