@@ -202,11 +202,11 @@
 
     .hero-names {
       position: absolute;
-      top: 40px;
+      top: 64px;
       left: 0;
       right: 0;
       z-index: 2;
-      padding: calc(env(safe-area-inset-top, 0px) + 32px) 20px 0;
+      padding: calc(env(safe-area-inset-top, 0px) + 48px) 20px 0;
       text-align: center;
       font-family: var(--font-hero);
       font-size: clamp(38px, 10.5vw, 50px);
@@ -218,6 +218,11 @@
         0 1px 6px rgba(26, 35, 50, 0.35);
       pointer-events: none;
       line-height: 1.3;
+    }
+
+    .hero-name-bullet {
+      font-weight: 400;
+      opacity: 0.92;
     }
 
     .hero-image {
@@ -1540,7 +1545,7 @@
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
     <img src="images/main2.jpg" alt="주성 & 다빈" class="hero-image" id="heroImage" title="화면을 터치하면 음악이 재생됩니다">
-    <p class="hero-names">김주성 &amp; 조다빈</p>
+    <p class="hero-names">김주성 <span class="hero-name-bullet" aria-hidden="true">·</span> 조다빈</p>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
