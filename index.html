@@ -1636,19 +1636,22 @@
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
-    <img
-      src="images/main.jpg"
-      alt="조다빈 · 김주성"
-      class="hero-image"
-      id="heroImage"
-      title="화면을 터치하면 음악이 재생됩니다"
-      width="1485"
-      height="2475"
-      loading="eager"
-      fetchpriority="high"
-      decoding="sync"
-      draggable="false"
-    >
+    <picture>
+      <source srcset="images/main.webp" type="image/webp">
+      <img
+        src="images/main.jpg"
+        alt="조다빈 · 김주성"
+        class="hero-image"
+        id="heroImage"
+        title="화면을 터치하면 음악이 재생됩니다"
+        width="1485"
+        height="2475"
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+        draggable="false"
+      >
+    </picture>
     <p class="hero-names">조다빈 <span class="hero-name-bullet" aria-hidden="true">·</span> 김주성</p>
   </section>
 
