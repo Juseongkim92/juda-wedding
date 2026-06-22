@@ -29,7 +29,9 @@
       "Bash(tmux send-keys *)",
       "Bash(curl -s http://localhost:8888/busan/)",
       "Bash(python3 *)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(grep -E \"\\\\.\\(md|json|html\\)$\")",
+      "Bash(awk '{print $5, $9}')"
     ]
   }
 }
