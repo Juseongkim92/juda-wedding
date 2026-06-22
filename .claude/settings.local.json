@@ -21,7 +21,15 @@
       "Bash(cp /tmp/jeju_temp.html daegu/index.html)",
       "Bash(cp /tmp/daegu_temp.html jeju/index.html)",
       "Bash(sed -i 's/신랑측 혼주 김한섭 · 박희숙/신부측 혼주 조진형 · 주봉은/g' daegu/index.html)",
-      "WebFetch(domain:www.cordially.io)"
+      "WebFetch(domain:www.cordially.io)",
+      "Bash(python3 -m http.server 8888)",
+      "Bash(curl -s http://localhost:8888/busan/index.html)",
+      "Bash(pkill -f \"python3 -m http.server\")",
+      "Bash(tmux new-session *)",
+      "Bash(tmux send-keys *)",
+      "Bash(curl -s http://localhost:8888/busan/)",
+      "Bash(python3 *)",
+      "Bash(curl *)"
     ]
   }
 }

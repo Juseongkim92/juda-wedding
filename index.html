@@ -389,37 +389,41 @@
     }
 
     .calendar-header {
+      position: absolute;
+      top: 18%;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
-      margin-bottom: 10px; /* 08 August 뒤 이미지와 더 가깝게 */
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(26, 45, 66, 0.08);
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75),
+                   0 2px 10px rgba(0, 0, 0, 0.55);
+      pointer-events: none; /* 클릭 방해 안 하도록 */
     }
 
     .calendar-header-year {
       display: block;
       font-size: 11px;
       letter-spacing: 0.22em;
-      color: var(--text-light);
-      margin-bottom: 8px;
+      opacity: 0.9;
+      margin-bottom: 2px;
     }
 
     .calendar-header-month {
       display: block;
       font-family: var(--font-display);
-      font-size: 40px;
+      font-size: 36px;
       font-weight: 500;
       line-height: 1;
-      letter-spacing: 0.06em;
-      color: var(--primary);
+      letter-spacing: 0.04em;
     }
 
     .calendar-header-label {
       display: block;
-      margin-top: 8px;
+      margin-top: 2px;
       font-size: 10px;
       letter-spacing: 0.34em;
       text-transform: uppercase;
-      color: rgba(61, 79, 99, 0.72);
+      opacity: 0.85;
     }
 
     .calendar-weekdays {
@@ -486,18 +490,21 @@
       border-radius: 6px;
     }
 
-    /* 달력 안에 들어가는 이미지 (2026 08 August 바로 뒤) */
-    .calendar-image {
-      margin: 4px auto 10px;
-    }
-    .calendar-image img {
-      width: 100%;
-      max-width: 200px; /* 정사각형 이미지에 적합한 크기, 중앙 정렬 */
-      height: auto; /* 비율 유지 (정사각형 그대로 표시) */
+    /* 달력 헤더 배경 이미지 영역 (정사각형 이미지 대응) */
+    .calendar-header-image {
+      position: relative;
+      margin-bottom: 8px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .calendar-header-bg {
+      width: 100%;
+      height: 180px; /* 정사각형 이미지를 위해 높이 조정 (중앙 크롭) */
+      object-fit: cover;
+      object-position: center;
       display: block;
-      margin: 0 auto;
     }
 
     /* ════════════════════════════════════
@@ -1685,16 +1692,16 @@
           <button
             type="button"
             class="contact-open-btn"
-            onclick="openContactModal('groom')"
+            onclick="openContactModal('bride')"
           >
-            신랑측 연락처
+            신부측 연락처
           </button>
           <button
             type="button"
             class="contact-open-btn"
-            onclick="openContactModal('bride')"
+            onclick="openContactModal('groom')"
           >
-            신부측 연락처
+            신랑측 연락처
           </button>
         </div>
       </div>
@@ -1716,14 +1723,14 @@
 
       <div class="calendar-container">
         <div class="calendar">
-          <div class="calendar-header">
-            <span class="calendar-header-year">2026</span>
-            <span class="calendar-header-month">08</span>
-            <span class="calendar-header-label">August</span>
-          </div>
-          <!-- calendar.jpg : 08 August 아래 달력 안에 이미지 -->
-          <div class="calendar-image">
-            <img src="images/calendar.jpg" alt="예식 달력" loading="lazy">
+          <!-- 달력 헤더 영역에 이미지가 background로 들어감 (정사각형 이미지 대응) -->
+          <div class="calendar-header-image">
+            <img src="images/calendar.jpg" alt="예식 달력" class="calendar-header-bg" loading="lazy">
+            <div class="calendar-header">
+              <span class="calendar-header-year">2026</span>
+              <span class="calendar-header-month">08</span>
+              <span class="calendar-header-label">August</span>
+            </div>
           </div>
           <div class="calendar-weekdays">
             <div>일</div>
@@ -2081,17 +2088,17 @@
       <div class="gift-side-actions">
         <button
           type="button"
-          class="contact-open-btn gift-side-btn gift-side-btn--groom"
-          onclick="openGiftAccountModal('groom')"
-        >
-          신랑측
-        </button>
-        <button
-          type="button"
           class="contact-open-btn gift-side-btn gift-side-btn--bride"
           onclick="openGiftAccountModal('bride')"
         >
           신부측
+        </button>
+        <button
+          type="button"
+          class="contact-open-btn gift-side-btn gift-side-btn--groom"
+          onclick="openGiftAccountModal('groom')"
+        >
+          신랑측
         </button>
       </div>
     </div>
@@ -2155,32 +2162,32 @@
         &times;
       </button>
 
-      <h3 id="contactModalTitle" class="contact-modal-title">신랑측 연락처</h3>
+      <h3 id="contactModalTitle" class="contact-modal-title">신부측 연락처</h3>
 
-      <div id="contactModalGroom" class="contact-modal-group">
+      <div id="contactModalBride" class="contact-modal-group">
         <div class="contact-modal-person">
           <div>
-            <div class="contact-modal-name">김주성</div>
-            <span class="contact-modal-relation">신랑</span>
+            <div class="contact-modal-name">조다빈</div>
+            <span class="contact-modal-relation">신부</span>
           </div>
         </div>
 
         <div class="contact-modal-person">
           <div>
-            <div class="contact-modal-name">김한섭</div>
-            <span class="contact-modal-relation">신랑 아버지</span>
+            <div class="contact-modal-name">조진형</div>
+            <span class="contact-modal-relation">신부 아버지</span>
           </div>
         </div>
 
         <div class="contact-modal-person">
           <div>
-            <div class="contact-modal-name">박희숙</div>
-            <span class="contact-modal-relation">신랑 어머니</span>
+            <div class="contact-modal-name">주봉은</div>
+            <span class="contact-modal-relation">신부 어머니</span>
           </div>
         </div>
       </div>
 
-      <div id="contactModalBride" class="contact-modal-group" hidden>
+      <div id="contactModalGroom" class="contact-modal-group" hidden>
         <div class="contact-modal-person">
           <div>
             <div class="contact-modal-name">조다빈</div>
@@ -2219,14 +2226,14 @@
         &times;
       </button>
 
-      <h3 id="giftAccountModalTitle" class="contact-modal-title">신랑측</h3>
+      <h3 id="giftAccountModalTitle" class="contact-modal-title">신부측</h3>
 
-      <div id="giftModalGroom" class="contact-modal-group">
+      <div id="giftModalBride" class="contact-modal-group">
 
         <div class="gift-modal-item">
           <div class="gift-modal-person">
-            <strong>김주성</strong>
-            <span>신랑</span>
+            <strong>조다빈</strong>
+            <span>신부</span>
           </div>
           <div class="gift-modal-account">
             <span class="gift-modal-bank">국민은행</span>
@@ -2237,8 +2244,8 @@
 
         <div class="gift-modal-item">
           <div class="gift-modal-person">
-            <strong>김한섭</strong>
-            <span>신랑 아버지</span>
+            <strong>조진형</strong>
+            <span>신부 아버지</span>
           </div>
           <div class="gift-modal-account">
             <span class="gift-modal-bank">국민은행</span>
@@ -2249,8 +2256,8 @@
 
         <div class="gift-modal-item">
           <div class="gift-modal-person">
-            <strong>박희숙</strong>
-            <span>신랑 어머니</span>
+            <strong>주봉은</strong>
+            <span>신부 어머니</span>
           </div>
           <div class="gift-modal-account">
             <span class="gift-modal-bank">국민은행</span>
@@ -2260,7 +2267,7 @@
         </div>
       </div>
 
-      <div id="giftModalBride" class="contact-modal-group" hidden>
+      <div id="giftModalGroom" class="contact-modal-group" hidden>
         <div class="gift-modal-item">
           <div class="gift-modal-person">
             <strong>조다빈</strong>
@@ -2353,8 +2360,8 @@
     let currentImageIndex = 0;
     const GALLERY_PREVIEW_COUNT = 6;
     const GALLERY_IMAGES = [];
-    for (let i = 1; i <= 14; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpg`);
-    // 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img15.jpg');
+    for (let i = 1; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpg`);
+    // 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img23.jpg');
 
     function updateLightboxCounter() {
       const counter = document.getElementById('lightboxCounter');
