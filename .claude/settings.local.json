@@ -42,7 +42,8 @@
       "Bash(identify -)",
       "Bash(identify images/main-web.jpg)",
       "Bash(identify images/main-web.webp)",
-      "Bash(identify images/main.webp)"
+      "Bash(identify images/main.webp)",
+      "Bash(git ls-files *)"
     ]
   }
 }
