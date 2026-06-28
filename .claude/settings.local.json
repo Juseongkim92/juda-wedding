@@ -31,7 +31,18 @@
       "Bash(python3 *)",
       "Bash(curl *)",
       "Bash(grep -E \"\\\\.\\(md|json|html\\)$\")",
-      "Bash(awk '{print $5, $9}')"
+      "Bash(awk '{print $5, $9}')",
+      "Bash(gh api *)",
+      "Bash(identify images/main.jpg)",
+      "Bash(identify /tmp/main_original.jpg)",
+      "Bash(git show *)",
+      "Bash(convert /tmp/main_original.jpg -quality 85 -resize 800x -interlace Plane /tmp/main_new.jpg)",
+      "Bash(identify /tmp/main_new.jpg)",
+      "Bash(cp /tmp/main_new.jpg images/main.jpg)",
+      "Bash(identify -)",
+      "Bash(identify images/main-web.jpg)",
+      "Bash(identify images/main-web.webp)",
+      "Bash(identify images/main.webp)"
     ]
   }
 }
