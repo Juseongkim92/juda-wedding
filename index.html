@@ -2437,30 +2437,55 @@
     }
 
     let lightboxZoom = 1;
+    let lightboxTranslate = { x: 0, y: 0 };
     let touchStartDistance = 0;
+    let dragStart = { x: 0, y: 0 };
 
     function resetLightboxZoom() {
       lightboxZoom = 1;
+      lightboxTranslate = { x: 0, y: 0 };
       const img = document.getElementById('lightboxImage');
-      if (img) img.style.transform = 'scale(1)';
+      if (img) img.style.transform = 'scale(1) translate(0, 0)';
     }
 
-    function handleLightboxPinch(e) {
-      if (e.touches.length !== 2) return;
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const distance = Math.hypot(
-        touch1.clientX - touch2.clientX,
-        touch1.clientY - touch2.clientY
-      );
-
-      if (touchStartDistance > 0) {
-        const scale = distance / touchStartDistance;
-        lightboxZoom = Math.max(1, Math.min(3, lightboxZoom * scale));
-        const img = document.getElementById('lightboxImage');
-        if (img) img.style.transform = `scale(${lightboxZoom})`;
+    function updateLightboxTransform() {
+      const img = document.getElementById('lightboxImage');
+      if (img) {
+        img.style.transform = `scale(${lightboxZoom}) translate(${lightboxTranslate.x}px, ${lightboxTranslate.y}px)`;
       }
-      touchStartDistance = distance;
+    }
+
+    function handleLightboxTouch(e) {
+      const img = document.getElementById('lightboxImage');
+      if (!img) return;
+
+      if (e.touches.length === 2) {
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        const distance = Math.hypot(
+          touch1.clientX - touch2.clientX,
+          touch1.clientY - touch2.clientY
+        );
+
+        if (touchStartDistance > 0) {
+          const scale = distance / touchStartDistance;
+          lightboxZoom = Math.max(1, Math.min(3, lightboxZoom * scale));
+          updateLightboxTransform();
+        }
+        touchStartDistance = distance;
+      } else if (e.touches.length === 1 && lightboxZoom > 1) {
+        const touch = e.touches[0];
+        if (dragStart.x === 0 && dragStart.y === 0) {
+          dragStart = { x: touch.clientX, y: touch.clientY };
+        } else {
+          const deltaX = (touch.clientX - dragStart.x) / lightboxZoom;
+          const deltaY = (touch.clientY - dragStart.y) / lightboxZoom;
+          lightboxTranslate.x += deltaX;
+          lightboxTranslate.y += deltaY;
+          dragStart = { x: touch.clientX, y: touch.clientY };
+          updateLightboxTransform();
+        }
+      }
       e.preventDefault();
     }
 
@@ -2474,14 +2499,14 @@
       modal.style.display = 'flex';
       gsap.to(modal, { opacity: 1, duration: 0.3 });
       document.body.style.overflow = 'hidden';
-      img.addEventListener('touchmove', handleLightboxPinch, { passive: false });
-      img.addEventListener('touchend', () => { touchStartDistance = 0; });
+      img.addEventListener('touchmove', handleLightboxTouch, { passive: false });
+      img.addEventListener('touchend', () => { touchStartDistance = 0; dragStart = { x: 0, y: 0 }; });
     }
 
     function closeLightbox() {
       const modal = document.getElementById('lightboxModal');
       const img = document.getElementById('lightboxImage');
-      img.removeEventListener('touchmove', handleLightboxPinch);
+      img.removeEventListener('touchmove', handleLightboxTouch);
       resetLightboxZoom();
       gsap.to(modal, {
         opacity: 0,
