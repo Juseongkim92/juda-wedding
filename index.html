@@ -69,7 +69,7 @@
       margin: 0 auto;
       overflow-x: hidden;
       isolation: isolate;
-      scroll-snap-type: y mandatory;
+      scroll-snap-type: y proximity;
     }
 
     body::before {
@@ -194,7 +194,6 @@
       padding-top: max(40px, 10dvh);
       box-sizing: border-box;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
     }
 
     section > .container {
