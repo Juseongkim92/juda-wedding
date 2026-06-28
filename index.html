@@ -394,15 +394,11 @@
     }
 
     .calendar-header {
-      position: absolute;
-      top: 18%;
-      left: 50%;
-      transform: translateX(-50%);
       text-align: center;
-      color: #fff;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75),
-                   0 2px 10px rgba(0, 0, 0, 0.55);
-      pointer-events: none; /* 클릭 방해 안 하도록 */
+      color: var(--primary);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
     }
 
     .calendar-header-year {
@@ -1747,14 +1743,11 @@
 
       <div class="calendar-container">
         <div class="calendar">
-          <!-- 달력 헤더 영역에 이미지가 background로 들어감 (정사각형 이미지 대응) -->
-          <div class="calendar-header-image">
-            <img src="images/calendar.jpg" alt="예식 달력" class="calendar-header-bg" loading="lazy">
-            <div class="calendar-header">
-              <span class="calendar-header-year">2026</span>
-              <span class="calendar-header-month">08</span>
-              <span class="calendar-header-label">August</span>
-            </div>
+          <!-- 달력 헤더 영역 -->
+          <div class="calendar-header">
+            <span class="calendar-header-year">2026</span>
+            <span class="calendar-header-month">08</span>
+            <span class="calendar-header-label">August</span>
           </div>
           <div class="calendar-weekdays">
             <div>일</div>
