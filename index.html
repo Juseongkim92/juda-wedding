@@ -69,6 +69,7 @@
       margin: 0 auto;
       overflow-x: hidden;
       isolation: isolate;
+      scroll-snap-type: y mandatory;
     }
 
     body::before {
@@ -118,14 +119,9 @@
     h2 {
       font-size: 32px;
       margin-bottom: 24px;
-      position: sticky;
-      top: 0;
+      position: relative;
       padding-bottom: 16px;
       text-align: center;
-      background: var(--primary-light);
-      padding-top: 16px;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     h2::after {
@@ -197,6 +193,8 @@
       justify-content: flex-start;
       padding-top: max(40px, 10dvh);
       box-sizing: border-box;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
     }
 
     section > .container {
