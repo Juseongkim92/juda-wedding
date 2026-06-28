@@ -69,6 +69,7 @@
       margin: 0 auto;
       overflow-x: hidden;
       isolation: isolate;
+      scroll-behavior: smooth;
     }
 
     body::before {
@@ -2345,6 +2346,31 @@
   </div>
 
   <script>
+    // ════════════════════════════════════
+    // SMOOTH SECTION SNAP ON SCROLL END
+    // ════════════════════════════════════
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const sections = Array.from(document.querySelectorAll('section'));
+        const scrollPos = window.scrollY + window.innerHeight / 2;
+        let closestSection = sections[0];
+        let minDistance = Math.abs(scrollPos - (closestSection.offsetTop + closestSection.offsetHeight / 2));
+
+        sections.forEach(section => {
+          const sectionCenter = section.offsetTop + section.offsetHeight / 2;
+          const distance = Math.abs(scrollPos - sectionCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestSection = section;
+          }
+        });
+
+        closestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
+    }, false);
+
     // ════════════════════════════════════
     // GSAP ANIMATIONS
     // ════════════════════════════════════
