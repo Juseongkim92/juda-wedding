@@ -197,10 +197,11 @@
       content: '';
       position: absolute;
       bottom: 20px;
-      left: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 60%;
       height: 4px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
     }
 
     section > .container {
@@ -666,7 +667,7 @@
 
     .family-relation {
       color: var(--text-light);
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 500;
     }
 
@@ -1654,8 +1655,6 @@
   </style>
 </head>
 <body>
-  <div id="ytPlayer" class="youtube-player-host youtube-player-host--hidden" aria-hidden="true"></div>
-
   <!-- ═══════════════════════════════════════════════════════
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
