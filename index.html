@@ -69,7 +69,6 @@
       margin: 0 auto;
       overflow-x: hidden;
       isolation: isolate;
-      scroll-snap-type: y proximity;
     }
 
     body::before {
@@ -193,7 +192,6 @@
       justify-content: flex-start;
       padding-top: max(40px, 10dvh);
       box-sizing: border-box;
-      scroll-snap-align: start;
     }
 
     section > .container {
@@ -2387,7 +2385,7 @@
     let currentImageIndex = 0;
     const GALLERY_PREVIEW_COUNT = 9;
     const GALLERY_IMAGES = [];
-    for (let i = 1; i <= 23; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpeg`);
+    for (let i = 0; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpeg`);
     // 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img23.jpeg');
 
     function updateLightboxCounter() {
