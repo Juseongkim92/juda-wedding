@@ -183,8 +183,7 @@
       z-index: 1;
       min-height: 100svh;
       min-height: 100dvh;
-      padding: 60px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 60px 20px 80px 20px;
       background: transparent;
       opacity: 1;
       display: flex;
@@ -192,6 +191,18 @@
       justify-content: flex-start;
       padding-top: max(40px, 10dvh);
       box-sizing: border-box;
+    }
+
+    section::after {
+      content: '';
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 440px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
     }
 
     section > .container {
