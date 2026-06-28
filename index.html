@@ -2050,6 +2050,31 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
+       ACCOUNT INFO
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section-compact">
+    <div class="container">
+      <h2>마음 전하실 곳</h2>
+      <div class="gift-side-actions">
+        <button
+          type="button"
+          class="contact-open-btn gift-side-btn gift-side-btn--bride"
+          onclick="openGiftAccountModal('bride')"
+        >
+          신부측
+        </button>
+        <button
+          type="button"
+          class="contact-open-btn gift-side-btn gift-side-btn--groom"
+          onclick="openGiftAccountModal('groom')"
+        >
+          신랑측
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
        GUESTBOOK
   ═══════════════════════════════════════════════════════ -->
   <section>
@@ -2080,46 +2105,11 @@
             placeholder="따뜻한 한마디를 남겨주세요"
           ></textarea>
         </div>
-        <div class="form-group">
-          <label>비밀번호 (선택)</label>
-          <input
-            type="password"
-            id="guestPassword"
-            maxlength="20"
-            placeholder="삭제할 때 필요합니다"
-            autocomplete="new-password"
-          >
-        </div>
         <button class="submit-btn" onclick="addMessage()">메시지 남기기</button>
       </div>
 
       <div id="messageList" class="message-list">
         <!-- Messages will be added here -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════
-       ACCOUNT INFO
-  ═══════════════════════════════════════════════════════ -->
-  <section class="section-compact">
-    <div class="container">
-      <h2>마음 전하실 곳</h2>
-      <div class="gift-side-actions">
-        <button
-          type="button"
-          class="contact-open-btn gift-side-btn gift-side-btn--bride"
-          onclick="openGiftAccountModal('bride')"
-        >
-          신부측
-        </button>
-        <button
-          type="button"
-          class="contact-open-btn gift-side-btn gift-side-btn--groom"
-          onclick="openGiftAccountModal('groom')"
-        >
-          신랑측
-        </button>
       </div>
     </div>
   </section>
@@ -2146,8 +2136,8 @@
           진심으로 감사드립니다.<br><br>
           재미있고 행복하게<br>
           잘 살아보겠습니다!<br>
-          앞으로도 많이 응원해 주세요.<br>
-          여러분의 모든 날도 늘 응원합니다!<br><br><br>
+          앞으로도 많이 응원하고 기도해주세요.<br>
+          여러분의 모든 날도 행복하시기를 축복합니다🩵<br><br><br>
 
           Let's Go~~~~<br>
         </p>
@@ -2346,31 +2336,6 @@
   </div>
 
   <script>
-    // ════════════════════════════════════
-    // SMOOTH SECTION SNAP ON SCROLL END
-    // ════════════════════════════════════
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        const sections = Array.from(document.querySelectorAll('section'));
-        const scrollPos = window.scrollY + window.innerHeight / 2;
-        let closestSection = sections[0];
-        let minDistance = Math.abs(scrollPos - (closestSection.offsetTop + closestSection.offsetHeight / 2));
-
-        sections.forEach(section => {
-          const sectionCenter = section.offsetTop + section.offsetHeight / 2;
-          const distance = Math.abs(scrollPos - sectionCenter);
-          if (distance < minDistance) {
-            minDistance = distance;
-            closestSection = section;
-          }
-        });
-
-        closestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 150);
-    }, false);
-
     // ════════════════════════════════════
     // GSAP ANIMATIONS
     // ════════════════════════════════════
