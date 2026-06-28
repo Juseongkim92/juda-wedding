@@ -2057,17 +2057,17 @@
       <div class="gift-side-actions">
         <button
           type="button"
-          class="contact-open-btn gift-side-btn gift-side-btn--bride"
-          onclick="openGiftAccountModal('bride')"
-        >
-          신부측
-        </button>
-        <button
-          type="button"
           class="contact-open-btn gift-side-btn gift-side-btn--groom"
           onclick="openGiftAccountModal('groom')"
         >
           신랑측
+        </button>
+        <button
+          type="button"
+          class="contact-open-btn gift-side-btn gift-side-btn--bride"
+          onclick="openGiftAccountModal('bride')"
+        >
+          신부측
         </button>
       </div>
     </div>
@@ -2363,8 +2363,8 @@
     let currentImageIndex = 0;
     const GALLERY_PREVIEW_COUNT = 9;
     const GALLERY_IMAGES = [];
-    for (let i = 0; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpeg`);
-    // 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img23.jpeg');
+    for (let i = 0; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpg`);
+    // 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img23.jpg');
 
     function updateLightboxCounter() {
       const counter = document.getElementById('lightboxCounter');
