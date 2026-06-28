@@ -2412,6 +2412,7 @@
     let lightboxTranslate = { x: 0, y: 0 };
     let touchStartDistance = 0;
     let dragStart = { x: 0, y: 0 };
+    let lightboxSwipeStart = { x: 0, y: 0 };
 
     function resetLightboxZoom() {
       lightboxZoom = 1;
@@ -2471,13 +2472,26 @@
       modal.style.display = 'flex';
       gsap.to(modal, { opacity: 1, duration: 0.3 });
       document.body.style.overflow = 'hidden';
+      img.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) lightboxSwipeStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }, { passive: true });
       img.addEventListener('touchmove', handleLightboxTouch, { passive: false });
-      img.addEventListener('touchend', () => { touchStartDistance = 0; dragStart = { x: 0, y: 0 }; });
+      img.addEventListener('touchend', (e) => {
+        touchStartDistance = 0;
+        dragStart = { x: 0, y: 0 };
+        if (e.changedTouches.length === 1 && lightboxZoom === 1) {
+          const deltaX = e.changedTouches[0].clientX - lightboxSwipeStart.x;
+          if (Math.abs(deltaX) > 50) {
+            changeImage(deltaX > 0 ? -1 : 1);
+          }
+        }
+      });
     }
 
     function closeLightbox() {
       const modal = document.getElementById('lightboxModal');
       const img = document.getElementById('lightboxImage');
+      img.removeEventListener('touchstart', null);
       img.removeEventListener('touchmove', handleLightboxTouch);
       resetLightboxZoom();
       gsap.to(modal, {
