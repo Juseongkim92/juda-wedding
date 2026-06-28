@@ -814,6 +814,20 @@
       border-bottom: none;
     }
 
+    .gift-modal-item.is-principal {
+      padding: 14px 12px;
+      border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    .gift-modal-item.is-principal.is-bride {
+      background-color: rgba(255, 200, 220, 0.25);
+    }
+
+    .gift-modal-item.is-principal.is-groom {
+      background-color: rgba(200, 220, 255, 0.25);
+    }
+
     .gift-modal-person {
       display: flex;
       align-items: baseline;
@@ -909,6 +923,20 @@
 
     .contact-modal-person:last-child {
       border-bottom: none;
+    }
+
+    .contact-modal-person.is-principal {
+      padding: 11px 12px;
+      border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    .contact-modal-person.is-principal.is-bride {
+      background-color: rgba(255, 200, 220, 0.25);
+    }
+
+    .contact-modal-person.is-principal.is-groom {
+      background-color: rgba(200, 220, 255, 0.25);
     }
 
     .contact-modal-name {
@@ -2155,7 +2183,7 @@
       <h3 id="contactModalTitle" class="contact-modal-title">신부측 연락처</h3>
 
       <div id="contactModalBride" class="contact-modal-group">
-        <div class="contact-modal-person">
+        <div class="contact-modal-person is-principal is-bride">
           <div>
             <div class="contact-modal-name">조다빈</div>
             <span class="contact-modal-relation">신부</span>
@@ -2181,7 +2209,7 @@
       </div>
 
       <div id="contactModalGroom" class="contact-modal-group" hidden>
-        <div class="contact-modal-person">
+        <div class="contact-modal-person is-principal is-groom">
           <div>
             <div class="contact-modal-name">김주성</div>
             <span class="contact-modal-relation">신랑</span>
@@ -2226,7 +2254,7 @@
 
       <div id="giftModalBride" class="contact-modal-group">
 
-        <div class="gift-modal-item">
+        <div class="gift-modal-item is-principal is-bride">
           <div class="gift-modal-person">
             <strong>조다빈</strong>
             <span>신부</span>
@@ -2252,7 +2280,7 @@
       </div>
 
       <div id="giftModalGroom" class="contact-modal-group" hidden>
-        <div class="gift-modal-item">
+        <div class="gift-modal-item is-principal is-groom">
           <div class="gift-modal-person">
             <strong>김주성</strong>
             <span>신랑</span>
