@@ -117,11 +117,22 @@
 
     h2 {
       font-size: 32px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       position: relative;
-      padding-bottom: 12px;
+      padding-bottom: 16px;
       text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     h3 {
@@ -173,6 +184,7 @@
       min-height: 100svh;
       min-height: 100dvh;
       padding: 60px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
       background: transparent;
       opacity: 1;
       display: flex;
@@ -2129,19 +2141,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ═══════════════════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════════════════ -->
-  <!-- <footer>
-    <p>💕 김주성 & 조다빈</p>
-    <p>2026년 8월 22일 토요일</p>
-    <div class="footer-divider"></div>
-    <p>호텔 인터불고 대구 인터빌리지홀</p>
-    <div class="footer-credit">
-      Made with ❤️ for the happiest day
-    </div>
-  </footer> -->
 
   <!-- ═══════════════════════════════════════════════════════
        CONTACT MODAL
