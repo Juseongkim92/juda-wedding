@@ -246,6 +246,9 @@
       contain: layout style paint;
       scroll-snap-align: start;
       scroll-snap-stop: auto;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
     }
 
     .hero-names {
@@ -688,8 +691,9 @@
       justify-content: center;
       gap: 12px;
       min-width: 142px;
+      min-height: 48px;
       margin-top: 18px;
-      padding: 14px 20px;
+      padding: 12px 20px;
       border: 1px solid var(--accent);
       border-radius: 7px;
       background: transparent;
@@ -717,11 +721,10 @@
     .contact-btn-icon {
       width: auto;
       height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: block;
       object-fit: contain;
       flex-shrink: 0;
+      max-width: 32px;
     }
 
     .section-action {
