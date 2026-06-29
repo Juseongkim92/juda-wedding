@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
   <style>
     /* ════════════════════════════════════
        RESET & BASE
@@ -69,6 +70,9 @@
       margin: 0 auto;
       overflow-x: hidden;
       isolation: isolate;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      scroll-padding-bottom: 12px;
     }
 
     body::before {
@@ -128,7 +132,7 @@
       display: block;
       width: 60%;
       height: 4px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
       position: relative;
       margin: 12px auto 0;
     }
@@ -179,16 +183,19 @@
     section {
       position: relative;
       z-index: 1;
-      min-height: 100svh;
-      min-height: 100dvh;
-      padding: 60px 20px 80px 20px;
+      min-height: auto;
+      padding: 40px 20px;
       background: transparent;
       opacity: 1;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding-top: max(40px, 10dvh);
       box-sizing: border-box;
+      scroll-snap-align: start;
+      scroll-snap-stop: auto;
+      margin: 0 8px 12px 8px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(26, 35, 50, 0.08);
     }
 
 
@@ -209,6 +216,10 @@
       margin-bottom: 16px;
     }
 
+    .map-section {
+      padding: 40px 20px 80px 20px !important;
+    }
+
     .divider {
       width: 40px;
       height: 1px;
@@ -221,7 +232,8 @@
     ════════════════════════════════════ */
     .hero-section {
       position: relative;
-      min-height: auto !important;
+      min-height: 100vh;
+      min-height: 100dvh;
       padding: 0 !important;
       border-bottom: none !important;
       display: block !important;
@@ -230,6 +242,8 @@
       background: transparent;
       line-height: 0;
       contain: layout style paint;
+      scroll-snap-align: start;
+      scroll-snap-stop: auto;
     }
 
     .hero-names {
@@ -828,6 +842,13 @@
       background-color: rgba(200, 220, 255, 0.25);
     }
 
+    .gift-modal-item:not(.is-principal) {
+      background-color: rgba(240, 245, 250, 0.8);
+      padding: 14px 12px;
+      border-radius: 6px;
+      margin: 4px 0;
+    }
+
     .gift-modal-person {
       display: flex;
       align-items: baseline;
@@ -939,6 +960,13 @@
       background-color: rgba(200, 220, 255, 0.25);
     }
 
+    .contact-modal-person:not(.is-principal) {
+      background-color: rgba(240, 245, 250, 0.8);
+      padding: 11px 12px;
+      border-radius: 6px;
+      margin: 4px 0;
+    }
+
     .contact-modal-name {
       color: var(--primary);
       font-size: 14px;
@@ -989,6 +1017,32 @@
     .contact-action-btn:hover {
       border-color: var(--accent);
       background: var(--primary-light);
+    }
+
+    .contact-action-link {
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: var(--accent);
+    }
+
+    .contact-action-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .contact-action-link:hover {
+      transform: scale(1.15);
+      color: var(--primary);
+    }
+
+    .contact-action-link:active {
+      transform: scale(0.95);
     }
 
     .copy-btn {
@@ -1693,7 +1747,7 @@
   <!-- ═══════════════════════════════════════════════════════
        GREETING & WEDDING INFO
   ═══════════════════════════════════════════════════════ -->
-  <section class="greeting-block-section" style="padding: 32px 20px 60px 20px;">
+  <section class="greeting-block-section" style="padding: 32px 20px 32px 20px;">
     <div class="container greeting-section">
       <div class="greeting-card">
         <div class="greeting-text">
@@ -1757,13 +1811,13 @@
   <!-- ═══════════════════════════════════════════════════════
        CALENDAR
   ═══════════════════════════════════════════════════════ -->
-  <section style="padding: 20px 20px 60px 20px;">
+  <section style="padding: 20px 20px 32px 20px;">
     <div class="container">
       <h2>예식 일정</h2>
       <div class="couple-intro">
         <div class="wedding-info" style="border-top: none; padding-top: 0;">
           <strong>2026년 8월 22일 토요일 낮 12시</strong>
-          호텔 인터불고 대구 웨딩인터빌리지
+          호텔 인터불고 대구 웨딩인터빌리지홀
         </div>
       </div>
 
@@ -1807,270 +1861,236 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════
-       DIRECTIONS & MAP
-  ═══════════════════════════════════════════════════════ -->
-  <section class="map-section">
-    <div class="container">
-      <h2>오시는 길</h2>
+<!-- ═══════════════════════════════════════════════════════
+     DIRECTIONS & MAP
+═══════════════════════════════════════════════════════ -->
+<section class="map-section">
+  <div class="container">
+    <h2>오시는 길</h2>
 
-      <div class="location-card">
-        <div class="address-box">
-          <div class="address-text">
-            <span class="address-line">호텔 인터불고 대구 웨딩인터빌리지</span>
-            <span class="address-line">대구 수성구 팔현길 212</span>
-          </div>
-          <div class="address-actions">
-            <!-- <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
-              <img src="images/icons/copy.png" alt="" width="28" height="28" />
-            </button> -->
-            <button type="button" class="map-btn" onclick="openNavi('naver')" title="네이버 지도">
-              <img src="images/icons/navermap.png" alt="네이버 지도" />
-            </button>
-            <button type="button" class="map-btn" onclick="openNavi('kakao')" title="카카오맵">
-              <img src="images/icons/kakaomap.png" alt="카카오맵" />
-            </button>
-            <button type="button" class="map-btn" onclick="openNavi('tmap')" title="T map">
-              <img src="images/icons/tmap.png" alt="T map" />
-            </button>
-          </div>
+    <div class="location-card">
+      <div class="address-box">
+        <div class="address-text">
+          <span class="address-line">호텔 인터불고 대구 웨딩인터빌리지홀</span>
+          <span class="address-line">대구 수성구 팔현길 212</span>
         </div>
 
-        <!-- Kakao Map Interactive -->
-        <div id="kakaoMap" style="width: 100%; margin: 20px 0; border-radius: 8px; overflow: hidden; height: 250px; border: 1px solid var(--border);"></div>
+        <div class="address-actions">
+          <!-- <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
+            <img src="images/icons/copy.png" alt="" width="28" height="28" />
+          </button> -->
 
-        <div class="info-list">
-  <!-- 자가용 -->
-  <div class="info-item">
-    <button
-      type="button"
-      class="info-header"
-      aria-expanded="false"
-      onclick="toggleInfo(this.closest('.info-item'))"
-    >
-      <span>🚗 자가용</span>
-      <span class="arrow" aria-hidden="true">▼</span>
-    </button>
+          <button type="button" class="map-btn" onclick="openNavi('naver')" title="네이버 지도">
+            <img src="images/icons/navermap.jpg" alt="네이버 지도" />
+          </button>
 
-    <div class="info-content">
-      <div class="route-block">
-        <p class="route-path">
-          동대구 IC에서 시청 방향으로 4km
-          <span class="route-time">약 5분 소요</span>
-        </p>
-      </div>
+          <button type="button" class="map-btn" onclick="openNavi('kakao')" title="카카오맵">
+            <img src="images/icons/kakaomap.jpg" alt="카카오맵" />
+          </button>
 
-      <div class="route-note">
-        내비게이션에서 <strong>호텔 인터불고 대구</strong>를 검색해주세요. 어플 아이콘을 누르시면 바로 연결됩니다.
-      </div>
-    </div>
-  </div>
-
-  <!-- 대구국제공항 -->
-  <div class="info-item">
-    <button
-      type="button"
-      class="info-header"
-      aria-expanded="false"
-      onclick="toggleInfo(this.closest('.info-item'))"
-    >
-      <span>✈️ 대구국제공항</span>
-      <span class="arrow" aria-hidden="true">▼</span>
-    </button>
-
-    <div class="info-content">
-      <div class="route-block">
-        <div class="route-row">
-          <span class="route-label">택시</span>
-          <p class="route-path">
-            거리 5km
-            <span class="route-time">약 15분 소요</span>
-          </p>
-        </div>
-
-        <div class="route-row">
-          <span class="route-label">버스</span>
-          <p class="route-path">
-            대구국제공항 건너 승차
-            <span class="route-arrow">→</span>
-            급행1 · 401 · 동구8 · 팔공1
-            <span class="route-arrow">→</span>
-            아양교역 하차 및 환승
-            <span class="route-arrow">→</span>
-            802 · 814 · 북구3
-            <span class="route-arrow">→</span>
-            망우당공원 건너 하차
-            <span class="route-time">약 40분 소요</span>
-          </p>
+          <button type="button" class="map-btn" onclick="openNavi('tmap')" title="T map">
+            <img src="images/icons/tmap.jpg" alt="T map" />
+          </button>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- 동대구역 및 복합환승센터 -->
-  <div class="info-item">
-    <button
-      type="button"
-      class="info-header"
-      aria-expanded="false"
-      onclick="toggleInfo(this.closest('.info-item'))"
-    >
-      <span>🚆 동대구역 · 복합환승센터</span>
-      <span class="arrow" aria-hidden="true">▼</span>
-    </button>
+      <!-- Kakao Map Interactive -->
+      <div
+        id="kakaoMap"
+        style="width: 100%; margin: 20px 0; border-radius: 8px; overflow: hidden; height: 250px; border: 1px solid var(--border);"
+      ></div>
 
-    <div class="info-content">
-      <div class="route-block">
-        <div class="route-row">
-          <span class="route-label">택시</span>
-          <p class="route-path">
-            거리 4km
-            <span class="route-time">약 15분 소요</span>
-          </p>
-        </div>
+      <div class="info-list">
+        <!-- 자가용 -->
+        <div class="info-item">
+          <button
+            type="button"
+            class="info-header"
+            aria-expanded="false"
+            onclick="toggleInfo(this.closest('.info-item'))"
+          >
+            <span>🚗 자가용</span>
+            <span class="arrow" aria-hidden="true">▼</span>
+          </button>
 
-        <div class="route-row">
-          <span class="route-label">버스</span>
+          <div class="info-content">
+            <div class="route-block">
+              <p class="route-path">
+                동대구IC에서 시청방향으로 4km
+                <span class="route-time">약 5분 소요</span>
+              </p>
+            </div>
 
-          <div class="route-options">
-            <p class="route-path">
-              동대구역 승차
-              <span class="route-arrow">→</span>
-              814 · 708 · 북구3
-              <span class="route-arrow">→</span>
-              망우당공원 건너 하차
-              <span class="route-time">약 40분 소요</span>
-            </p>
-
-            <p class="route-path">
-              동대구역 건너 승차
-              <span class="route-arrow">→</span>
-              156
-              <span class="route-arrow">→</span>
-              망우당공원 건너 하차
-              <span class="route-time">약 35분 소요</span>
-            </p>
-
-            <p class="route-path">
-              동대구역복합환승센터 건너 승차
-              <span class="route-arrow">→</span>
-              555 · 555
-              <span class="route-arrow">→</span>
-              망우당공원 건너 하차
-              <span class="route-time">약 40분 소요</span>
-            </p>
-
-            <p class="route-path">
-              동대구역복합환승센터 건너 승차
-              <span class="route-arrow">→</span>
-              651
-              <span class="route-arrow">→</span>
-              인터불고호텔 앞 하차
-              <span class="route-time">약 40분 소요</span>
-            </p>
+            <div class="route-note">
+              내비게이션에서 <strong>호텔 인터불고 대구</strong>를 검색해주세요.
+              어플 아이콘을 누르시면 바로 연결됩니다.
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- 시내 대중교통 -->
-  <div class="info-item">
-    <button
-      type="button"
-      class="info-header"
-      aria-expanded="false"
-      onclick="toggleInfo(this.closest('.info-item'))"
-    >
-      <span>🚇 시내 대중교통</span>
-      <span class="arrow" aria-hidden="true">▼</span>
-    </button>
+        <!-- 비행기 -->
+        <div class="info-item">
+          <button
+            type="button"
+            class="info-header"
+            aria-expanded="false"
+            onclick="toggleInfo(this.closest('.info-item'))"
+          >
+            <span>✈️ 비행기</span>
+            <span class="arrow" aria-hidden="true">▼</span>
+          </button>
 
-    <div class="info-content">
-      <div class="route-block">
-        <h4 class="route-title">지하철 1호선 아양교역</h4>
-        <p class="route-summary">하차 후 택시 또는 버스를 이용해주세요.</p>
+          <div class="info-content">
+            <div class="route-block">
+              <h4 class="route-title">대구국제공항에서 오실 때</h4>
 
-        <div class="route-row">
-          <span class="route-label">택시</span>
-          <p class="route-path">
-            거리 3km
-            <span class="route-time">약 10분 소요</span>
-          </p>
+              <div class="route-row">
+                <span class="route-label">택시</span>
+                <p class="route-path">
+                  거리 5km
+                  <span class="route-time">약 15분 소요</span>
+                </p>
+              </div>
+
+              <div class="route-row">
+                <span class="route-label">버스</span>
+                <p class="route-path">
+                  <strong>대구국제공항 건너편</strong>승차
+                  <span class="route-arrow">→</span>
+                  급행1 · 401 · 동구8 · 팔공1
+                  <span class="route-arrow">→</span>
+                  <strong>아양교역</strong>하차 및 환승
+                  <span class="route-arrow">→</span>
+                  802 · 814 · 북구3
+                  <span class="route-arrow">→</span>
+                  <strong>망우당공원건너</strong>하차
+                  <span class="route-time">약 40분 소요</span>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="route-row">
-          <span class="route-label">버스</span>
-          <p class="route-path">
-            아양교역 2번 출구 승차
-            <span class="route-arrow">→</span>
-            802 · 814 · 북구3
-            <span class="route-arrow">→</span>
-            망우당공원 건너 하차
-            <span class="route-time">약 20분 소요</span>
-          </p>
+        <!-- 기차 및 버스 -->
+        <div class="info-item">
+          <button
+            type="button"
+            class="info-header"
+            aria-expanded="false"
+            onclick="toggleInfo(this.closest('.info-item'))"
+          >
+            <span>🚆 기차 및 버스</span>
+            <span class="arrow" aria-hidden="true">▼</span>
+          </button>
+
+          <div class="info-content">
+            <div class="route-block">
+              <h4 class="route-title">동대구역 / 복합환승센터에서 오실 때</h4>
+
+              <div class="route-row">
+                <span class="route-label">택시</span>
+                <p class="route-path">
+                  거리 4km
+                  <span class="route-time">약 15분 소요</span>
+                </p>
+              </div>
+
+              <div class="route-row">
+                <span class="route-label">버스</span>
+
+                <div class="route-options">
+                  <p class="route-path">
+                    <strong>동대구역</strong>승차
+                    <span class="route-arrow">→</span>
+                    814 · 708 · 북구3
+                    <span class="route-arrow">→</span>
+                    <strong>망우당공원건너</strong>하차
+                    <span class="route-time">약 40분 소요</span>
+                  </p>
+
+                  <p class="route-path">
+                    <strong>동대구역복합환승센터건너</strong>승차
+                    <span class="route-arrow">→</span>
+                    555 · 55
+                    <span class="route-arrow">→</span>
+                    <strong>망우당공원건너</strong>하차
+                    <span class="route-time">약 40분 소요</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="route-block route-block--separated">
-        <h4 class="route-title">지하철 2호선 만촌역</h4>
-        <p class="route-summary">하차 후 택시 또는 버스를 이용해주세요.</p>
+        <!-- 시내 대중교통 -->
+        <div class="info-item">
+          <button
+            type="button"
+            class="info-header"
+            aria-expanded="false"
+            onclick="toggleInfo(this.closest('.info-item'))"
+          >
+            <span>🚇 시내 대중교통</span>
+            <span class="arrow" aria-hidden="true">▼</span>
+          </button>
 
-        <div class="route-row">
-          <span class="route-label">택시</span>
-          <p class="route-path">
-            거리 5km
-            <span class="route-time">약 15분 소요</span>
-          </p>
-        </div>
+          <div class="info-content">
+            <div class="route-block">
+              <h4 class="route-title">지하철 1호선 아양교역</h4>
+              <p class="route-summary">하차 후 택시 및 버스를 이용해주세요.</p>
 
-        <div class="route-row">
-          <span class="route-label">버스</span>
+              <div class="route-row">
+                <span class="route-label">택시</span>
+                <p class="route-path">
+                  거리 3km
+                  <span class="route-time">약 10분 소요</span>
+                </p>
+              </div>
 
-          <div class="route-options">
-            <p class="route-path">
-              만촌2동행정복지센터 승차
-              <span class="route-arrow">→</span>
-              848
-              <span class="route-arrow">→</span>
-              인터불고호텔 앞 하차
-              <span class="route-time">약 25분 소요</span>
-            </p>
+              <div class="route-row">
+                <span class="route-label">버스</span>
+                <p class="route-path">
+                  <strong>아양교역 2번 출구</strong>승차
+                  <span class="route-arrow">→</span>
+                  802 · 814 · 북구3
+                  <span class="route-arrow">→</span>
+                  <strong>망우당공원건너</strong>하차
+                  <span class="route-time">약 20분 소요</span>
+                </p>
+              </div>
+            </div>
 
-            <p class="route-path">
-              만촌2동행정복지센터 승차
-              <span class="route-arrow">→</span>
-              937 · 425
-              <span class="route-arrow">→</span>
-              팔공정보문화센터 건너
-              <span class="route-arrow">→</span>
-              651
-              <span class="route-arrow">→</span>
-              인터불고호텔 앞 하차
-              <span class="route-time">약 40분 소요</span>
-            </p>
+            <div class="route-block route-block--separated">
+              <h4 class="route-title">지하철 2호선 만촌역</h4>
+              <p class="route-summary">하차 후 택시 및 버스를 이용해주세요.</p>
 
-            <p class="route-path">
-              만촌2동행정복지센터 승차
-              <span class="route-arrow">→</span>
-              937 · 425
-              <span class="route-arrow">→</span>
-              팔공정보문화센터 건너
-              <span class="route-arrow">→</span>
-              55 · 555
-              <span class="route-arrow">→</span>
-              망우당공원 건너 하차
-              <span class="route-time">약 40분 소요</span>
-            </p>
+              <div class="route-row">
+                <span class="route-label">택시</span>
+                <p class="route-path">
+                  거리 5km
+                  <span class="route-time">약 15분 소요</span>
+                </p>
+              </div>
+
+              <div class="route-row">
+                <span class="route-label">버스</span>
+                <p class="route-path">
+                  <strong>만촌2동행정복지센터</strong>승차
+                  <span class="route-arrow">→</span>
+                  848
+                  <span class="route-arrow">→</span>
+                  <strong>인터불고호텔앞</strong>하차
+                  <span class="route-time">약 25분 소요</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <!-- // info-list -->
     </div>
   </div>
-</div>
-      </div>
-    </div>
-  </section>
+</section>
 
   <!-- ═══════════════════════════════════════════════════════
        ACCOUNT INFO
@@ -2078,6 +2098,10 @@
   <section class="section-compact">
     <div class="container">
       <h2>마음 전하실 곳</h2>
+      <p style="text-align: center; font-size: 12px; color: var(--text-light); margin: -12px 0 16px 0; line-height: 1.6;">
+        참석이 어려우신 분들을 위해 계좌번호를 기재하였습니다.<br>
+        너그러운 마음으로 양해 부탁드립니다.
+      </p>
       <div class="gift-side-actions">
         <button
           type="button"
@@ -2143,7 +2167,7 @@
 
       <div class="thanks-card journey-card">
         <div class="video-player">
-          <video controls playsinline preload="metadata" width="1280" height="720" poster="images/cover.JPG">
+          <video controls playsinline preload="metadata" width="1280" height="720">
             <source src="media/udo_video.mp4" type="video/mp4">
             브라우저가 동영상 재생을 지원하지 않습니다.
           </video>
@@ -2185,25 +2209,34 @@
       <div id="contactModalBride" class="contact-modal-group">
         <div class="contact-modal-person is-principal is-bride">
           <div>
-            <div class="contact-modal-name">조다빈</div>
-            <span class="contact-modal-relation">신부</span>
+            <div class="contact-modal-name">조다빈 <span class="contact-modal-relation">신부</span></div>
             <span class="contact-modal-phone">010-9555-0958</span>
           </div>
-        </div>
-
-        <div class="contact-modal-person">
-          <div>
-            <div class="contact-modal-name">조진형</div>
-            <span class="contact-modal-relation">신부 아버지</span>
-            <span class="contact-modal-phone">010-6535-0958</span>
+          <div class="contact-modal-actions">
+            <a href="tel:010-9555-0958" class="contact-action-link" title="전화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+            <a href="sms:010-9555-0958" class="contact-action-link" title="문자"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
           </div>
         </div>
 
         <div class="contact-modal-person">
           <div>
-            <div class="contact-modal-name">주봉은</div>
-            <span class="contact-modal-relation">신부 어머니</span>
+            <div class="contact-modal-name">조진형 <span class="contact-modal-relation">신부 아버지</span></div>
+            <span class="contact-modal-phone">010-6535-0958</span>
+          </div>
+          <div class="contact-modal-actions">
+            <a href="tel:010-6535-0958" class="contact-action-link" title="전화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+            <a href="sms:010-6535-0958" class="contact-action-link" title="문자"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
+          </div>
+        </div>
+
+        <div class="contact-modal-person">
+          <div>
+            <div class="contact-modal-name">주봉은 <span class="contact-modal-relation">신부 어머니</span></div>
             <span class="contact-modal-phone">010-4172-0958</span>
+          </div>
+          <div class="contact-modal-actions">
+            <a href="tel:010-4172-0958" class="contact-action-link" title="전화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+            <a href="sms:010-4172-0958" class="contact-action-link" title="문자"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
           </div>
         </div>
       </div>
@@ -2211,25 +2244,34 @@
       <div id="contactModalGroom" class="contact-modal-group" hidden>
         <div class="contact-modal-person is-principal is-groom">
           <div>
-            <div class="contact-modal-name">김주성</div>
-            <span class="contact-modal-relation">신랑</span>
+            <div class="contact-modal-name">김주성 <span class="contact-modal-relation">신랑</span></div>
             <span class="contact-modal-phone">010-9113-6540</span>
           </div>
-        </div>
-
-        <div class="contact-modal-person">
-          <div>
-            <div class="contact-modal-name">김한섭</div>
-            <span class="contact-modal-relation">신랑 아버지</span>
-            <span class="contact-modal-phone">010-4595-6540</span>
+          <div class="contact-modal-actions">
+            <a href="tel:010-9113-6540" class="contact-action-link" title="전화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+            <a href="sms:010-9113-6540" class="contact-action-link" title="문자"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
           </div>
         </div>
 
         <div class="contact-modal-person">
           <div>
-            <div class="contact-modal-name">박희숙</div>
-            <span class="contact-modal-relation">신랑 어머니</span>
+            <div class="contact-modal-name">김한섭 <span class="contact-modal-relation">신랑 아버지</span></div>
+            <span class="contact-modal-phone">010-4595-6540</span>
+          </div>
+          <div class="contact-modal-actions">
+            <a href="tel:010-4595-6540" class="contact-action-link" title="전화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+            <a href="sms:010-4595-6540" class="contact-action-link" title="문자"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
+          </div>
+        </div>
+
+        <div class="contact-modal-person">
+          <div>
+            <div class="contact-modal-name">박희숙 <span class="contact-modal-relation">신랑 어머니</span></div>
             <span class="contact-modal-phone">010-2692-6540</span>
+          </div>
+          <div class="contact-modal-actions">
+            <a href="tel:010-2692-6540" class="contact-action-link" title="전화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+            <a href="sms:010-2692-6540" class="contact-action-link" title="문자"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
           </div>
         </div>
       </div>
@@ -2321,8 +2363,8 @@
 
   <button type="button" id="bgmToggle" class="bgm-fab" aria-label="배경음악 켜기" title="배경음악">♪</button>
 
-  <div id="lightboxModal" class="lightbox-modal">
-    <div class="lightbox-content">
+  <div id="lightboxModal" class="lightbox-modal" onclick="closeLightboxOnBackdropClick(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
       <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&lsaquo;</button>
       <img id="lightboxImage" src="" alt="확대 이미지" class="lightbox-image">
@@ -2340,22 +2382,26 @@
         (section) => !section.classList.contains('hero-section')
       );
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const isMobile = window.innerWidth <= 480;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReduced || isMobile) {
         gsap.set(sections, { opacity: 1, y: 0 });
         return;
       }
 
-      gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-      sections.forEach((section) => {
+      sections.forEach((section, index) => {
         gsap.fromTo(
           section,
-          { opacity: 0, y: 16 },
+          { opacity: 0, y: 50 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.7,
+            duration: 0.6,
             ease: 'power2.out',
+            delay: index * 0.05,
             scrollTrigger: {
               trigger: section,
               start: 'top 88%',
@@ -2364,6 +2410,55 @@
           }
         );
       });
+    }
+
+    // ════════════════════════════════════
+    // SMART SCROLL SNAP (Mobile Only)
+    // ════════════════════════════════════
+    let snapTimer;
+    let isAnimating = false;
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth > 480) return;
+      if (isAnimating) return;
+
+      clearTimeout(snapTimer);
+
+      snapTimer = setTimeout(() => {
+        snapToClosestSection();
+      }, 300);
+    }, { passive: true });
+
+    function snapToClosestSection() {
+      if (window.innerWidth > 480 || isAnimating) return;
+
+      const sections = document.querySelectorAll('section');
+      if (sections.length === 0) return;
+
+      let closest = null;
+      let closestDistance = Infinity;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closest = section;
+        }
+      });
+
+      if (closest && closestDistance > 40) {
+        isAnimating = true;
+        gsap.to(window, {
+          scrollTo: { y: closest, offsetY: 0 },
+          duration: 0.5,
+          ease: 'power2.out',
+          onComplete: () => {
+            isAnimating = false;
+          }
+        });
+      }
     }
 
     // ════════════════════════════════════
@@ -2517,6 +2612,12 @@
           document.body.style.overflow = 'auto';
         }
       });
+    }
+
+    function closeLightboxOnBackdropClick(event) {
+      if (event.target.id === 'lightboxModal') {
+        closeLightbox();
+      }
     }
 
     function changeImage(step) {

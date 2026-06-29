@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>김주성 · 조다빈 결혼합니다</title>
-  <meta property="og:title" content="김주성 · 조다빈 결혼합니다" />
+  <title>조다빈 · 김주성 결혼합니다</title>
+  <meta property="og:title" content="조다빈 · 김주성 결혼합니다" />
   <meta property="og:description" content="2026년 8월 22일 토요일 · 호텔 인터불고 대구 웨딩인터빌리지" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/main2.jpg" />
-  <meta property="og:url" content="https://juseongkim92.github.io/juda-wedding/v1/" />
+  <meta property="og:image" content="https://juseongkim92.github.io/juda-wedding/images/main.jpg" />
+  <meta property="og:url" content="https://juseongkim92.github.io/juda-wedding/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="../images/main2.jpg" fetchpriority="high" />
-  <link rel="preload" as="font" type="font/ttf" href="https://fonts.gstatic.com/s/gowunbatang/v12/ijwSs5nhRMIjYsdSgcMa3wRhXA.ttf" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400&family=Noto+Serif+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://hangeul.pstatic.net" crossorigin />
+  <link rel="preload" as="image" href="images/main.jpg" fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Light.woff2" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
@@ -21,6 +22,14 @@
        RESET & BASE
     ════════════════════════════════════ */
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @font-face {
+      font-family: 'MaruBuri';
+      src: url('https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Light.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
 
     :root {
       /* 배경 위 가독성 — 제목·본문은 짙은 네이비/블랙 계열 */
@@ -37,12 +46,12 @@
       --shadow: rgba(168, 212, 230, 0.1);
 
       /* 페이지 배경(background.png) 위 흰 막 — 0~1, 낮을수록 배경 선명 */
-      --page-bg-overlay: 0.62;
+      --page-bg-overlay: 0.85;
 
       --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-display: 'Noto Serif KR', serif;
       --font-greeting: 'Nanum Myeongjo', serif;
-      --font-hero: 'Gowun Batang', 'Noto Serif KR', serif;
+      --font-hero: 'MaruBuri', 'Noto Serif KR', serif;
     }
 
     html, body {
@@ -71,7 +80,7 @@
       max-width: 480px;
       height: 100%;
       transform: translateX(-50%);
-      background: url('../images/background.png') center top / cover no-repeat;
+      background: url('images/background.png') center top / cover no-repeat;
       z-index: -2;
       pointer-events: none;
     }
@@ -117,13 +126,11 @@
     h2::after {
       content: '';
       display: block;
-      width: 40px;
-      height: 1px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      width: 60%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      position: relative;
+      margin: 12px auto 0;
     }
 
     h3 {
@@ -174,8 +181,7 @@
       z-index: 1;
       min-height: 100svh;
       min-height: 100dvh;
-      padding: 60px 20px;
-      border-bottom: 1px solid var(--border);
+      padding: 60px 20px 80px 20px;
       background: transparent;
       opacity: 1;
       display: flex;
@@ -185,12 +191,22 @@
       box-sizing: border-box;
     }
 
+
     section > .container {
       width: 100%;
     }
 
     section:last-of-type {
       border-bottom: none;
+    }
+
+    .section-compact {
+      min-height: auto;
+      padding: 28px 20px 32px;
+    }
+
+    .section-compact h2 {
+      margin-bottom: 16px;
     }
 
     .divider {
@@ -226,8 +242,8 @@
       text-align: center;
       font-family: var(--font-hero);
       font-size: clamp(34px, 9.2vw, 46px);
-      font-weight: 400;
-      letter-spacing: 0.16em;
+      font-weight: 300;
+      letter-spacing: 0.1em;
       color: #fff;
       text-shadow:
         0 2px 18px rgba(26, 35, 50, 0.38),
@@ -305,7 +321,7 @@
     }
 
     .wedding-info {
-      font-size: 15px;
+      font-size: 18px;
       color: var(--text-light);
       line-height: 1.85;
       padding-top: 12px;
@@ -356,53 +372,83 @@
     }
 
     /* ════════════════════════════════════
-       CALENDAR
+       CALENDAR — stationery / poster feel
     ════════════════════════════════════ */
     .calendar-container {
-      margin-top: 30px;
-    }
-
-    .calendar-header {
-      font-size: 18px;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 8px; /* 이미지와 더 가깝게 */
-      color: var(--primary);
+      margin-top: 28px;
     }
 
     .calendar {
-      display: grid;
-      gap: 0;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
+      background: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 28px 18px 22px;
+      box-shadow: 0 10px 32px rgba(26, 35, 50, 0.07);
+    }
+
+    .calendar-header {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .calendar-header-year {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      opacity: 0.9;
+      margin-bottom: 2px;
+    }
+
+    .calendar-header-month {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+
+    .calendar-header-label {
+      display: block;
+      margin-top: 2px;
+      font-size: 10px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      opacity: 0.85;
     }
 
     .calendar-weekdays {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      background: var(--primary-light);
       gap: 0;
+      margin-bottom: 6px;
     }
 
     .calendar-weekdays div {
-      padding: 12px 8px;
+      padding: 0 4px 12px;
       text-align: center;
-      font-weight: 600;
-      color: var(--text);
-      font-size: 12px;
-      border-right: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-light);
+      border: none;
+    }
+
+    .calendar-weekdays div:first-child {
+      color: #b85454;
     }
 
     .calendar-weekdays div:last-child {
-      border-right: none;
+      color: var(--accent);
     }
 
     .calendar-days {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 0;
+      gap: 2px 0;
     }
 
     .calendar-day {
@@ -410,20 +456,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
-      color: var(--text-light);
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--white);
-    }
-
-    .calendar-day:nth-child(7n) {
-      border-right: none;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text);
+      border: none;
+      background: transparent;
     }
 
     .calendar-day.other-month {
-      opacity: 0.3;
-      background: #fafafa;
+      opacity: 0.28;
+      color: var(--text-light);
     }
 
     .calendar-day.sunday {
@@ -435,24 +478,27 @@
     }
 
     .calendar-day.event {
-      background: var(--accent-soft);
+      background: rgba(197, 213, 227, 0.55);
       color: var(--primary);
-      font-weight: 500;
-      border: 1px solid rgba(168, 212, 230, 0.5);
+      font-weight: 600;
+      border-radius: 6px;
     }
 
-    /* 달력 안에 들어가는 이미지 (헤더 바로 뒤) */
-    .calendar-image {
-      margin: 4px auto 10px;
-    }
-    .calendar-image img {
-      width: 100%;
-      max-width: 200px; /* 정사각형 이미지에 적합한 크기, 중앙 정렬 */
-      height: auto; /* 비율 유지 (정사각형 그대로 표시) */
+    /* 달력 헤더 배경 이미지 영역 (정사각형 이미지 대응) */
+    .calendar-header-image {
+      position: relative;
+      margin-bottom: 8px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .calendar-header-bg {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      object-position: center;
       display: block;
-      margin: 0 auto;
     }
 
     /* ════════════════════════════════════
@@ -602,17 +648,20 @@
 
     .family-parents {
       color: var(--text);
+      font-size: 20px;
+      font-weight: 600;
       letter-spacing: 0.03em;
     }
 
     .family-relation {
       color: var(--text-light);
-      font-size: 13px;
+      font-size: 18px;
+      font-weight: 500;
     }
 
     .family-name {
       color: var(--primary);
-      font-size: 16px;
+      font-size: 22px;
       font-weight: 700;
       letter-spacing: 0.12em;
     }
@@ -655,6 +704,18 @@
       margin-top: 8px;
     }
 
+    .contact-side-actions {
+      margin-top: 18px;
+    }
+
+    .contact-side-actions .contact-open-btn {
+      margin-top: 0;
+      min-width: 0;
+      width: 100%;
+      font-size: 13px;
+      padding: 12px 10px;
+    }
+
     .gift-side-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -669,25 +730,23 @@
     }
 
     .gift-side-btn--groom {
-      border-color: rgba(82, 98, 73, 0.4);
-      color: #526249;
-      background: rgba(220, 227, 213, 0.28);
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .gift-side-btn--groom:hover {
-      border-color: #526249;
-      color: #3f4d3a;
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     .gift-side-btn--bride {
-      border-color: rgba(136, 106, 67, 0.4);
-      color: #886a43;
-      background: rgba(238, 228, 216, 0.32);
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .gift-side-btn--bride:hover {
-      border-color: #886a43;
-      color: #6f542f;
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     /* ════════════════════════════════════
@@ -753,6 +812,20 @@
 
     .gift-modal-item:last-child {
       border-bottom: none;
+    }
+
+    .gift-modal-item.is-principal {
+      padding: 14px 12px;
+      border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    .gift-modal-item.is-principal.is-bride {
+      background-color: rgba(255, 200, 220, 0.25);
+    }
+
+    .gift-modal-item.is-principal.is-groom {
+      background-color: rgba(200, 220, 255, 0.25);
     }
 
     .gift-modal-person {
@@ -852,6 +925,20 @@
       border-bottom: none;
     }
 
+    .contact-modal-person.is-principal {
+      padding: 11px 12px;
+      border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    .contact-modal-person.is-principal.is-bride {
+      background-color: rgba(255, 200, 220, 0.25);
+    }
+
+    .contact-modal-person.is-principal.is-groom {
+      background-color: rgba(200, 220, 255, 0.25);
+    }
+
     .contact-modal-name {
       color: var(--primary);
       font-size: 14px;
@@ -859,11 +946,20 @@
     }
 
     .contact-modal-relation {
-      display: block;
-      margin-top: 2px;
+      display: inline;
+      margin-left: 4px;
       color: var(--text-light);
       font-size: 11px;
       font-weight: 400;
+    }
+
+    .contact-modal-phone {
+      display: block;
+      margin-top: 4px;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: monospace;
     }
 
     .contact-modal-actions {
@@ -1129,7 +1225,7 @@
     }
 
     .map-btn img {
-      height: 32px;
+      height: 40px;
       width: auto;
       object-fit: contain;
       display: block;
@@ -1359,7 +1455,9 @@
        VIDEO SECTION
     ════════════════════════════════════ */
     .video-player {
+      position: relative;
       width: 100%;
+      aspect-ratio: 16 / 9;
       border-radius: 8px;
       overflow: hidden;
       background: #000;
@@ -1368,8 +1466,10 @@
 
     .video-player video {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
+      object-fit: cover;
+      object-position: center center;
     }
 
     /* ════════════════════════════════════
@@ -1423,6 +1523,7 @@
       width: 90%;
       max-width: 600px;
       animation: zoomIn 0.3s ease;
+      overflow: visible;
     }
 
     @keyframes zoomIn {
@@ -1435,6 +1536,13 @@
       max-height: 80vh;
       object-fit: contain;
       border-radius: 4px;
+      touch-action: pinch-zoom;
+      user-select: none;
+      cursor: grab;
+    }
+
+    .lightbox-image:active {
+      cursor: grabbing;
     }
 
     .lightbox-counter {
@@ -1471,6 +1579,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 10;
     }
 
     .lightbox-prev { left: -60px; }
@@ -1562,15 +1671,13 @@
   </style>
 </head>
 <body>
-  <div id="ytPlayer" class="youtube-player-host youtube-player-host--hidden" aria-hidden="true"></div>
-
   <!-- ═══════════════════════════════════════════════════════
        HERO IMAGE
   ═══════════════════════════════════════════════════════ -->
   <section class="hero-section">
     <img
-      src="../images/main2.jpg"
-      alt="김주성 · 조다빈"
+      src="images/main.jpg"
+      alt="조다빈 · 김주성"
       class="hero-image"
       id="heroImage"
       title="화면을 터치하면 음악이 재생됩니다"
@@ -1581,7 +1688,6 @@
       decoding="sync"
       draggable="false"
     >
-    <p class="hero-names">김주성 <span class="hero-name-bullet" aria-hidden="true">·</span> 조다빈</p>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -1606,7 +1712,7 @@
         </div>
       </div>
 
-      <!-- 양가 소개 및 연락처 안내 -->
+      <!-- 양가 소개 -->
       <div class="family-intro">
         <div class="family-line">
           <span class="family-parents">김한섭 · 박희숙</span>
@@ -1619,9 +1725,30 @@
           <span class="family-relation">의 딸</span>
           <strong class="family-name">다빈</strong>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <button type="button" class="contact-open-btn" onclick="openContactModal()">
-          연락처 안내
+  <!-- ═══════════════════════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section-compact">
+    <div class="container">
+      <h2>축하 연락하기</h2>
+      <div class="gift-side-actions contact-side-actions">
+        <button
+          type="button"
+          class="contact-open-btn"
+          onclick="openContactModal('groom')"
+        >
+          신랑측 연락처
+        </button>
+        <button
+          type="button"
+          class="contact-open-btn"
+          onclick="openContactModal('bride')"
+        >
+          신부측 연락처
         </button>
       </div>
     </div>
@@ -1641,11 +1768,12 @@
       </div>
 
       <div class="calendar-container">
-        <div class="calendar-header">2026년 8월</div>
         <div class="calendar">
-          <!-- calendar.jpg : 헤더 아래 달력 안에 이미지 -->
-          <div class="calendar-image">
-            <img src="../images/calendar.jpg" alt="예식 달력" loading="lazy">
+          <!-- 달력 헤더 영역 -->
+          <div class="calendar-header">
+            <span class="calendar-header-year">2026</span>
+            <span class="calendar-header-month">08</span>
+            <span class="calendar-header-label">August</span>
           </div>
           <div class="calendar-weekdays">
             <div>일</div>
@@ -1694,16 +1822,16 @@
           </div>
           <div class="address-actions">
             <!-- <button type="button" class="copy-address-btn" onclick="copyAddress()" title="주소 복사" aria-label="주소 복사">
-              <img src="../images/icons/copy.png" alt="" width="28" height="28" />
+              <img src="images/icons/copy.png" alt="" width="28" height="28" />
             </button> -->
             <button type="button" class="map-btn" onclick="openNavi('naver')" title="네이버 지도">
-              <img src="../images/icons/navermap.png" alt="네이버 지도" />
+              <img src="images/icons/navermap.png" alt="네이버 지도" />
             </button>
             <button type="button" class="map-btn" onclick="openNavi('kakao')" title="카카오맵">
-              <img src="../images/icons/kakaomap.png" alt="카카오맵" />
+              <img src="images/icons/kakaomap.png" alt="카카오맵" />
             </button>
             <button type="button" class="map-btn" onclick="openNavi('tmap')" title="T map">
-              <img src="../images/icons/tmap.png" alt="T map" />
+              <img src="images/icons/tmap.png" alt="T map" />
             </button>
           </div>
         </div>
@@ -1733,7 +1861,7 @@
       </div>
 
       <div class="route-note">
-        내비게이션에서 <strong>호텔 인터불고 대구</strong>를 검색해주세요.
+        내비게이션에서 <strong>호텔 인터불고 대구</strong>를 검색해주세요. 어플 아이콘을 누르시면 바로 연결됩니다.
       </div>
     </div>
   </div>
@@ -1945,6 +2073,31 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
+       ACCOUNT INFO
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section-compact">
+    <div class="container">
+      <h2>마음 전하실 곳</h2>
+      <div class="gift-side-actions">
+        <button
+          type="button"
+          class="contact-open-btn gift-side-btn gift-side-btn--groom"
+          onclick="openGiftAccountModal('groom')"
+        >
+          신랑측
+        </button>
+        <button
+          type="button"
+          class="contact-open-btn gift-side-btn gift-side-btn--bride"
+          onclick="openGiftAccountModal('bride')"
+        >
+          신부측
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
        GUESTBOOK
   ═══════════════════════════════════════════════════════ -->
   <section>
@@ -1952,9 +2105,6 @@
       <h2>축하 메시지</h2>
       <p style="text-align: center; margin-bottom: 8px; color: var(--text-light); font-size: 14px;">
         축하의 한마디를 남겨주세요
-      </p>
-      <p class="section-note" style="margin-top: 0; margin-bottom: 24px;">
-        비밀번호를 설정하면 본인만 메시지를 삭제할 수 있습니다.
       </p>
 
       <div class="guestbook-form">
@@ -1975,46 +2125,11 @@
             placeholder="따뜻한 한마디를 남겨주세요"
           ></textarea>
         </div>
-        <div class="form-group">
-          <label>비밀번호 (선택)</label>
-          <input
-            type="password"
-            id="guestPassword"
-            maxlength="20"
-            placeholder="삭제할 때 필요합니다"
-            autocomplete="new-password"
-          >
-        </div>
         <button class="submit-btn" onclick="addMessage()">메시지 남기기</button>
       </div>
 
       <div id="messageList" class="message-list">
         <!-- Messages will be added here -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════
-       ACCOUNT INFO
-  ═══════════════════════════════════════════════════════ -->
-  <section>
-    <div class="container">
-      <h2>마음 전하실 곳</h2>
-      <div class="gift-side-actions">
-        <button
-          type="button"
-          class="contact-open-btn gift-side-btn gift-side-btn--bride"
-          onclick="openGiftAccountModal('bride')"
-        >
-          신부측
-        </button>
-        <button
-          type="button"
-          class="contact-open-btn gift-side-btn gift-side-btn--groom"
-          onclick="openGiftAccountModal('groom')"
-        >
-          신랑측
-        </button>
       </div>
     </div>
   </section>
@@ -2028,8 +2143,8 @@
 
       <div class="thanks-card journey-card">
         <div class="video-player">
-          <video controls playsinline preload="metadata" poster="../images/cover.JPG">
-            <source src="../media/udo_video.mp4" type="video/mp4">
+          <video controls playsinline preload="metadata" width="1280" height="720" poster="images/cover.JPG">
+            <source src="media/udo_video.mp4" type="video/mp4">
             브라우저가 동영상 재생을 지원하지 않습니다.
           </video>
         </div>
@@ -2041,27 +2156,15 @@
           진심으로 감사드립니다.<br><br>
           재미있고 행복하게<br>
           잘 살아보겠습니다!<br>
-          앞으로도 많이 응원해 주세요.<br>
-          여러분의 모든 날도 늘 응원합니다!<br><br><br>
+          앞으로도 많이 응원하고 기도해주세요.<br>
+          여러분의 모든 날도 <br>
+          행복하시기를 축복합니다🩵<br><br><br>
 
           Let's Go~~~~<br>
         </p>
       </div>
     </div>
   </section>
-
-  <!-- ═══════════════════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════════════════ -->
-  <!-- <footer>
-    <p>💕 김주성 & 조다빈</p>
-    <p>2026년 8월 22일 토요일</p>
-    <div class="footer-divider"></div>
-    <p>호텔 인터불고 대구 인터빌리지홀</p>
-    <div class="footer-credit">
-      Made with ❤️ for the happiest day
-    </div>
-  </footer> -->
 
   <!-- ═══════════════════════════════════════════════════════
        CONTACT MODAL
@@ -2077,40 +2180,14 @@
         &times;
       </button>
 
-      <h3 id="contactModalTitle" class="contact-modal-title">연락처 안내</h3>
+      <h3 id="contactModalTitle" class="contact-modal-title">신부측 연락처</h3>
 
-      <div class="contact-modal-group">
-        <div class="contact-modal-group-title">신랑측</div>
-
-        <div class="contact-modal-person">
-          <div>
-            <div class="contact-modal-name">김주성</div>
-            <span class="contact-modal-relation">신랑</span>
-          </div>
-        </div>
-
-        <div class="contact-modal-person">
-          <div>
-            <div class="contact-modal-name">김한섭</div>
-            <span class="contact-modal-relation">신랑 아버지</span>
-          </div>
-        </div>
-
-        <div class="contact-modal-person">
-          <div>
-            <div class="contact-modal-name">박희숙</div>
-            <span class="contact-modal-relation">신랑 어머니</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-modal-group">
-        <div class="contact-modal-group-title">신부측</div>
-
-        <div class="contact-modal-person">
+      <div id="contactModalBride" class="contact-modal-group">
+        <div class="contact-modal-person is-principal is-bride">
           <div>
             <div class="contact-modal-name">조다빈</div>
             <span class="contact-modal-relation">신부</span>
+            <span class="contact-modal-phone">010-0000-0000</span>
           </div>
         </div>
 
@@ -2118,6 +2195,7 @@
           <div>
             <div class="contact-modal-name">조진형</div>
             <span class="contact-modal-relation">신부 아버지</span>
+            <span class="contact-modal-phone">010-0000-0000</span>
           </div>
         </div>
 
@@ -2125,6 +2203,33 @@
           <div>
             <div class="contact-modal-name">주봉은</div>
             <span class="contact-modal-relation">신부 어머니</span>
+            <span class="contact-modal-phone">010-0000-0000</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="contactModalGroom" class="contact-modal-group" hidden>
+        <div class="contact-modal-person is-principal is-groom">
+          <div>
+            <div class="contact-modal-name">김주성</div>
+            <span class="contact-modal-relation">신랑</span>
+            <span class="contact-modal-phone">010-0000-0000</span>
+          </div>
+        </div>
+
+        <div class="contact-modal-person">
+          <div>
+            <div class="contact-modal-name">김한섭</div>
+            <span class="contact-modal-relation">신랑 아버지</span>
+            <span class="contact-modal-phone">010-0000-0000</span>
+          </div>
+        </div>
+
+        <div class="contact-modal-person">
+          <div>
+            <div class="contact-modal-name">박희숙</div>
+            <span class="contact-modal-relation">신랑 어머니</span>
+            <span class="contact-modal-phone">010-0000-0000</span>
           </div>
         </div>
       </div>
@@ -2145,19 +2250,45 @@
         &times;
       </button>
 
-      <h3 id="giftAccountModalTitle" class="contact-modal-title">신랑측</h3>
+      <h3 id="giftAccountModalTitle" class="contact-modal-title">신부측</h3>
 
-      <div id="giftModalGroom" class="contact-modal-group">
+      <div id="giftModalBride" class="contact-modal-group">
+
+        <div class="gift-modal-item is-principal is-bride">
+          <div class="gift-modal-person">
+            <strong>조다빈</strong>
+            <span>신부</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">국민은행</span>
+            <span class="gift-modal-number"> --------- </span> <!-- TODO: 실제 계좌번호로 교체 -->
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '---------')">복사</button>
+          </div>
+        </div>
 
         <div class="gift-modal-item">
+          <div class="gift-modal-person">
+            <strong>조진형</strong>
+            <span>신부 아버지</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">하나은행</span>
+            <span class="gift-modal-number"> --------- </span> <!-- TODO: 실제 계좌번호로 교체 -->
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('하나은행', '---------')">복사</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="giftModalGroom" class="contact-modal-group" hidden>
+        <div class="gift-modal-item is-principal is-groom">
           <div class="gift-modal-person">
             <strong>김주성</strong>
             <span>신랑</span>
           </div>
           <div class="gift-modal-account">
             <span class="gift-modal-bank">국민은행</span>
-            <span class="gift-modal-number">123456-00-000000</span> <!-- TODO: 실제 계좌번호로 교체 -->
-            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
+            <span class="gift-modal-number"> --------- </span> <!-- TODO: 실제 계좌번호로 교체 -->
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '---------')">복사</button>
           </div>
         </div>
 
@@ -2168,8 +2299,8 @@
           </div>
           <div class="gift-modal-account">
             <span class="gift-modal-bank">국민은행</span>
-            <span class="gift-modal-number">123456-00-000000</span> <!-- TODO: 실제 계좌번호로 교체 -->
-            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
+            <span class="gift-modal-number"> --------- </span> <!-- TODO: 실제 계좌번호로 교체 -->
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '---------')">복사</button>
           </div>
         </div>
 
@@ -2177,44 +2308,6 @@
           <div class="gift-modal-person">
             <strong>박희숙</strong>
             <span>신랑 어머니</span>
-          </div>
-          <div class="gift-modal-account">
-            <span class="gift-modal-bank">국민은행</span>
-            <span class="gift-modal-number">123456-00-000000</span> <!-- TODO: 실제 계좌번호로 교체 -->
-            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="giftModalBride" class="contact-modal-group" hidden>
-        <div class="gift-modal-item">
-          <div class="gift-modal-person">
-            <strong>조다빈</strong>
-            <span>신부</span>
-          </div>
-          <div class="gift-modal-account">
-            <span class="gift-modal-bank">국민은행</span>
-            <span class="gift-modal-number">123456-00-000000</span> <!-- TODO: 실제 계좌번호로 교체 -->
-            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
-          </div>
-        </div>
-
-        <div class="gift-modal-item">
-          <div class="gift-modal-person">
-            <strong>조진형</strong>
-            <span>신부 아버지</span>
-          </div>
-          <div class="gift-modal-account">
-            <span class="gift-modal-bank">국민은행</span>
-            <span class="gift-modal-number">123456-00-000000</span> <!-- TODO: 실제 계좌번호로 교체 -->
-            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount('국민은행', '123456-00-000000')">복사</button>
-          </div>
-        </div>
-
-        <div class="gift-modal-item">
-          <div class="gift-modal-person">
-            <strong>주봉은</strong>
-            <span>신부 어머니</span>
           </div>
           <div class="gift-modal-account">
             <span class="gift-modal-bank">국민은행</span>
@@ -2277,10 +2370,10 @@
     // GALLERY & LIGHTBOX
     // ════════════════════════════════════
     let currentImageIndex = 0;
-    const GALLERY_PREVIEW_COUNT = 6;
+    const GALLERY_PREVIEW_COUNT = 9;
     const GALLERY_IMAGES = [];
-    for (let i = 1; i <= 22; i++) GALLERY_IMAGES.push(`../images/gallery/img${i}.jpg`);
-    // 새 사진 추가 시: GALLERY_IMAGES.push('../images/gallery/img23.jpg');
+    for (let i = 0; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpg`);
+    // 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img23.jpg');
 
     function updateLightboxCounter() {
       const counter = document.getElementById('lightboxCounter');
@@ -2330,19 +2423,92 @@
       setGalleryExpanded(!isExpanded);
     }
 
+    let lightboxZoom = 1;
+    let lightboxTranslate = { x: 0, y: 0 };
+    let touchStartDistance = 0;
+    let dragStart = { x: 0, y: 0 };
+    let lightboxSwipeStart = { x: 0, y: 0 };
+
+    function resetLightboxZoom() {
+      lightboxZoom = 1;
+      lightboxTranslate = { x: 0, y: 0 };
+      const img = document.getElementById('lightboxImage');
+      if (img) img.style.transform = 'scale(1) translate(0, 0)';
+    }
+
+    function updateLightboxTransform() {
+      const img = document.getElementById('lightboxImage');
+      if (img) {
+        img.style.transform = `scale(${lightboxZoom}) translate(${lightboxTranslate.x}px, ${lightboxTranslate.y}px)`;
+      }
+    }
+
+    function handleLightboxTouch(e) {
+      const img = document.getElementById('lightboxImage');
+      if (!img) return;
+
+      if (e.touches.length === 2) {
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        const distance = Math.hypot(
+          touch1.clientX - touch2.clientX,
+          touch1.clientY - touch2.clientY
+        );
+
+        if (touchStartDistance > 0) {
+          const scale = distance / touchStartDistance;
+          lightboxZoom = Math.max(1, Math.min(3, lightboxZoom * scale));
+          updateLightboxTransform();
+        }
+        touchStartDistance = distance;
+      } else if (e.touches.length === 1 && lightboxZoom > 1) {
+        const touch = e.touches[0];
+        if (dragStart.x === 0 && dragStart.y === 0) {
+          dragStart = { x: touch.clientX, y: touch.clientY };
+        } else {
+          const deltaX = (touch.clientX - dragStart.x) / lightboxZoom;
+          const deltaY = (touch.clientY - dragStart.y) / lightboxZoom;
+          lightboxTranslate.x += deltaX;
+          lightboxTranslate.y += deltaY;
+          dragStart = { x: touch.clientX, y: touch.clientY };
+          updateLightboxTransform();
+        }
+      }
+      e.preventDefault();
+    }
+
     function openLightbox(index) {
       currentImageIndex = index;
       const modal = document.getElementById('lightboxModal');
       const img = document.getElementById('lightboxImage');
       img.src = GALLERY_IMAGES[currentImageIndex];
       updateLightboxCounter();
+      resetLightboxZoom();
       modal.style.display = 'flex';
       gsap.to(modal, { opacity: 1, duration: 0.3 });
       document.body.style.overflow = 'hidden';
+      img.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) lightboxSwipeStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }, { passive: true });
+      img.addEventListener('touchmove', handleLightboxTouch, { passive: false });
+      img.addEventListener('touchend', (e) => {
+        touchStartDistance = 0;
+        dragStart = { x: 0, y: 0 };
+        if (e.changedTouches.length === 1 && lightboxZoom === 1) {
+          const deltaX = e.changedTouches[0].clientX - lightboxSwipeStart.x;
+          if (Math.abs(deltaX) > 50) {
+            changeImage(deltaX > 0 ? -1 : 1);
+          }
+        }
+      });
     }
 
     function closeLightbox() {
       const modal = document.getElementById('lightboxModal');
+      const img = document.getElementById('lightboxImage');
+      img.removeEventListener('touchstart', null);
+      img.removeEventListener('touchmove', handleLightboxTouch);
+      resetLightboxZoom();
       gsap.to(modal, {
         opacity: 0,
         duration: 0.3,
@@ -2380,9 +2546,17 @@
       }
     }
 
-    function openContactModal() {
+    function openContactModal(side) {
       const modal = document.getElementById('contactModal');
-      if (!modal) return;
+      const title = document.getElementById('contactModalTitle');
+      const groomPanel = document.getElementById('contactModalGroom');
+      const bridePanel = document.getElementById('contactModalBride');
+      if (!modal || !title || !groomPanel || !bridePanel) return;
+
+      const isBride = side === 'bride';
+      title.textContent = isBride ? '신부측 연락처' : '신랑측 연락처';
+      groomPanel.hidden = isBride;
+      bridePanel.hidden = !isBride;
 
       modal.classList.add('is-open');
       document.body.style.overflow = 'hidden';
@@ -2657,7 +2831,7 @@
         return;
       }
       Promise.all([
-        document.fonts.load('400 1em "Gowun Batang"'),
+        document.fonts.load('300 1em "MaruBuri"'),
         document.fonts.load('400 1em "Noto Serif KR"')
       ])
         .catch(() => {})
@@ -2746,7 +2920,7 @@
         width: '1',
         videoId: BGM_VIDEO_ID,
         playerVars: {
-          autoplay: 0,
+          autoplay: 1,
           mute: 1,
           controls: 0,
           disablekb: 1,
@@ -2797,34 +2971,31 @@
       'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
 
     // ═══════════════════════════════════════════════════════
-    // FIREBASE CONFIG (보안: 실제 키는 절대 커밋하지 마세요)
+    // FIREBASE CONFIG
     // ═══════════════════════════════════════════════════════
-    // 사용하려면 아래 주석을 해제하고 본인 프로젝트 값으로 채워주세요.
-    // Firebase 콘솔 > 프로젝트 설정 > 일반 > 하단 "SDK 설정 및 구성" 참조
-    /*
+    // 보안 주의: 이 키들은 클라이언트(브라우저)에 노출됩니다.
+    // wedding guestbook 용도로는 일반적으로 괜찮지만, 규칙으로 제한하세요.
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyC3cpH1pHx9W-rq0PMCHVxJE42-o4F9S0Q",
+      authDomain: "juda-wedding.firebaseapp.com",
+      projectId: "juda-wedding",
+      storageBucket: "juda-wedding.firebasestorage.app",
+      messagingSenderId: "600205928200",
+      appId: "1:600205928200:web:ec8468ae8bb4bca0202ebd"
     };
-    */
 
-    // 실제 키가 제공되지 않으면 Firestore 초기화를 건너뜁니다.
     let db = null;
     let guestbookRef = null;
     let GUESTBOOK_DELETE_PASSWORD = '260822';
 
     try {
-      // 아래 줄의 주석을 해제하고 위 firebaseConfig를 채우면 동작합니다.
-      // const app = initializeApp(firebaseConfig);
-      // db = getFirestore(app);
-      // guestbookRef = collection(db, 'guestbook');
-      // console.log('Firebase Firestore 활성화됨');
+      const app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+      guestbookRef = collection(db, 'guestbook');
+      console.log('Firebase Firestore 활성화됨');
     } catch (e) {
-      console.warn('Firebase 초기화 생략 (설정 없음 또는 오류). guestbook는 로컬 모드로 동작합니다.');
+      console.error('Firebase 초기화 실패:', e);
+      console.warn('guestbook는 제한 모드로 동작합니다.');
     }
 
     function escapeHtml(value) {
@@ -2976,7 +3147,7 @@
       }
 
       if (!guestbookRef) {
-        alert('현재 Firebase가 설정되어 있지 않습니다.\n(개발자: firebaseConfig 주석을 해제하고 실제 키를 입력하세요)');
+        alert('Firebase 연결에 실패했습니다.\n브라우저 콘솔(F12)을 확인하고, Firebase 규칙이 올바른지 확인하세요.');
         if (submitButton) {
           submitButton.disabled = false;
           submitButton.textContent = '메시지 남기기';
@@ -3047,6 +3218,7 @@
         }
       );
     } else {
+      // Firebase 연결 실패 시 fallback UI
       const container = document.getElementById('messageList');
       if (container) {
         container.innerHTML = `
@@ -3058,8 +3230,8 @@
             border:1px dashed var(--border);
             border-radius:6px;
           ">
-            (Firebase 설정 시 실시간 방명록이 활성화됩니다)<br>
-            현재는 메시지 작성이 제한됩니다.
+            Firebase 연결에 실패했습니다.<br>
+            콘솔을 확인하거나 관리자에게 문의하세요.
           </p>
         `;
       }
