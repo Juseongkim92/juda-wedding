@@ -71,9 +71,8 @@
       overflow-x: hidden;
       isolation: isolate;
       scroll-behavior: smooth;
-      scroll-snap-type: y proximity;
+      scroll-snap-type: y optional;
       scroll-padding-bottom: 12px;
-      scroll-snap-stop: normal;
     }
 
     body::before {
@@ -247,9 +246,6 @@
       contain: layout style paint;
       scroll-snap-align: start;
       scroll-snap-stop: auto;
-      margin: 0 !important;
-      border-radius: 0 !important;
-      box-shadow: none !important;
     }
 
     .hero-names {
@@ -690,16 +686,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      min-width: 120px;
-      margin-top: 14px;
-      padding: 10px 16px;
+      gap: 12px;
+      min-width: 142px;
+      margin-top: 18px;
+      padding: 14px 20px;
       border: 1px solid var(--accent);
       border-radius: 7px;
       background: transparent;
       color: var(--accent);
       font-family: var(--font-body);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
       transition:
@@ -721,10 +717,12 @@
     .contact-btn-icon {
       width: auto;
       height: 100%;
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       object-fit: contain;
       flex-shrink: 0;
-      max-width: 32px;
+      max-height: 32px;
     }
 
     .section-action {
@@ -854,7 +852,7 @@
     }
 
     .gift-modal-item.is-principal.is-groom {
-      background-color: rgba(100, 150, 220, 0.35);
+      background-color: rgba(200, 220, 255, 0.25);
     }
 
     .gift-modal-item:not(.is-principal) {
@@ -972,7 +970,7 @@
     }
 
     .contact-modal-person.is-principal.is-groom {
-      background-color: rgba(100, 150, 220, 0.35);
+      background-color: rgba(200, 220, 255, 0.25);
     }
 
     .contact-modal-person:not(.is-principal) {
@@ -2125,7 +2123,6 @@
           class="contact-open-btn gift-side-btn gift-side-btn--groom"
           onclick="openGiftAccountModal('groom')"
         >
-          <img src="images/icons/groom.png" alt="신랑" class="contact-btn-icon" />
           신랑측
         </button>
         <button
@@ -2134,7 +2131,6 @@
           onclick="openGiftAccountModal('bride')"
         >
           신부측
-          <img src="images/icons/bride.png" alt="신부" class="contact-btn-icon" />
         </button>
       </div>
     </div>
@@ -2479,43 +2475,6 @@
         });
       }
     }
-
-    // ════════════════════════════════════
-    // SMOOTH SCROLL SNAP (800ms delay)
-    // ════════════════════════════════════
-    let snapTimer;
-
-    window.addEventListener('scroll', () => {
-      if (window.innerWidth > 480) return;
-
-      clearTimeout(snapTimer);
-
-      snapTimer = setTimeout(() => {
-        const sections = document.querySelectorAll('section:not(.map-section)');
-        if (sections.length === 0) return;
-
-        let closest = null;
-        let closestDistance = Infinity;
-
-        sections.forEach((section) => {
-          const rect = section.getBoundingClientRect();
-          const distance = Math.abs(rect.top);
-
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closest = section;
-          }
-        });
-
-        if (closest && closestDistance > 50) {
-          gsap.to(window, {
-            scrollTo: { y: closest, offsetY: 0 },
-            duration: 0.6,
-            ease: 'power2.out'
-          });
-        }
-      }, 800);
-    }, { passive: true });
 
     // ════════════════════════════════════
     // GALLERY & LIGHTBOX
@@ -3308,13 +3267,14 @@
     window.addMessage = async function addMessage() {
       const nameInput = document.getElementById('guestName');
       const messageInput = document.getElementById('guestMessage');
+      const passwordInput = document.getElementById('guestPassword');
       const submitButton = document.querySelector(
         '.guestbook-form .submit-btn'
       );
 
       const name = nameInput.value.trim();
       const message = messageInput.value.trim();
-      const deletePassword = prompt('메시지 삭제를 위한 비밀번호를 입력해주세요 (선택사항):', '').trim();
+      const deletePassword = passwordInput.value.trim();
 
       if (!name || !message) {
         alert('이름과 메시지를 모두 입력해주세요.');
