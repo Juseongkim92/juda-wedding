@@ -71,6 +71,8 @@
       overflow-x: hidden;
       isolation: isolate;
       scroll-behavior: smooth;
+      scroll-snap-type: y optional;
+      scroll-padding-bottom: 12px;
     }
 
     body::before {
@@ -189,6 +191,8 @@
       flex-direction: column;
       justify-content: flex-start;
       box-sizing: border-box;
+      scroll-snap-align: start;
+      scroll-snap-stop: auto;
       margin: 0 8px 12px 8px;
       border-radius: 16px;
       box-shadow: 0 8px 24px rgba(26, 35, 50, 0.08);
@@ -214,6 +218,8 @@
 
     .map-section {
       padding: 40px 20px 80px 20px !important;
+      scroll-snap-align: none !important;
+      scroll-snap-stop: auto !important;
     }
 
     .divider {
@@ -238,6 +244,8 @@
       background: transparent;
       line-height: 0;
       contain: layout style paint;
+      scroll-snap-align: start;
+      scroll-snap-stop: auto;
     }
 
     .hero-names {
@@ -675,13 +683,13 @@
     }
 
     .contact-open-btn {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
+      gap: 12px;
       min-width: 142px;
       margin-top: 18px;
-      padding: 12px 20px;
+      padding: 14px 20px;
       border: 1px solid var(--accent);
       border-radius: 7px;
       background: transparent;
@@ -704,6 +712,17 @@
 
     .contact-open-btn:active {
       transform: scale(0.98);
+    }
+
+    .contact-btn-icon {
+      width: auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      object-fit: contain;
+      flex-shrink: 0;
+      max-height: 32px;
     }
 
     .section-action {
@@ -1789,6 +1808,7 @@
           class="contact-open-btn"
           onclick="openContactModal('groom')"
         >
+          <img src="images/icons/groom.png" alt="신랑" class="contact-btn-icon" />
           신랑측 연락처
         </button>
         <button
@@ -1797,6 +1817,7 @@
           onclick="openContactModal('bride')"
         >
           신부측 연락처
+          <img src="images/icons/bride.png" alt="신부" class="contact-btn-icon" />
         </button>
       </div>
     </div>
@@ -2407,6 +2428,55 @@
     }
 
     // ════════════════════════════════════
+    // SMART SCROLL SNAP (Mobile Only)
+    // ════════════════════════════════════
+    let snapTimer;
+    let isAnimating = false;
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth > 480) return;
+      if (isAnimating) return;
+
+      clearTimeout(snapTimer);
+
+      snapTimer = setTimeout(() => {
+        snapToClosestSection();
+      }, 300);
+    }, { passive: true });
+
+    function snapToClosestSection() {
+      if (window.innerWidth > 480 || isAnimating) return;
+
+      const sections = document.querySelectorAll('section');
+      if (sections.length === 0) return;
+
+      let closest = null;
+      let closestDistance = Infinity;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closest = section;
+        }
+      });
+
+      if (closest && closestDistance > 40) {
+        isAnimating = true;
+        gsap.to(window, {
+          scrollTo: { y: closest, offsetY: 0 },
+          duration: 0.5,
+          ease: 'power2.out',
+          onComplete: () => {
+            isAnimating = false;
+          }
+        });
+      }
+    }
+
+    // ════════════════════════════════════
     // GALLERY & LIGHTBOX
     // ════════════════════════════════════
     let currentImageIndex = 0;
@@ -2827,6 +2897,34 @@
     }
 
     // ════════════════════════════════════
+    // GREETING MESSAGE ANIMATION
+    // ════════════════════════════════════
+    function animateGreetingLines() {
+      const greetingMsg = document.querySelector('.greeting-message');
+      if (!greetingMsg) return;
+
+      const originalHTML = greetingMsg.innerHTML;
+      const lines = originalHTML.split('<br>');
+
+      greetingMsg.innerHTML = '';
+
+      lines.forEach((line, index) => {
+        const span = document.createElement('span');
+        span.innerHTML = line;
+        span.style.display = 'block';
+        span.style.opacity = '0';
+        greetingMsg.appendChild(span);
+
+        gsap.to(span, {
+          opacity: 1,
+          duration: 0.8,
+          delay: index * 0.12,
+          ease: 'power2.out'
+        });
+      });
+    }
+
+    // ════════════════════════════════════
     // CALENDAR GENERATION
     // ════════════════════════════════════
     function generateCalendar(year, month) {
@@ -2889,6 +2987,7 @@
       generateCalendar(2026, 7);
       loadGallery();
       initAnimations();
+      animateGreetingLines();
 
       const bgmBtn = document.getElementById('bgmToggle');
       if (bgmBtn) bgmBtn.addEventListener('click', toggleBgm);
