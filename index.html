@@ -3270,14 +3270,13 @@
     window.addMessage = async function addMessage() {
       const nameInput = document.getElementById('guestName');
       const messageInput = document.getElementById('guestMessage');
-      const passwordInput = document.getElementById('guestPassword');
       const submitButton = document.querySelector(
         '.guestbook-form .submit-btn'
       );
 
       const name = nameInput.value.trim();
       const message = messageInput.value.trim();
-      const deletePassword = passwordInput.value.trim();
+      const deletePassword = prompt('메시지 삭제를 위한 비밀번호를 입력해주세요 (선택사항):', '').trim();
 
       if (!name || !message) {
         alert('이름과 메시지를 모두 입력해주세요.');
