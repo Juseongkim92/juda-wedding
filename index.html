@@ -2481,6 +2481,43 @@
     }
 
     // ════════════════════════════════════
+    // SMOOTH SCROLL SNAP (800ms delay)
+    // ════════════════════════════════════
+    let snapTimer;
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth > 480) return;
+
+      clearTimeout(snapTimer);
+
+      snapTimer = setTimeout(() => {
+        const sections = document.querySelectorAll('section:not(.map-section)');
+        if (sections.length === 0) return;
+
+        let closest = null;
+        let closestDistance = Infinity;
+
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          const distance = Math.abs(rect.top);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closest = section;
+          }
+        });
+
+        if (closest && closestDistance > 50) {
+          gsap.to(window, {
+            scrollTo: { y: closest, offsetY: 0 },
+            duration: 0.6,
+            ease: 'power2.out'
+          });
+        }
+      }, 800);
+    }, { passive: true });
+
+    // ════════════════════════════════════
     // GALLERY & LIGHTBOX
     // ════════════════════════════════════
     let currentImageIndex = 0;
