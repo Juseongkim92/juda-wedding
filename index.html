@@ -71,8 +71,6 @@
       overflow-x: hidden;
       isolation: isolate;
       scroll-behavior: smooth;
-      scroll-snap-type: y optional;
-      scroll-padding-bottom: 12px;
     }
 
     body::before {
@@ -191,8 +189,6 @@
       flex-direction: column;
       justify-content: flex-start;
       box-sizing: border-box;
-      scroll-snap-align: start;
-      scroll-snap-stop: auto;
       margin: 0 8px 12px 8px;
       border-radius: 16px;
       box-shadow: 0 8px 24px rgba(26, 35, 50, 0.08);
@@ -244,8 +240,6 @@
       background: transparent;
       line-height: 0;
       contain: layout style paint;
-      scroll-snap-align: start;
-      scroll-snap-stop: auto;
     }
 
     .hero-names {
@@ -2425,55 +2419,6 @@
           }
         );
       });
-    }
-
-    // ════════════════════════════════════
-    // SMART SCROLL SNAP (Mobile Only)
-    // ════════════════════════════════════
-    let snapTimer;
-    let isAnimating = false;
-
-    window.addEventListener('scroll', () => {
-      if (window.innerWidth > 480) return;
-      if (isAnimating) return;
-
-      clearTimeout(snapTimer);
-
-      snapTimer = setTimeout(() => {
-        snapToClosestSection();
-      }, 300);
-    }, { passive: true });
-
-    function snapToClosestSection() {
-      if (window.innerWidth > 480 || isAnimating) return;
-
-      const sections = document.querySelectorAll('section');
-      if (sections.length === 0) return;
-
-      let closest = null;
-      let closestDistance = Infinity;
-
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top);
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closest = section;
-        }
-      });
-
-      if (closest && closestDistance > 40) {
-        isAnimating = true;
-        gsap.to(window, {
-          scrollTo: { y: closest, offsetY: 0 },
-          duration: 0.5,
-          ease: 'power2.out',
-          onComplete: () => {
-            isAnimating = false;
-          }
-        });
-      }
     }
 
     // ════════════════════════════════════
