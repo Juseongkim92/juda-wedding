@@ -18,7 +18,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-  
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
   <style>
     /* ════════════════════════════════════
        RESET & BASE
@@ -3087,8 +3088,53 @@
       });
     }
 
+    /**
+     * 카카오톡으로 초대장 공유
+     * Kakao SDK를 사용하여 메시지 전송
+     */
+    function shareKakao() {
+      // Kakao SDK 초기화 (앱 키 필요)
+      if (!window.Kakao || !window.Kakao.isInitialized()) {
+        console.error('카카오 SDK가 로드되지 않았습니다.');
+        alert('카카오톡 공유 기능을 사용할 수 없습니다.');
+        return;
+      }
+
+      const invitationUrl = window.location.href;
+
+      Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '조다빈 · 김주성 결혼합니다',
+          description: '2026년 8월 22일 (토) 낮 12시\n호텔 인터불고 대구 웨딩인터빌리지홀',
+          imageUrl: `${invitationUrl}images/main.jpg`,
+          link: {
+            mobileWebUrl: invitationUrl,
+            webUrl: invitationUrl
+          }
+        },
+        buttons: [
+          {
+            title: '초대장 보기',
+            link: {
+              mobileWebUrl: invitationUrl,
+              webUrl: invitationUrl
+            }
+          }
+        ]
+      });
+    }
+
+    /**
+     * 초대장 URL 복사
+     */
+    function copyInvitationUrl() {
+      const url = window.location.href;
+      copyToClipboard(url);
+    }
+
     const WEDDING_VENUE = {
-      name: '호텔 인터불고 대구 웨딩인터빌리지',
+      name: '호텔 인터불고 대구 웨딩인터빌리지홀',
       address: '대구 수성구 팔현길 212',
       kakaoPlaceId: '1126984414',
       kakaoLink: 'https://kko.to/GSeoSIRki3',
@@ -3308,10 +3354,17 @@
 
     // 페이지 로드 완료 시 초기화 작업 실행
     document.addEventListener('DOMContentLoaded', () => {
+      // Kakao SDK 초기화 (앱 키 필요)
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        // ⚠️ 카카오 앱 키를 여기에 입력하세요
+        // Kakao.init('YOUR_APP_KEY');
+      }
+
       revealHeroNamesWhenReady();
       generateCalendar(2026, 7);
       loadGallery();
       initAnimations();
+      animateGreetingLines();
 
       const bgmBtn = document.getElementById('bgmToggle');
       if (bgmBtn) bgmBtn.addEventListener('click', toggleBgm);
