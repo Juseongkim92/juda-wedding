@@ -3094,22 +3094,35 @@
      * Kakao SDK를 사용하여 메시지 전송
      */
     function shareKakao() {
+      console.log('[카카오톡 공유] 시작');
+
+      // 1. Kakao SDK 확인
       if (!window.Kakao) {
+        console.error('[카카오톡 공유] window.Kakao 없음');
         alert('카카오톡 공유를 지원하지 않는 환경입니다.');
         return;
       }
 
+      // 2. 초기화 확인
       if (!window.Kakao.isInitialized()) {
-        console.warn('Kakao가 아직 초기화되지 않았습니다. 재시도 중...');
-        setTimeout(shareKakao, 500);
+        console.warn('[카카오톡 공유] 아직 초기화되지 않음. 재시도 중...');
+        setTimeout(shareKakao, 1000);
         return;
       }
 
       try {
+        console.log('[카카오톡 공유] Kakao 초기화됨, 공유 준비');
+
         const baseUrl = window.location.origin + window.location.pathname;
         const imageUrl = new URL('images/main.jpg', baseUrl).href;
 
-        Kakao.Link.sendDefault({
+        console.log('[카카오톡 공유] URL:', {
+          baseUrl,
+          imageUrl
+        });
+
+        // 더 간단한 공유 방식 사용
+        Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
             title: '조다빈 · 김주성 결혼합니다',
@@ -3119,21 +3132,17 @@
               mobileWebUrl: baseUrl,
               webUrl: baseUrl
             }
-          },
-          buttons: [
-            {
-              title: '초대장 보기',
-              link: {
-                mobileWebUrl: baseUrl,
-                webUrl: baseUrl
-              }
-            }
-          ],
-          serverCallbackUrl: baseUrl
+          }
         });
+
+        console.log('[카카오톡 공유] 성공');
       } catch (error) {
-        console.error('카카오톡 공유 중 오류:', error);
-        alert('카카오톡 공유 중 오류가 발생했습니다.');
+        console.error('[카카오톡 공유] 에러 상세:', {
+          message: error.message,
+          stack: error.stack,
+          error: error
+        });
+        alert(`카카오톡 공유 중 오류: ${error.message}`);
       }
     }
 
