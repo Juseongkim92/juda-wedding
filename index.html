@@ -3094,36 +3094,47 @@
      * Kakao SDK를 사용하여 메시지 전송
      */
     function shareKakao() {
-      // Kakao SDK 초기화 (앱 키 필요)
-      if (!window.Kakao || !window.Kakao.isInitialized()) {
-        console.error('카카오 SDK가 로드되지 않았습니다.');
-        alert('카카오톡 공유 기능을 사용할 수 없습니다.');
+      if (!window.Kakao) {
+        alert('카카오톡 공유를 지원하지 않는 환경입니다.');
         return;
       }
 
-      const invitationUrl = window.location.href;
+      if (!window.Kakao.isInitialized()) {
+        console.warn('Kakao가 아직 초기화되지 않았습니다. 재시도 중...');
+        setTimeout(shareKakao, 500);
+        return;
+      }
 
-      Kakao.Link.sendDefault({
-        objectType: 'feed',
-        content: {
-          title: '조다빈 · 김주성 결혼합니다',
-          description: '2026년 8월 22일 (토) 낮 12시\n호텔 인터불고 대구 웨딩인터빌리지홀',
-          imageUrl: `${invitationUrl}images/main.jpg`,
-          link: {
-            mobileWebUrl: invitationUrl,
-            webUrl: invitationUrl
-          }
-        },
-        buttons: [
-          {
-            title: '초대장 보기',
+      try {
+        const baseUrl = window.location.origin + window.location.pathname;
+        const imageUrl = new URL('images/main.jpg', baseUrl).href;
+
+        Kakao.Link.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: '조다빈 · 김주성 결혼합니다',
+            description: '2026년 8월 22일 (토) 낮 12시\n호텔 인터불고 대구 웨딩인터빌리지홀',
+            imageUrl: imageUrl,
             link: {
-              mobileWebUrl: invitationUrl,
-              webUrl: invitationUrl
+              mobileWebUrl: baseUrl,
+              webUrl: baseUrl
             }
-          }
-        ]
-      });
+          },
+          buttons: [
+            {
+              title: '초대장 보기',
+              link: {
+                mobileWebUrl: baseUrl,
+                webUrl: baseUrl
+              }
+            }
+          ],
+          serverCallbackUrl: baseUrl
+        });
+      } catch (error) {
+        console.error('카카오톡 공유 중 오류:', error);
+        alert('카카오톡 공유 중 오류가 발생했습니다.');
+      }
     }
 
     /**
@@ -3354,11 +3365,17 @@
     }
 
     // 페이지 로드 완료 시 초기화 작업 실행
-    document.addEventListener('DOMContentLoaded', () => {
-      // Kakao SDK 초기화
-      if (window.Kakao && !window.Kakao.isInitialized()) {
+    // Kakao SDK 초기화 (즉시 실행)
+    if (window.Kakao && !window.Kakao.isInitialized()) {
+      try {
         Kakao.init('a567f3eef35fca02b29ec325fd0b8971');
+        console.log('✓ Kakao SDK 초기화 완료');
+      } catch (error) {
+        console.error('Kakao 초기화 실패:', error);
       }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
 
       revealHeroNamesWhenReady();
       generateCalendar(2026, 7);
