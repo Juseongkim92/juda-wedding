@@ -1176,52 +1176,61 @@
       margin-top: 20px;
     }
 
+    /* ════════════════════════════════════
+      전세버스 안내 (세련된 버전)
+    ════════════════════════════════════ */
     .bus-notice {
-      margin-top: 30px;
-      padding: 20px;
-      background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%);
-      border-radius: 8px;
-      text-align: center;
+      margin-top: 28px;
+      padding: 22px 20px;
+      background: var(--primary-light);
       border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
     }
 
-    .bus-notice p {
-      color: var(--text-dark);
-      line-height: 1.0;
-      margin: 0;
-      white-space: pre-wrap;
-      word-wrap: break-word;
+    .bus-notice-content {
+      max-width: 100%;
     }
 
-    .bus-notice p:first-child {
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 15px;
-    }
-
-    .bus-notice p:nth-child(2) {
-      font-size: 11px;
-      margin-bottom: 20px;
-    }
-
-    .bus-notice .submit-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 12px 28px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 15px;
+    .bus-notice-title {
+      font-size: 14px;
       font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
+      color: var(--primary);
+      line-height: 1.65;
+      margin-bottom: 14px;
     }
 
-    .bus-notice .submit-btn:hover {
-      opacity: 0.9;
+    .bus-notice-desc {
+      font-size: 12.5px;
+      color: var(--text-light);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .bus-notice-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 26px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 14.5px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 8px rgba(26, 45, 66, 0.15);
+    }
+
+    .bus-notice-btn:hover {
+      background: #223a55;
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(26, 45, 66, 0.2);
+    }
+
+    .bus-notice-btn:active {
+      transform: scale(0.98);
     }
 
     .info-item {
@@ -2425,30 +2434,26 @@
 
       <!-- 전세버스 안내 -->
       <div class="bus-notice">
-        <p>
-          오고 가시는 길이
-          조금이나마 편하시기를 바라는 마음으로
-          버스를 대절하려 합니다.
-        </p>
+        <div class="bus-notice-content">
+          <p class="bus-notice-title">
+            오고 가시는 길이 조금이나마 편하시기를 바라는 마음으로<br>
+            전세버스를 대절하려 합니다.
+          </p>
+          
+          <p class="bus-notice-desc">
+            자리를 넉넉히 준비하기 위해 탑승 인원을 미리 파악하고자 합니다.<br>
+            버스 이용을 원하시는 분들은 아래 버튼을 눌러 구글폼을 작성해 주세요.
+          </p>
 
-        <p>
-          자리를 넉넉히 준비하기 위해
-          탑승 인원을 미리 조사하고자 하오니,
-          버스 이용을 원하시는 분들은
-          아래 버튼을 눌러
-          구글폼을 작성해 주시면
-          감사하겠습니다.
-        </p>
-
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSfKrckh6BoS0Efu0X1haPrY4J8ILbU9QVqxWjT7ViBI0iw5JQ/viewform"
-          target="_blank"
-          class="submit-btn"
-        >
-          🚌 전세버스 이용 신청
-        </a>
+          <a 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfKrckh6BoS0Efu0X1haPrY4J8ILbU9QVqxWjT7ViBI0iw5JQ/viewform" 
+            target="_blank" 
+            class="bus-notice-btn"
+          >
+            🚌 전세버스 이용 신청하기
+          </a>
+        </div>
       </div>
-    </div>
   </div>
 </section>
 
