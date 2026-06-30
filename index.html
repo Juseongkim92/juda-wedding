@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" class="theme-minimal-elegant">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -3497,52 +3496,43 @@
     }
 
     function onYouTubeIframeAPIReady() {
-      console.log('[BGM] YouTube API 준비됨. 플레이어 생성 시작...');
-      try {
-        ytPlayer = new YT.Player('ytPlayer', {
-          height: '1',
-          width: '1',
-          videoId: BGM_VIDEO_ID,
-          playerVars: {
-            autoplay: 0,
-            mute: 1,
-            controls: 0,
-            disablekb: 1,
-            fs: 0,
-            iv_load_policy: 3,
-            modestbranding: 1,
-            playsinline: 1,
-            rel: 0,
-            loop: 1,
-            playlist: BGM_VIDEO_ID
+      ytPlayer = new YT.Player('ytPlayer', {
+        height: '1',
+        width: '1',
+        videoId: BGM_VIDEO_ID,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          disablekb: 1,
+          fs: 0,
+          iv_load_policy: 3,
+          modestbranding: 1,
+          playsinline: 1,
+          rel: 0,
+          loop: 1,
+          playlist: BGM_VIDEO_ID
+        },
+        events: {
+          onReady: () => {
+            bgmReady = true;
+            if (bgmRequested) startBgm();
           },
-          events: {
-            onReady: () => {
-              console.log('[BGM] 플레이어 준비 완료!');
-              bgmReady = true;
-              if (bgmRequested) {
-                console.log('[BGM] 요청된 BGM 재생');
-                startBgm();
-              }
-            },
-            onStateChange: (event) => {
-              if (event.data === YT.PlayerState.PLAYING) {
-                setBgmUi(true);
-              } else if (
-                event.data === YT.PlayerState.PAUSED ||
-                event.data === YT.PlayerState.ENDED
-              ) {
-                setBgmUi(false);
-              }
+          onStateChange: (event) => {
+            if (event.data === YT.PlayerState.PLAYING) {
+              setBgmUi(true);
+            } else if (
+              event.data === YT.PlayerState.PAUSED ||
+              event.data === YT.PlayerState.ENDED
+            ) {
+              setBgmUi(false);
             }
           }
-        });
-      } catch (e) {
-        console.error('[BGM] 플레이어 생성 실패:', e);
-      }
+        }
+      });
     }
   </script>
-  
+
   <script type="module">
     import { initializeApp } from
       'https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js';
@@ -3839,7 +3829,7 @@
       }
     }
   </script>
-  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a567f3eef35fca02b29ec325fd0b8971&libraries=services"></script>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5922d65067c0a218d7841613d7939cc1&libraries=services"></script>
   <script>
     bootKakaoMap();
   </script>
