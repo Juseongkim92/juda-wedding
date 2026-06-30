@@ -108,8 +108,10 @@
     }
 
     /* ════════════════════════════════════
-       TYPOGRAPHY
+       TYPOGRAPHY - 제목 및 텍스트 스타일
+       모든 제목, 본문 텍스트 포맷팅
     ════════════════════════════════════ */
+    /* 제목 기본 스타일 (h1, h2, h3) */
     h1, h2, h3 {
       font-family: var(--font-display);
       font-weight: 500;
@@ -165,8 +167,10 @@
     }
 
     /* ════════════════════════════════════
-       LAYOUT
+       LAYOUT - 레이아웃 및 컨테이너
+       섹션 내부 콘텐츠 배치 및 간격
     ════════════════════════════════════ */
+    /* 콘텐츠 컨테이너 (모든 섹션의 내용 감싸기) */
     .container {
       padding: 0 20px;
     }
@@ -2434,9 +2438,27 @@
   </div>
 
   <script>
+    /* ════════════════════════════════════════════════════════════════
+       자바스크립트 애플리케이션 로직
+
+       구조:
+       1. 애니메이션 (GSAP)
+       2. 갤러리 (미리보기 + 라이트박스)
+       3. 유틸리티 함수
+       4. 특수 효과 (인사말, 달력)
+       5. 이벤트 및 초기화
+       6. Firebase 연동
+       ════════════════════════════════════════════════════════════════ */
+
     // ════════════════════════════════════
-    // GSAP ANIMATIONS
+    // [1] GSAP ANIMATIONS - 스크롤 기반 애니메이션
+    // 섹션이 화면에 진입할 때 Fade-in + Slide-up 효과
     // ════════════════════════════════════
+    /**
+     * 모든 섹션에 스크롤 애니메이션 적용
+     * - 모바일에서는 비활성화 (성능 최적화)
+     * - 동작 감소 설정 적용 시 비활성화 (접근성)
+     */
     function initAnimations() {
       const sections = gsap.utils.toArray('section').filter(
         (section) => !section.classList.contains('hero-section')
@@ -2473,14 +2495,21 @@
     }
 
     // ════════════════════════════════════
-    // GALLERY & LIGHTBOX
+    // [2] GALLERY & LIGHTBOX - 갤러리 및 이미지 확대 보기
+    // 3×3 미리보기 그리드 + 클릭 시 라이트박스로 전체 화면 표시
     // ════════════════════════════════════
     let currentImageIndex = 0;
-    const GALLERY_PREVIEW_COUNT = 9;
+    const GALLERY_PREVIEW_COUNT = 9;  // 미리보기: 3×3 = 9개 이미지
     const GALLERY_IMAGES = [];
-    for (let i = 0; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpg`);
-    // 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img23.jpg');
 
+    // 갤러리 이미지 배열 초기화 (img0.jpg ~ img22.jpg)
+    for (let i = 0; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpg`);
+    // 📝 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img23.jpg');
+
+    /**
+     * 라이트박스 하단의 이미지 카운터 업데이트
+     * 예: "5 / 23"
+     */
     function updateLightboxCounter() {
       const counter = document.getElementById('lightboxCounter');
       if (counter) {
@@ -2647,8 +2676,14 @@
     }
 
     // ════════════════════════════════════
-    // UTILITY FUNCTIONS
+    // [3] UTILITY FUNCTIONS - 유틸리티 함수 모음
+    // 모달 관리, 정보 토글, 클립보드 복사 등
     // ════════════════════════════════════
+
+    /**
+     * 정보 섹션을 열고/닫기 (아코디언 효과)
+     * @param {HTMLElement} element - .info-item 요소
+     */
     function toggleInfo(element) {
       const isOpen = element.classList.toggle('active');
       const button = element.querySelector('.info-header');
@@ -2658,6 +2693,10 @@
       }
     }
 
+    /**
+     * 연락처 모달 열기
+     * @param {string} side - 'groom' 또는 'bride'
+     */
     function openContactModal(side) {
       const modal = document.getElementById('contactModal');
       const title = document.getElementById('contactModalTitle');
@@ -2962,8 +3001,14 @@
     }
 
     // ════════════════════════════════════
-    // INITIALIZATION
+    // [7] INITIALIZATION - 페이지 초기화
+    // 글꼴 로드 → 콘텐츠 렌더링 → 이벤트 리스너 등록
     // ════════════════════════════════════
+
+    /**
+     * 커스텀 글꼴 로드 완료 대기
+     * 글꼴이 로드되면 hero 섹션을 표시
+     */
     function revealHeroNamesWhenReady() {
       const root = document.documentElement;
       if (!document.fonts || !document.fonts.load) {
@@ -2978,11 +3023,17 @@
         .finally(() => root.classList.add('fonts-ready'));
     }
 
+    // 페이지 로드 완료 시 초기화 작업 실행
     document.addEventListener('DOMContentLoaded', () => {
+      // 1. 글꼴 로드 대기
       revealHeroNamesWhenReady();
+      // 2. 달력 생성 (2026년 8월)
       generateCalendar(2026, 7);
+      // 3. 갤러리 로드
       loadGallery();
+      // 4. 스크롤 애니메이션 적용
       initAnimations();
+      // 5. 인사말 애니메이션
       animateGreetingLines();
 
       const bgmBtn = document.getElementById('bgmToggle');
@@ -3112,10 +3163,15 @@
       'https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js';
 
     // ═══════════════════════════════════════════════════════
-    // FIREBASE CONFIG
+    // [8] FIREBASE INTEGRATION - 축하 메시지 저장소
+    // Firestore를 사용해 방명록 데이터 관리
     // ═══════════════════════════════════════════════════════
-    // 보안 주의: 이 키들은 클라이언트(브라우저)에 노출됩니다.
-    // wedding guestbook 용도로는 일반적으로 괜찮지만, 규칙으로 제한하세요.
+    /**
+     * ⚠️  보안 주의
+     * 이 키들은 클라이언트(브라우저)에 노출됩니다.
+     * Wedding Guestbook 용도로는 일반적으로 괜찮지만,
+     * Firestore 규칙으로 접근을 제한하세요.
+     */
     const firebaseConfig = {
       apiKey: "AIzaSyC3cpH1pHx9W-rq0PMCHVxJE42-o4F9S0Q",
       authDomain: "juda-wedding.firebaseapp.com",
@@ -3139,12 +3195,23 @@
       console.warn('guestbook는 제한 모드로 동작합니다.');
     }
 
+    /**
+     * HTML 이스케이프 (XSS 방지)
+     * 사용자 입력 텍스트를 안전한 HTML로 변환
+     * @param {string} value - 이스케이프할 텍스트
+     * @returns {string} HTML 이스케이프된 문자열
+     */
     function escapeHtml(value) {
       const div = document.createElement('div');
       div.textContent = String(value ?? '');
       return div.innerHTML;
     }
 
+    /**
+     * Firebase Timestamp를 한국 날짜 형식으로 변환
+     * @param {any} timestamp - Firestore Timestamp 또는 null
+     * @returns {string} 'YYYY.M.D' 형식의 날짜 문자열
+     */
     function formatDate(timestamp) {
       if (!timestamp || typeof timestamp.toDate !== 'function') {
         return new Date().toLocaleDateString('ko-KR');
