@@ -3526,17 +3526,17 @@
               }
             },
             onStateChange: (event) => {
-            if (event.data === YT.PlayerState.PLAYING) {
-              setBgmUi(true);
-            } else if (
-              event.data === YT.PlayerState.PAUSED ||
-              event.data === YT.PlayerState.ENDED
-            ) {
-              setBgmUi(false);
+              if (event.data === YT.PlayerState.PLAYING) {
+                setBgmUi(true);
+              } else if (
+                event.data === YT.PlayerState.PAUSED ||
+                event.data === YT.PlayerState.ENDED
+              ) {
+                setBgmUi(false);
+              }
             }
           }
         }
-      }
       });
     }
   </script>
