@@ -3354,10 +3354,9 @@
 
     // 페이지 로드 완료 시 초기화 작업 실행
     document.addEventListener('DOMContentLoaded', () => {
-      // Kakao SDK 초기화 (앱 키 필요)
+      // Kakao SDK 초기화
       if (window.Kakao && !window.Kakao.isInitialized()) {
-        // ⚠️ 카카오 앱 키를 여기에 입력하세요
-        // Kakao.init('YOUR_APP_KEY');
+        Kakao.init('a567f3eef35fca02b29ec325fd0b8971');
       }
 
       revealHeroNamesWhenReady();
