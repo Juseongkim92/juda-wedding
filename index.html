@@ -3536,8 +3536,10 @@
               }
             }
           }
-        }
-      });
+        });
+      } catch (e) {
+        console.error('[BGM] 플레이어 생성 실패:', e);
+      }
     }
   </script>
   
