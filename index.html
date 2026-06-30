@@ -1176,6 +1176,52 @@
       margin-top: 20px;
     }
 
+    .bus-notice {
+      margin-top: 30px;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%);
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .bus-notice p {
+      color: var(--text-dark);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .bus-notice p:first-child {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .bus-notice p:nth-child(2) {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .bus-notice .submit-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .bus-notice .submit-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
     .info-item {
       border: 1px solid #f0f0f0;
       border-radius: 8px;
@@ -2187,19 +2233,6 @@
       ></div>
 
       <div class="info-list">
-        <!-- 전세버스
-        <div class="info-item">
-          <button
-            type="button"
-            class="info-header"
-            aria-expanded="false"
-            onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfKrckh6BoS0Efu0X1haPrY4J8ILbU9QVqxWjT7ViBI0iw5JQ/viewform', '_blank')"
-          >
-            <span>🚌 전세버스</span>
-            <span class="arrow" aria-hidden="true">▼</span>
-          </button>
-        </div> -->
-
         <!-- 자가용 -->
         <div class="info-item">
           <button
@@ -2389,31 +2422,13 @@
       <!-- // info-list -->
 
       <!-- 전세버스 안내 -->
-      <div class="bus-notice" style="
-        margin-top: 30px;
-        padding: 20px;
-        background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%);
-        border-radius: 8px;
-        text-align: center;
-        border: 1px solid var(--border);
-      ">
-        <p style="
-          margin: 0 0 15px 0;
-          font-size: 15px;
-          line-height: 1.6;
-          color: var(--text-dark);
-          font-weight: 500;
-        ">
+      <div class="bus-notice">
+        <p>
           오고 가시는 길이 조금이나마 편하시기를 바라는 마음으로<br>
           버스를 대절하려 합니다.
         </p>
 
-        <p style="
-          margin: 0 0 20px 0;
-          font-size: 14px;
-          line-height: 1.6;
-          color: var(--text-dark);
-        ">
+        <p>
           자리를 넉넉히 준비하기 위해 탑승 인원을 미리 조사하고자 하오니,<br>
           버스 이용을 원하시는 분들은 아래 버튼을 눌러<br>
           구글폼을 작성해 주시면 감사하겠습니다.
@@ -2423,22 +2438,6 @@
           href="https://docs.google.com/forms/d/e/1FAIpQLSfKrckh6BoS0Efu0X1haPrY4J8ILbU9QVqxWjT7ViBI0iw5JQ/viewform"
           target="_blank"
           class="submit-btn"
-          style="
-            display: inline-block;
-            margin-top: 10px;
-            padding: 12px 28px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-          "
-          onmouseover="this.style.opacity='0.9'; this.style.transform='translateY(-2px)'"
-          onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)'"
         >
           🚌 전세버스 이용 신청
         </a>
