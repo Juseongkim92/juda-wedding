@@ -1033,13 +1033,13 @@
 
     .gift-modal-person strong {
       color: var(--primary);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
     }
 
     .gift-modal-person span {
       color: var(--text-light);
-      font-size: 11px;
+      font-size: 15px;
     }
 
 
@@ -1056,7 +1056,7 @@
       grid-column: 1;
       grid-row: 1;
       color: var(--text-light);
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 500;
       line-height: 1.35;
       white-space: nowrap;
@@ -1077,7 +1077,7 @@
     }
 
     .gift-modal-copy {
-      grid-column: 3;
+      grid-column: 2;
       grid-row: 1 / 3;
       align-self: stretch;
       justify-self: stretch;
@@ -1289,7 +1289,7 @@
     }
 
     .bus-notice-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--primary);
       line-height: 1.5;
@@ -1297,7 +1297,7 @@
     }
 
     .bus-notice-desc {
-      font-size: 16px;
+      font-size: 14px;
       color: var(--text-light);
       line-height: 1.65;
       margin-bottom: 20px;
@@ -2301,24 +2301,41 @@
 
     .share-actions {
       display: grid;
-      grid-template-columns: 1fr 1fr;   /* 가로 2열 */
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin-top: 20px;
     }
 
     .share-btn {
       width: 100%;
-      padding: 16px 18px;
+      min-height: 58px;
+      padding: 13px 10px;
       border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
+
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
+
       line-height: 1.3;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .share-btn-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .share-btn span {
+      white-space: nowrap;
     }
 
     .share-btn:hover {
@@ -2332,7 +2349,6 @@
 
     /* 카카오톡 버튼 */
     .kakao-share-btn {
-      font-size: 12px;
       background: #fee500;
       border: 1px solid #fee500;
       color: #191919;
@@ -2345,7 +2361,6 @@
 
     /* 링크 복사 버튼 */
     .link-copy-btn {
-      font-size: 12px;
       background: #fff;
       border: 1px solid var(--border);
       color: var(--primary);
@@ -2955,11 +2970,11 @@
           진심으로 감사드립니다.<br><br>
           재미있고 행복하게<br>
           잘 살아보겠습니다!<br>
-          앞으로도 많이 응원하고 기도해주세요.<br>
+          앞으로도 많이 응원하고 기도해주세요.<br><br>
           여러분의 모든 날도 <br>
-          행복하시기를 축복합니다🩵<br><br><br>
+          행복하시기를 축복합니다🩵<br><br>
 
-          Let's Go~~~~<br>
+          Let's Go~~~~
         </p>
       </div>
     </div>
@@ -2974,10 +2989,13 @@
 
       <div class="share-actions">
         <button type="button" class="share-btn kakao-share-btn" onclick="shareKakao()">
-          카카오톡 공유하기
+          <img src="images/icons/kakaotalk.png" alt="" class="share-btn-icon">
+          <span>카카오톡 공유하기</span>
         </button>
+
         <button type="button" class="share-btn link-copy-btn" onclick="copyInvitationUrl()">
-          링크 복사하기
+          <img src="images/icons/linkcopy.png" alt="" class="share-btn-icon">
+          <span>링크 복사하기</span>
         </button>
       </div>
     </div>
@@ -4340,13 +4358,11 @@
       const nameInput = document.getElementById('guestName');
       const messageInput = document.getElementById('guestMessage');
       const passwordInput = document.getElementById('guestPassword');
-      const submitButton = document.querySelector(
-        '.guestbook-form .submit-btn'
-      );
+      const submitButton = document.querySelector('.guestbook-form .submit-btn');
 
       const name = nameInput.value.trim();
       const message = messageInput.value.trim();
-      const deletePassword = passwordInput.value.trim();
+      const deletePassword = passwordInput ? passwordInput.value.trim() : '';
 
       if (!name || !message) {
         alert('이름과 메시지를 모두 입력해주세요.');
@@ -4392,7 +4408,7 @@
 
         nameInput.value = '';
         messageInput.value = '';
-        passwordInput.value = '';
+        if (passwordInput) passwordInput.value = '';
 
         alert('메시지가 등록되었습니다.');
       } catch (error) {
