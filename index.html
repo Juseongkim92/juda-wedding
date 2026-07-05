@@ -230,9 +230,17 @@
     }
 
     .map-section {
-      padding: 40px 20px 80px 20px !important;
-      scroll-snap-align: none !important;
-      scroll-snap-stop: auto !important;
+      padding: 40px 8px 80px 8px !important;
+    }
+
+    .map-section .container {
+      padding: 0;
+    }
+
+    .location-card {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
     }
 
     .divider {
@@ -313,7 +321,19 @@
     }
 
     .greeting-block-section {
-      position: relative;
+      padding: 32px 8px 32px 8px !important;
+    }
+
+    .greeting-block-section .container {
+      padding: 0;
+    }
+
+    .greeting-card {
+      width: 100%;
+      padding: 28px 18px;
+    }
+    .greeting-block-section .family-intro {
+      padding: 4px 0 0;
     }
 
     /* ════════════════════════════════════
@@ -906,9 +926,71 @@
 
     .gift-modal-account {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr) 58px;
+      grid-template-rows: auto auto;
+      column-gap: 10px;
+      row-gap: 4px;
+      align-items: stretch;
+    }
+
+    .gift-modal-bank {
+      grid-column: 1;
+      grid-row: 1;
+      color: var(--text-light);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .gift-modal-number {
+      grid-column: 1;
+      grid-row: 2;
+      color: var(--primary);
+      font-family: 'Courier New', monospace;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      text-decoration: none !important;
+      -webkit-text-decoration: none !important;
+      word-break: keep-all;
+    }
+
+    .gift-modal-copy {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: stretch;
+      justify-self: stretch;
+      margin-left: 0;
+      padding: 0 10px;
+      border: 1px solid var(--accent-soft);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--accent);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+      cursor: pointer;
+      display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .gift-modal-copy:hover {
+      border-color: var(--accent);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .gift-modal-copy:active {
+      transform: scale(0.98);
     }
 
     .gift-modal-bank {
@@ -1120,6 +1202,19 @@
       color: var(--primary);
     }
 
+
+    .schedule-section {
+      padding: 20px 8px 32px 8px !important;
+    }
+
+    .schedule-section .container {
+      padding: 0;
+    }
+
+    .schedule-section .calendar {
+      width: 100%;
+    }
+
     /* ════════════════════════════════════
        GALLERY
     ════════════════════════════════════ */
@@ -1178,33 +1273,102 @@
       transform: scale(1.05);
     }
 
+    .gallery-section {
+      padding: 40px 8px !important;
+    }
+
+    .gallery-section .container {
+      padding: 0;
+    }
+
     /* ════════════════════════════════════
        MAP & DIRECTIONS
     ════════════════════════════════════ */
     .location-card {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      background: var(--white);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
+      border: 1px solid var(--border);          /* 연한 테두리 */
+      border-radius: 12px;                      /* 둥근 모서리 */
+      padding: 20px;                            /* 내부 여백 */
+      background: var(--white);                 /* 흰색 반투명 배경 */
+      backdrop-filter: blur(8px);               /* 배경 흐림 효과 */
+      -webkit-backdrop-filter: blur(8px);       /* Safari용 blur */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);   /* 약한 그림자 */
+      margin-bottom: 20px;                      /* 아래 여백 */
     }
 
+    /* 오시는 길 아코디언 가독성 개선 */
     .info-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
+      gap: 12px;
+    }
+
+    .info-header {
+      padding: 17px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .info-content {
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .info-item.active .info-content {
+      padding: 18px 16px;
+    }
+
+    /* 경로 안내 */
+    .route-block {
+      gap: 13px;
+    }
+
+    .route-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .route-summary {
+      margin: -4px 0 4px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .route-row {
+      gap: 9px;
+    }
+
+    .route-label {
+      min-width: 42px;
+      padding: 3px 7px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .route-path {
+      font-size: 13.5px;
+      line-height: 1.9;
+      letter-spacing: -0.02em;
+    }
+
+    .route-time {
+      margin-left: 4px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .route-note {
+      margin-top: 6px;
+      padding: 12px 13px;
+      font-size: 13px;
+      line-height: 1.8;
     }
 
     /* ════════════════════════════════════
       전세버스 안내 (세련된 버전)
     ════════════════════════════════════ */
     .bus-notice {
-      margin-top: 28px;
-      padding: 22px 16px;
+      margin-top: 30px;
+      padding: 24px 18px;
       background: var(--primary-light);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -1217,7 +1381,7 @@
     }
 
     .bus-notice-title {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--primary);
       line-height: 1.5;
@@ -1225,22 +1389,24 @@
     }
 
     .bus-notice-desc {
-      font-size: 10.5px;
+      font-size: 12.5px;
       color: var(--text-light);
-      line-height: 1.2;
-      margin-bottom: 18px;
+      line-height: 1.65;
+      margin-bottom: 20px;
     }
 
     .bus-notice-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
+      max-width: 260px;
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 700;
       gap: 8px;
-      padding: 13px 26px;
       background: var(--primary);
       color: #fff;
-      font-size: 14.5px;
-      font-weight: 600;
       border-radius: 8px;
       text-decoration: none;
       transition: all 0.25s ease;
@@ -1350,6 +1516,7 @@
 
     .address-text .address-line {
       display: block;
+      font-size: 13px;
     }
 
     .address-actions {
@@ -1686,6 +1853,32 @@
       line-height: 2.15;
       color: var(--text);
       letter-spacing: -0.01em;
+    }
+
+    /* 우리의 여정 섹션 */
+    .journey-section {
+      padding: 40px 8px 40px 8px !important;
+    }
+
+    .journey-section .container {
+      padding: 0;
+    }
+
+    .journey-section .journey-card {
+      width: 100%;
+      padding: 20px 14px 28px;
+      border-radius: 12px;
+    }
+
+    .journey-section .video-player {
+      width: 100%;
+      margin-bottom: 26px;
+      border-radius: 10px;
+    }
+
+    .journey-section .thanks-message {
+      font-size: 15px;
+      line-height: 2.1;
     }
 
     /* ════════════════════════════════════
@@ -2169,7 +2362,8 @@
        [2] GREETING SECTION - 인사말 및 신랑신부 소개
        웨딩 문구 + 양가 부모님 소개 + 신랑신부 이름
   ═══════════════════════════════════════════════════════ -->
-  <section class="greeting-block-section reveal" style="padding: 32px 20px 32px 20px;">
+  <!-- <section class="greeting-block-section reveal" style="padding: 32px 20px 32px 20px;"> -->
+  <section class="greeting-block-section reveal">
     <div class="container greeting-section">
       <!-- 축하 인사말 -->
       <div class="greeting-card">
@@ -2242,16 +2436,16 @@
        [4] CALENDAR SECTION - 예식 일정
        날짜, 시간, 장소 정보 + 달력 표시
   ═══════════════════════════════════════════════════════ -->
-  <section class="reveal" style="padding: 20px 20px 32px 20px;">
+  <section class="schedule-section reveal">
     <div class="container">
       <h2>예식 일정</h2>
       <!-- 결혼식 기본 정보 -->
       <div class="wedding-info" style="border-top: none; padding-top: 0; text-align: center;">
-        <span style="font-size: 12px; color: var(--text-light); line-height: 0.8;">
+        <span style="font-size: 16px; color: var(--text-light); line-height: 0.8;">
             2026년 8월 22일 토요일 낮 12시
         </span>
         <br>  
-        <span style="font-size: 12px; color: var(--text-light); line-height: 0.8;">
+        <span style="font-size: 16px; color: var(--text-light); line-height: 0.8;">
             호텔 인터불고 대구 웨딩인터빌리지홀
         </span>
     </div>
@@ -2283,7 +2477,7 @@
        [5] GALLERY SECTION - 웨딩 사진 갤러리
        3×3 그리드 미리보기 + 클릭 시 라이트박스로 확대
   ═══════════════════════════════════════════════════════ -->
-  <section>
+  <section class="gallery-section">
     <div class="container">
       <h2>갤러리</h2>
       <!-- 갤러리 아이템들 (JavaScript로 동적 생성) -->
@@ -2682,7 +2876,7 @@
       <button
         type="button"
         class="contact-modal-close"
-        onclick="closeGiftAccountModal()"
+        onclick="closeContactModal()"
         aria-label="닫기"
       >
         &times;
@@ -2786,7 +2980,7 @@
       <!-- 신부측 계좌 정보 -->
       <div id="giftModalBride" class="contact-modal-group">
 
-        <div class="gift-modal-item is-principal is-bride">
+        <div class="gift-modal-item">
           <div class="gift-modal-person">
             <strong>조다빈</strong>
             <span>신부</span>
@@ -2809,10 +3003,23 @@
             <button type="button" class="gift-modal-copy" onclick="copyGiftAccount(this, '하나은행', '33089050354107')">복사</button>
           </div>
         </div>
+
+        <div class="gift-modal-item">
+          <div class="gift-modal-person">
+            <strong>주봉은</strong>
+            <span>신부 어머니</span>
+          </div>
+          <div class="gift-modal-account">
+            <span class="gift-modal-bank">대구은행</span>
+            <span class="gift-modal-number">211-07-0097218</span>
+            <button type="button" class="gift-modal-copy" onclick="copyGiftAccount(this, '대구은행', '211070097218')">복사</button>
+          </div>
+        </div>
+
       </div>
 
       <div id="giftModalGroom" class="contact-modal-group" hidden>
-        <div class="gift-modal-item is-principal is-groom">
+        <div class="gift-modal-item">
           <div class="gift-modal-person">
             <strong>김주성</strong>
             <span>신랑</span>
