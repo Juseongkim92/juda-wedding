@@ -912,7 +912,7 @@
 
     .contact-modal-name {
       color: var(--primary);
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       line-height: 1.35;
     }
@@ -921,7 +921,7 @@
       display: inline;
       margin-left: 5px;
       color: var(--text-light);
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 400;
     }
 
@@ -930,7 +930,7 @@
       margin-top: 6px;
       color: var(--primary);
       font-family: 'Courier New', monospace;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       line-height: 1.35;
       letter-spacing: -0.02em;
@@ -3760,12 +3760,14 @@
 
     const WEDDING_VENUE = {
       name: '호텔 인터불고 대구 웨딩인터빌리지홀',
+      searchKeyword: '웨딩 인터빌리지',
       address: '대구 수성구 팔현길 212',
       kakaoPlaceId: '1126984414',
-      kakaoLink: 'https://kko.to/GSeoSIRki3',
+      kakaoLink: 'https://place.map.kakao.com/1126984414',
+      naverLink: 'https://naver.me/5k7fh8vo',
       tmapLink: 'https://tmap.life/b9a2b9e9',
-      fallbackLat: 35.8939,
-      fallbackLng: 128.6149
+      fallbackLat: 35.8743558203363,
+      fallbackLng: 128.659807305572
     };
 
     function getMapInfoContent(title, address) {
@@ -3778,7 +3780,7 @@
 
     function openNavi(type) {
       if (type === 'naver') {
-        window.open('https://naver.me/5k7fh8vo', '_blank');
+        window.open(WEDDING_VENUE.naverLink, '_blank');
       } else if (type === 'kakao') {
         window.open(WEDDING_VENUE.kakaoLink, '_blank');
       } else if (type === 'tmap') {
@@ -3838,7 +3840,7 @@
       }
 
       const places = new kakao.maps.services.Places();
-      places.keywordSearch(WEDDING_VENUE.name, (data, status) => {
+      places.keywordSearch(WEDDING_VENUE.searchKeyword || WEDDING_VENUE.name, (data, status) => {
         if (status === kakao.maps.services.Status.OK && data.length) {
           const place = data.find((p) => p.id === WEDDING_VENUE.kakaoPlaceId) || data[0];
           renderKakaoMap(place.y, place.x, WEDDING_VENUE.name);
