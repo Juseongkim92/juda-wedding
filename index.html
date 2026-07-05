@@ -876,6 +876,125 @@
       white-space: nowrap;
     }
 
+
+    /* ════════════════════════════════════
+      CONTACT MODAL - 계좌번호 스타일에 맞춘 연락처 보정
+    ════════════════════════════════════ */
+
+    .contact-modal-person {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 92px;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(220, 234, 242, 0.65);
+      border-radius: 6px;
+      margin: 4px 0;
+    }
+
+    .contact-modal-person:last-child {
+      border-bottom: none;
+    }
+
+    .contact-modal-person.is-principal {
+      padding: 14px 12px;
+      border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    /* 왼쪽 이름 + 전화번호 영역 */
+    .contact-modal-person > div:first-child {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-modal-name {
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .contact-modal-relation {
+      display: inline;
+      margin-left: 5px;
+      color: var(--text-light);
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .contact-modal-phone {
+      display: block;
+      margin-top: 6px;
+      color: var(--primary);
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      text-decoration: none !important;
+      -webkit-text-decoration: none !important;
+      word-break: keep-all;
+    }
+
+    /* 오른쪽 전화/문자 버튼 */
+    .contact-modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-self: stretch;
+    }
+
+    .contact-action-link {
+      width: auto;
+      height: auto;
+      min-height: 52px;
+      border: 1px solid var(--accent-soft);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .contact-action-link svg {
+      width: 40px;
+      height: 20px;
+    }
+
+    /* 전화 / 문자 글자 표시 */
+    .contact-action-link::after {
+      content: attr(title);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .contact-action-link:hover {
+      border-color: var(--accent);
+      background: var(--primary-light);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .contact-action-link:active {
+      transform: scale(0.97);
+    }
+
     .gift-modal-item {
       padding: 14px 0;
       border-bottom: 1px solid var(--border);
@@ -993,46 +1112,6 @@
       transform: scale(0.98);
     }
 
-    .gift-modal-bank {
-      color: var(--text-light);
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .gift-modal-number {
-      color: var(--primary);
-      font-family: 'Courier New', monospace;
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.4;
-      letter-spacing: -0.02em;
-      text-decoration: none !important;
-      -webkit-text-decoration: none !important;
-      word-break: keep-all;
-    }
-
-    .gift-modal-copy {
-      justify-self: end;
-      margin-left: 0;
-      padding: 6px 11px;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      background: transparent;
-      color: var(--accent);
-      font-family: var(--font-body);
-      font-size: 11px;
-      cursor: pointer;
-      transition:
-        border-color 0.2s ease,
-        color 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .gift-modal-copy:hover {
-      border-color: var(--accent);
-      color: var(--primary);
-    }
-
     /* 복사 성공 시 해당 인물 박스 하이라이트 */
     .gift-modal-item {
       transition:
@@ -1071,117 +1150,6 @@
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.08em;
-    }
-
-    .contact-modal-person {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 11px 0;
-      border-bottom: 1px solid rgba(220, 234, 242, 0.65);
-    }
-
-    .contact-modal-person:last-child {
-      border-bottom: none;
-    }
-
-    .contact-modal-person.is-principal {
-      padding: 11px 12px;
-      border-radius: 6px;
-      margin: 8px 0;
-    }
-
-    .contact-modal-person.is-principal.is-bride {
-      background-color: rgba(200, 220, 255, 0.25);
-    }
-
-    .contact-modal-person.is-principal.is-groom {
-      background-color: rgba(200, 220, 255, 0.25);
-    }
-
-    .contact-modal-person:not(.is-principal) {
-      padding: 11px 12px;
-      border-radius: 6px;
-      margin: 4px 0;
-    }
-
-    .contact-modal-name {
-      color: var(--primary);
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .contact-modal-relation {
-      display: inline;
-      margin-left: 4px;
-      color: var(--text-light);
-      font-size: 11px;
-      font-weight: 400;
-    }
-
-    .contact-modal-phone {
-      display: block;
-      margin-top: 4px;
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 500;
-      font-family: monospace;
-    }
-
-    .contact-modal-actions {
-      display: flex;
-      gap: 7px;
-      flex-shrink: 0;
-    }
-
-    .contact-action-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 44px;
-      padding: 7px 9px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--white);
-      color: var(--primary);
-      font-size: 12px;
-      text-decoration: none;
-      cursor: pointer;
-      transition:
-        background 0.2s ease,
-        border-color 0.2s ease;
-    }
-
-    .contact-action-btn:hover {
-      border-color: var(--accent);
-      background: var(--primary-light);
-    }
-
-    .contact-action-link {
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.2s, color 0.2s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      color: var(--accent);
-    }
-
-    .contact-action-link svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .contact-action-link:hover {
-      transform: scale(1.15);
-      color: var(--primary);
-    }
-
-    .contact-action-link:active {
-      transform: scale(0.95);
     }
 
     .copy-btn {
@@ -1300,69 +1268,9 @@
       gap: 12px;
     }
 
-    .info-header {
-      padding: 17px 16px;
-      font-size: 15px;
-      font-weight: 700;
-      line-height: 1.45;
-    }
-
-    .info-content {
-      font-size: 14px;
-      line-height: 1.75;
-    }
-
     .info-item.active .info-content {
       padding: 18px 16px;
     }
-
-    /* 경로 안내 */
-    .route-block {
-      gap: 13px;
-    }
-
-    .route-title {
-      font-size: 15px;
-      font-weight: 700;
-      line-height: 1.6;
-    }
-
-    .route-summary {
-      margin: -4px 0 4px;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .route-row {
-      gap: 9px;
-    }
-
-    .route-label {
-      min-width: 42px;
-      padding: 3px 7px;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .route-path {
-      font-size: 13.5px;
-      line-height: 1.9;
-      letter-spacing: -0.02em;
-    }
-
-    .route-time {
-      margin-left: 4px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .route-note {
-      margin-top: 6px;
-      padding: 12px 13px;
-      font-size: 13px;
-      line-height: 1.8;
-    }
-
     /* ════════════════════════════════════
       전세버스 안내 (세련된 버전)
     ════════════════════════════════════ */
@@ -1381,7 +1289,7 @@
     }
 
     .bus-notice-title {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--primary);
       line-height: 1.5;
@@ -1389,7 +1297,7 @@
     }
 
     .bus-notice-desc {
-      font-size: 12.5px;
+      font-size: 16px;
       color: var(--text-light);
       line-height: 1.65;
       margin-bottom: 20px;
@@ -1402,7 +1310,7 @@
       width: 100%;
       max-width: 260px;
       padding: 14px 20px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       gap: 8px;
       background: var(--primary);
@@ -1428,6 +1336,7 @@
       border-radius: 8px;
       overflow: hidden;
       transition: all 0.2s;
+      font-size: 18px;
     }
 
     .info-header {
@@ -1441,7 +1350,7 @@
       background: var(--white);
       color: var(--primary);
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 600;
       text-align: left;
       cursor: pointer;
@@ -1456,7 +1365,7 @@
       padding: 0 16px;
       transition: all 0.3s ease;
       background: var(--white);
-      font-size: 13px;
+      font-size: 15px;
       color: #555;
       overflow: hidden;
     }
@@ -1516,7 +1425,8 @@
 
     .address-text .address-line {
       display: block;
-      font-size: 13px;
+      font-size: 16px;
+
     }
 
     .address-actions {
@@ -1575,7 +1485,7 @@
 
     /* 텍스트 */
     .map-btn span {
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--primary);
       white-space: nowrap;
@@ -1600,7 +1510,7 @@
     .route-title {
       color: var(--primary);
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       line-height: 1.6;
     }
@@ -1608,7 +1518,7 @@
     .route-summary {
       margin: -5px 0 2px;
       color: var(--text-light);
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.7;
     }
 
@@ -1625,7 +1535,7 @@
       border-radius: 4px;
       background: #eef4f8;
       color: var(--accent);
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       text-align: center;
     }
@@ -1634,7 +1544,7 @@
       flex: 1;
       margin: 0;
       color: var(--text);
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.85;
       word-break: keep-all;
       overflow-wrap: anywhere;
@@ -1684,8 +1594,107 @@
     }
 
     /* ════════════════════════════════════
-       GUESTBOOK
+      GUESTBOOK - width & readability
     ════════════════════════════════════ */
+
+    .guestbook-section {
+      padding: 40px 8px 40px 8px !important;
+    }
+
+    .guestbook-section .container {
+      padding: 0;
+    }
+
+    /* 안내 문구 */
+    .guestbook-section > .container > p {
+      font-size: 14px !important;
+      line-height: 1.7;
+      margin-bottom: 14px !important;
+    }
+
+    /* 입력 카드 */
+    .guestbook-section .guestbook-form {
+      width: 100%;
+      padding: 22px 16px;
+      border-radius: 12px;
+      margin-bottom: 28px;
+    }
+
+    /* 입력 항목 간격 */
+    .guestbook-section .form-group {
+      margin-bottom: 17px;
+    }
+
+    /* 라벨 */
+    .guestbook-section .form-group label {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    /* input / textarea */
+    .guestbook-section .form-group input,
+    .guestbook-section .form-group textarea {
+      padding: 13px 12px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+
+    /* 메시지 입력창 */
+    .guestbook-section .form-group textarea {
+      height: 118px;
+    }
+
+    /* 등록 버튼 */
+    .guestbook-section .submit-btn {
+      padding: 15px 14px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 700;
+    }
+
+    /* 메시지 목록 */
+    .guestbook-section .message-list {
+      gap: 12px;
+    }
+
+    /* 메시지 카드 */
+    .guestbook-section .message-card {
+      width: 100%;
+      padding: 17px 15px;
+      border-radius: 10px;
+    }
+
+    /* 작성자 / 날짜 영역 */
+    .guestbook-section .message-header {
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    /* 작성자 */
+    .guestbook-section .message-author {
+      font-size: 14.5px;
+      font-weight: 700;
+    }
+
+    /* 날짜 */
+    .guestbook-section .message-date {
+      font-size: 11.5px;
+    }
+
+    /* 삭제 버튼 */
+    .guestbook-section .message-delete-btn {
+      font-size: 11.5px;
+    }
+
+    /* 메시지 본문 */
+    .guestbook-section .message-text {
+      font-size: 13.8px;
+      line-height: 1.75;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
     .guestbook-form {
       background: var(--white);
       border: 1px solid var(--border);
@@ -1801,6 +1810,73 @@
       line-height: 1.6;
       color: var(--text);
     }
+
+    /* ════════════════════════════════════
+      PRAYER SECTION
+    ════════════════════════════════════ */
+
+    .prayer-section {
+      padding: 40px 8px 40px 8px !important;
+    }
+
+    .prayer-section .container {
+      padding: 0;
+    }
+
+    .prayer-card {
+      width: 100%;
+      padding: 30px 18px 28px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+
+    .prayer-note {
+      margin-top: -4px;
+      margin-bottom: 22px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .prayer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .prayer-item {
+      position: relative;
+      padding: 18px 14px 18px 46px;
+      border: 1px solid rgba(220, 234, 242, 0.8);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .prayer-number {
+      position: absolute;
+      top: 18px;
+      left: 14px;
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .prayer-item p {
+      margin: 0;
+      color: var(--text);
+      font-family: var(--font-greeting);
+      font-size: 15px;
+      line-height: 2;
+      letter-spacing: -0.02em;
+      word-break: keep-all;
+    }
+
+
 
     /* ════════════════════════════════════
        VIDEO SECTION
@@ -2779,11 +2855,11 @@
        방명록 폼(이름, 메시지 입력) + 메시지 목록 표시
        Firebase Firestore 연동으로 메시지 저장
   ═══════════════════════════════════════════════════════ -->
-  <section class="reveal">
-    <div class="container">
-      <h2>축하 메시지</h2>
+<section class="guestbook-section reveal">
+  <div class="container">
+    <h2>축하 메시지</h2>
       <!-- 입력 안내 -->
-      <p style="text-align: center; margin-bottom: 8px; color: var(--text-light); font-size: 14px;">
+      <p style="text-align: center; margin-bottom: 8px; color: var(--text-light); font-size: 16px;">
         축하의 한마디를 남겨주세요
       </p>
 
@@ -2810,6 +2886,49 @@
 
       <div id="messageList" class="message-list">
         <!-- Messages will be added here -->
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+      [기도제목 SECTION]
+      함께 기도해 주실 제목
+  ═══════════════════════════════════════════════════════ -->
+  <section class="prayer-section reveal">
+    <div class="container">
+      <h2>기도제목</h2>
+
+      <div class="prayer-card">
+        <p class="section-note prayer-note">
+          저희 가정을 위해 함께 마음 모아 기도해 주세요.
+        </p>
+
+        <div class="prayer-list">
+          <div class="prayer-item">
+            <span class="prayer-number">01</span>
+            <p>
+              하나님과 늘 동행하며, 삶의 크고 작은 선택 앞에서 서로의 손을 잡고
+              먼저 하나님의 지혜를 구하는 가정이 되기를
+            </p>
+          </div>
+
+          <div class="prayer-item">
+            <span class="prayer-number">02</span>
+            <p>
+              기쁠 때나 슬플 때나 한결같은 사랑으로 서로를 품고 존중하는
+              단단한 부부로 세워지기를
+            </p>
+          </div>
+
+          <div class="prayer-item">
+            <span class="prayer-number">03</span>
+            <p>
+              하나님 안에서 서로 같은 마음과 비전을 품고,
+              세상에 선한 영향력을 끼치는 가정이 되기를
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2887,7 +3006,7 @@
 
       <!-- 신부측 연락처 정보 -->
       <div id="contactModalBride" class="contact-modal-group">
-        <div class="contact-modal-person is-principal is-bride">
+        <div class="contact-modal-person">
           <div>
             <div class="contact-modal-name">조다빈 <span class="contact-modal-relation">신부</span></div>
             <span class="contact-modal-phone">010-9555-0958</span>
@@ -2922,7 +3041,7 @@
       </div>
 
       <div id="contactModalGroom" class="contact-modal-group" hidden>
-        <div class="contact-modal-person is-principal is-groom">
+        <div class="contact-modal-person">
           <div>
             <div class="contact-modal-name">김주성 <span class="contact-modal-relation">신랑</span></div>
             <span class="contact-modal-phone">010-9113-6540</span>
