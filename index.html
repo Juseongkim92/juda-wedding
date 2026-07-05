@@ -1192,6 +1192,17 @@
       gap: 8px;
     }
 
+    @keyframes gallery-slide-up-fade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .gallery-item {
       position: relative;
       aspect-ratio: 1;
@@ -1203,6 +1214,11 @@
 
     .gallery-item.is-collapsed {
       display: none;
+    }
+
+    .gallery-item.is-visible {
+      animation: gallery-slide-up-fade 0.5s ease-out forwards;
+      animation-delay: var(--delay, 0s);
     }
 
     .gallery-expand-btn {
@@ -3334,7 +3350,21 @@
     function setGalleryExpanded(expanded) {
       document.querySelectorAll('#gallery .gallery-item').forEach((item, index) => {
         if (index >= GALLERY_PREVIEW_COUNT) {
-          item.classList.toggle('is-collapsed', !expanded);
+          if (expanded) {
+            // 더보기: 아이템 표시 + 애니메이션
+            item.classList.remove('is-collapsed');
+            item.classList.remove('is-visible');
+            // 리플로우 강제로 애니메이션 재시작
+            void item.offsetWidth;
+            // CSS 변수로 딜레이 설정 (각 아이템마다 120ms 간격)
+            item.style.setProperty('--delay', `${(index - GALLERY_PREVIEW_COUNT) * 0.12}s`);
+            item.classList.add('is-visible');
+          } else {
+            // 접기: 아이템 숨김
+            item.classList.add('is-collapsed');
+            item.classList.remove('is-visible');
+            item.style.setProperty('--delay', '0s');
+          }
         }
       });
       updateGalleryToggleBtn(expanded);
