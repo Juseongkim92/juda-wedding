@@ -1222,24 +1222,65 @@
     }
 
     .gallery-expand-btn {
-      display: block;
-      width: 100%;
-      margin-top: 16px;
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+
+      width: auto;
+      min-width: 150px;
+      margin: 22px auto 0;
+      padding: 13px 24px;
+
+      border: 1px solid rgba(197, 213, 227, 0.95);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
       color: var(--primary);
+
       font-family: var(--font-body);
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+
       cursor: pointer;
-      transition: all 0.25s ease;
+      box-shadow: 0 8px 22px rgba(26, 35, 50, 0.08);
+
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease;
+    }
+
+    .gallery-expand-btn::after {
+      content: '⌄';
+      display: inline-block;
+      margin-top: -2px;
+
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent);
+
+      transition: transform 0.25s ease;
+    }
+
+    .gallery-expand-btn[aria-expanded="true"]::after {
+      transform: rotate(180deg);
     }
 
     .gallery-expand-btn:hover {
       border-color: var(--accent);
-      background: var(--primary-light);
+      background: rgba(255, 255, 255, 0.96);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(26, 35, 50, 0.11);
+    }
+
+    .gallery-expand-btn:active {
+      transform: scale(0.98);
     }
 
     .gallery-expand-btn[hidden] {
@@ -1263,6 +1304,11 @@
 
     .gallery-section .container {
       padding: 0;
+      text-align: center;
+    }
+
+    .gallery {
+      text-align: initial;
     }
 
     /* ════════════════════════════════════
@@ -1820,6 +1866,100 @@
       color: var(--text);
     }
 
+    .message-count {
+      margin-bottom: 12px;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+
+    .message-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 17px 15px;
+      box-shadow: 0 6px 18px rgba(26, 35, 50, 0.06);
+
+      opacity: 0;
+      transform: translateY(10px);
+      animation: messageCardFadeUp 0.42s ease forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .message-card.is-hidden {
+      display: none;
+    }
+
+    @keyframes messageCardFadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message-toggle-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .message-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+
+      min-width: 166px;
+      padding: 13px 24px;
+
+      border: 1px solid rgba(197, 213, 227, 0.95);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--primary);
+
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+
+      box-shadow: 0 8px 22px rgba(26, 35, 50, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease;
+    }
+
+    .message-toggle-btn::after {
+      content: '⌄';
+      display: inline-block;
+      margin-top: -2px;
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 0.25s ease;
+    }
+
+    .message-toggle-btn[aria-expanded="true"]::after {
+      transform: rotate(180deg);
+    }
+
+    .message-toggle-btn:hover {
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.96);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(26, 35, 50, 0.11);
+    }
+
+    .message-toggle-btn:active {
+      transform: scale(0.98);
+    }
+
     /* ════════════════════════════════════
       PRAYER SECTION
     ════════════════════════════════════ */
@@ -1980,27 +2120,76 @@
       opacity: 0;
     }
 
-    .lightbox-content {
-      position: relative;
-      width: 90%;
-      max-width: 600px;
-      animation: zoomIn 0.3s ease;
-      overflow: visible;
-    }
-
     @keyframes zoomIn {
       from { transform: scale(0.9); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
+    .lightbox-modal,
+    .lightbox-content,
+    .lightbox-image {
+      touch-action: none;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      height: 100dvh;
+      overflow: hidden;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      animation: none;
+    }
+
+    .lightbox-viewport {
+      width: 100%;
+      max-width: 480px;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    .lightbox-track {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .lightbox-slide {
+      flex: 0 0 auto;
+      width: min(82vw, 390px);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      opacity: 0.42;
+      transform: scale(0.92);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .lightbox-slide.is-current {
+      opacity: 1;
+      transform: scale(1);
+    }
+
     .lightbox-image {
       width: 100%;
-      max-height: 80vh;
+      max-height: 78dvh;
       object-fit: contain;
-      border-radius: 4px;
-      touch-action: pinch-zoom;
+      border-radius: 8px;
       user-select: none;
+      -webkit-user-drag: none;
       cursor: grab;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
     }
 
     .lightbox-image:active {
@@ -2008,7 +2197,7 @@
     }
 
     .lightbox-counter {
-      margin-top: 12px;
+      margin-top: 14px;
       text-align: center;
       color: rgba(255, 255, 255, 0.85);
       font-size: 13px;
@@ -2016,14 +2205,34 @@
     }
 
     .lightbox-close {
-      position: absolute;
-      top: -40px;
-      right: 0;
-      background: none;
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 0px) + 14px);
+      right: 16px;
+      z-index: 30;
+
+      width: 42px;
+      height: 42px;
       border: none;
-      color: white;
+      border-radius: 50%;
+
+      background: rgba(0, 0, 0, 0.36);
+      color: #fff;
+
       font-size: 30px;
+      font-weight: 300;
+      line-height: 1;
       cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .lightbox-close:active {
+      transform: scale(0.94);
     }
 
     .lightbox-nav {
@@ -3248,17 +3457,56 @@
        갤러리 이미지 클릭 시 모달로 전체 화면 표시
        좌우 네비게이션으로 이미지 전환
   ═══════════════════════════════════════════════════════ -->
-  <div id="lightboxModal" class="lightbox-modal" onclick="closeLightboxOnBackdropClick(event)">
-    <div class="lightbox-content" onclick="event.stopPropagation()">
-      <!-- 라이트박스 닫기 버튼 -->
-      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-      <!-- 이전 이미지 버튼 -->
-      <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&lsaquo;</button>
-      <!-- 확대 이미지 -->
-      <img id="lightboxImage" src="" alt="확대 이미지" class="lightbox-image">
-      <!-- 다음 이미지 버튼 -->
-      <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&rsaquo;</button>
-      <!-- 이미지 카운터 (현재/전체) -->
+<div id="lightboxModal" class="lightbox-modal" onclick="closeLightboxOnBackdropClick(event)">
+    <div class="lightbox-content">
+
+      <button 
+        class="lightbox-close" 
+        data-lightbox-interactive
+        onclick="event.stopPropagation(); closeLightbox();"
+        aria-label="사진 닫기"
+      >
+        &times;
+      </button>
+
+      <button 
+        class="lightbox-nav lightbox-prev" 
+        data-lightbox-interactive
+        onclick="event.stopPropagation(); changeImage(-1);"
+        aria-label="이전 사진"
+      >
+        &lsaquo;
+      </button>
+
+      <div 
+        class="lightbox-viewport" 
+        id="lightboxViewport"
+        data-lightbox-interactive
+      >
+        <div class="lightbox-track" id="lightboxTrack">
+          <div class="lightbox-slide">
+            <img id="lightboxPrevImage" src="" alt="이전 사진" class="lightbox-image">
+          </div>
+
+          <div class="lightbox-slide is-current">
+            <img id="lightboxImage" src="" alt="확대 이미지" class="lightbox-image">
+          </div>
+
+          <div class="lightbox-slide">
+            <img id="lightboxNextImage" src="" alt="다음 사진" class="lightbox-image">
+          </div>
+        </div>
+      </div>
+
+      <button 
+        class="lightbox-nav lightbox-next" 
+        data-lightbox-interactive
+        onclick="event.stopPropagation(); changeImage(1);"
+        aria-label="다음 사진"
+      >
+        &rsaquo;
+      </button>
+
       <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
     </div>
   </div>
@@ -3333,8 +3581,14 @@
     const GALLERY_IMAGES = [];
 
     // 갤러리 이미지 배열 초기화 (img0.jpg ~ img22.jpg)
-    for (let i = 0; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpg`);
+    // for (let i = 0; i <= 22; i++) GALLERY_IMAGES.push(`images/gallery/img${i}.jpg`);
     // 📝 새 사진 추가 시: GALLERY_IMAGES.push('images/gallery/img23.jpg');
+    for (let i = 0; i <= 22; i++) {
+      GALLERY_IMAGES.push({
+        thumb: `images/gallery/thumb/img${i}.webp`,
+        full: `images/gallery/full/img${i}.webp`
+      });
+    }
 
     /**
      * 라이트박스 하단의 이미지 카운터 업데이트
@@ -3379,23 +3633,34 @@
         return;
       }
       btn.hidden = false;
-      btn.textContent = expanded ? '사진 접기' : `더 보기`;
+      btn.textContent = expanded ? '접기' : `더 보기`;
       btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     }
 
     function loadGallery() {
       const gallery = document.getElementById('gallery');
       gallery.innerHTML = '';
-      GALLERY_IMAGES.forEach((src, index) => {
+
+      GALLERY_IMAGES.forEach((image, index) => {
         const item = document.createElement('div');
         item.className = 'gallery-item' + (index >= GALLERY_PREVIEW_COUNT ? ' is-collapsed' : '');
         item.onclick = () => openLightbox(index);
-        item.innerHTML = `<img src="${src}" alt="사진 ${index + 1}" loading="lazy" draggable="false">`;
+
+        item.innerHTML = `
+          <img 
+            src="${image.thumb}" 
+            alt="사진 ${index + 1}" 
+            loading="lazy" 
+            decoding="async"
+            draggable="false"
+          >
+        `;
+
         gallery.appendChild(item);
       });
+
       updateGalleryToggleBtn(false);
     }
-
     function toggleGallery() {
       const btn = document.getElementById('galleryExpandBtn');
       const isExpanded = btn?.getAttribute('aria-expanded') === 'true';
@@ -3407,6 +3672,69 @@
     let touchStartDistance = 0;
     let dragStart = { x: 0, y: 0 };
     let lightboxSwipeStart = { x: 0, y: 0 };
+    let lightboxSwipeDeltaX = 0;
+    let lightboxIsAnimating = false;
+    let lightboxSwipeReady = false;
+
+    function normalizeGalleryIndex(index) {
+      return (index + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+    }
+
+    function getGalleryImageSrc(index) {
+      const image = GALLERY_IMAGES[normalizeGalleryIndex(index)];
+
+      // 기존 JPG 배열 방식도 지원하고,
+      // WebP thumb/full 객체 방식도 지원
+      if (typeof image === 'string') return image;
+      return image.full;
+    }
+
+    function getLightboxBaseX() {
+      const viewport = document.getElementById('lightboxViewport');
+      const track = document.getElementById('lightboxTrack');
+      const currentSlide = document.querySelector('.lightbox-slide.is-current');
+
+      if (!viewport || !track || !currentSlide) return 0;
+
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      const slideWidth = currentSlide.getBoundingClientRect().width;
+
+      return (viewport.clientWidth - slideWidth) / 2 - (slideWidth + gap);
+    }
+
+    function setLightboxTrackX(x, animate = false) {
+      const track = document.getElementById('lightboxTrack');
+      if (!track) return;
+
+      gsap.killTweensOf(track);
+
+      if (animate) {
+        gsap.to(track, {
+          x,
+          duration: 0.28,
+          ease: 'power3.out'
+        });
+      } else {
+        gsap.set(track, { x });
+      }
+    }
+
+    function renderLightboxSlides() {
+      const prevImg = document.getElementById('lightboxPrevImage');
+      const currentImg = document.getElementById('lightboxImage');
+      const nextImg = document.getElementById('lightboxNextImage');
+
+      prevImg.src = getGalleryImageSrc(currentImageIndex - 1);
+      currentImg.src = getGalleryImageSrc(currentImageIndex);
+      nextImg.src = getGalleryImageSrc(currentImageIndex + 1);
+
+      updateLightboxCounter();
+      resetLightboxZoom();
+
+      requestAnimationFrame(() => {
+        setLightboxTrackX(getLightboxBaseX(), false);
+      });
+    }
 
     function resetLightboxZoom() {
       lightboxZoom = 1;
@@ -3458,28 +3786,21 @@
 
     function openLightbox(index) {
       currentImageIndex = index;
+
       const modal = document.getElementById('lightboxModal');
-      const img = document.getElementById('lightboxImage');
-      img.src = GALLERY_IMAGES[currentImageIndex];
-      updateLightboxCounter();
-      resetLightboxZoom();
+
+      renderLightboxSlides();
+
       modal.style.display = 'flex';
-      gsap.to(modal, { opacity: 1, duration: 0.3 });
+      gsap.fromTo(
+        modal,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.25, ease: 'power2.out' }
+      );
+
       document.body.style.overflow = 'hidden';
-      img.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) lightboxSwipeStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      }, { passive: true });
-      img.addEventListener('touchmove', handleLightboxTouch, { passive: false });
-      img.addEventListener('touchend', (e) => {
-        touchStartDistance = 0;
-        dragStart = { x: 0, y: 0 };
-        if (e.changedTouches.length === 1 && lightboxZoom === 1) {
-          const deltaX = e.changedTouches[0].clientX - lightboxSwipeStart.x;
-          if (Math.abs(deltaX) > 50) {
-            changeImage(deltaX > 0 ? -1 : 1);
-          }
-        }
-      });
+
+      initLightboxSwipe();
     }
 
     function closeLightbox() {
@@ -3499,24 +3820,104 @@
     }
 
     function closeLightboxOnBackdropClick(event) {
-      if (event.target.id === 'lightboxModal') {
-        closeLightbox();
-      }
+      const interactiveArea = event.target.closest('[data-lightbox-interactive]');
+
+      if (interactiveArea) return;
+
+      closeLightbox();
     }
 
     function changeImage(step) {
-      currentImageIndex = (currentImageIndex + step + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
-      const img = document.getElementById('lightboxImage');
-      gsap.to(img, {
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.15,
+      if (lightboxIsAnimating) return;
+
+      const track = document.getElementById('lightboxTrack');
+      const currentSlide = document.querySelector('.lightbox-slide.is-current');
+      if (!track || !currentSlide) return;
+
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      const slideWidth = currentSlide.getBoundingClientRect().width;
+      const moveAmount = slideWidth + gap;
+      const baseX = getLightboxBaseX();
+
+      lightboxIsAnimating = true;
+
+      gsap.to(track, {
+        x: baseX + (step > 0 ? -moveAmount : moveAmount),
+        duration: 0.32,
+        ease: 'power3.out',
         onComplete: () => {
-          img.src = GALLERY_IMAGES[currentImageIndex];
-          updateLightboxCounter();
-          gsap.to(img, { opacity: 1, scale: 1, duration: 0.2 });
+          currentImageIndex = normalizeGalleryIndex(currentImageIndex + step);
+          renderLightboxSlides();
+          lightboxIsAnimating = false;
         }
       });
+    }
+
+    function initLightboxSwipe() {
+      if (lightboxSwipeReady) return;
+
+      const viewport = document.getElementById('lightboxViewport');
+      if (!viewport) return;
+
+      viewport.addEventListener('touchstart', handleLightboxSwipeStart, { passive: true });
+      viewport.addEventListener('touchmove', handleLightboxSwipeMove, { passive: false });
+      viewport.addEventListener('touchend', handleLightboxSwipeEnd, { passive: true });
+
+      window.addEventListener('resize', () => {
+        const modal = document.getElementById('lightboxModal');
+        if (modal && modal.style.display === 'flex') {
+          setLightboxTrackX(getLightboxBaseX(), false);
+        }
+      });
+
+      lightboxSwipeReady = true;
+    }
+
+    function handleLightboxSwipeStart(e) {
+      if (e.touches.length !== 1 || lightboxIsAnimating || lightboxZoom > 1) return;
+
+      lightboxSwipeStart = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
+      };
+
+      lightboxSwipeDeltaX = 0;
+    }
+
+    function handleLightboxSwipeMove(e) {
+      if (!lightboxSwipeStart.x || e.touches.length !== 1 || lightboxIsAnimating || lightboxZoom > 1) return;
+
+      const touch = e.touches[0];
+      const deltaX = touch.clientX - lightboxSwipeStart.x;
+      const deltaY = touch.clientY - lightboxSwipeStart.y;
+
+      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 12) return;
+
+      e.preventDefault();
+
+      lightboxSwipeDeltaX = deltaX;
+
+      const baseX = getLightboxBaseX();
+
+      // 손가락을 따라오되 살짝 부드럽게
+      setLightboxTrackX(baseX + deltaX * 0.92, false);
+    }
+
+    function handleLightboxSwipeEnd() {
+      if (!lightboxSwipeStart.x || lightboxIsAnimating || lightboxZoom > 1) return;
+
+      const threshold = 58;
+
+      if (lightboxSwipeDeltaX < -threshold) {
+        changeImage(1);
+      } else if (lightboxSwipeDeltaX > threshold) {
+        changeImage(-1);
+      } else {
+        setLightboxTrackX(getLightboxBaseX(), true);
+      }
+
+      lightboxSwipeStart = { x: 0, y: 0 };
+      lightboxSwipeDeltaX = 0;
     }
 
     // ════════════════════════════════════
@@ -3637,6 +4038,20 @@
         closeGiftAccountModal();
       }
     });
+
+    document.addEventListener('gesturestart', function (e) {
+      const modal = document.getElementById('lightboxModal');
+      if (modal && modal.style.display === 'flex') {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    document.addEventListener('gesturechange', function (e) {
+      const modal = document.getElementById('lightboxModal');
+      if (modal && modal.style.display === 'flex') {
+        e.preventDefault();
+      }
+    }, { passive: false });
 
     // ════════════════════════════════════
     // ════════════════════════════════════
@@ -4260,6 +4675,10 @@
     let guestbookRef = null;
     let GUESTBOOK_DELETE_PASSWORD = '260822';
 
+    const MESSAGE_PREVIEW_COUNT = 3;
+    let guestbookExpanded = false;
+    let lastGuestbookSnapshot = null;
+
     try {
       const app = initializeApp(firebaseConfig);
       db = getFirestore(app);
@@ -4299,6 +4718,8 @@
       const container = document.getElementById('messageList');
       if (!container) return;
 
+      lastGuestbookSnapshot = snapshot;
+
       if (snapshot.empty) {
         container.innerHTML = `
           <p style="
@@ -4313,12 +4734,18 @@
         return;
       }
 
-      container.innerHTML = snapshot.docs.map((doc) => {
+      const docs = snapshot.docs;
+      const totalCount = docs.length;
+      const hiddenCount = Math.max(totalCount - MESSAGE_PREVIEW_COUNT, 0);
+
+      const cardsHtml = docs.map((doc, index) => {
         const data = doc.data();
         const safeName = escapeHtml(data.name);
         const safeMessage = escapeHtml(data.message).replace(/\n/g, '<br>');
+        const isHidden = !guestbookExpanded && index >= MESSAGE_PREVIEW_COUNT;
+
         return `
-          <div class="message-card">
+          <div class="message-card ${isHidden ? 'is-hidden' : ''}" style="--delay:${Math.min(index, 6) * 0.04}s">
             <div class="message-header">
               <span class="message-author">${safeName}</span>
               <div class="message-meta">
@@ -4338,6 +4765,26 @@
           </div>
         `;
       }).join('');
+
+      const toggleHtml = hiddenCount > 0 ? `
+        <div class="message-toggle-wrap">
+          <button
+            type="button"
+            class="message-toggle-btn"
+            aria-expanded="${guestbookExpanded ? 'true' : 'false'}"
+          >
+            ${guestbookExpanded ? '메시지 접기' : `메시지 더 보기 · ${hiddenCount}개`}
+          </button>
+        </div>
+      ` : '';
+
+      container.innerHTML = `
+        <div class="message-count">
+          ${totalCount}개의 축하 메시지가 도착했어요
+        </div>
+        ${cardsHtml}
+        ${toggleHtml}
+      `;
     }
 
     function isDeletePasswordValid(inputPassword, storedPassword) {
@@ -4396,8 +4843,21 @@
     const messageListEl = document.getElementById('messageList');
     if (messageListEl) {
       messageListEl.addEventListener('click', (event) => {
+        const toggleBtn = event.target.closest('.message-toggle-btn');
+
+        if (toggleBtn) {
+          guestbookExpanded = !guestbookExpanded;
+
+          if (lastGuestbookSnapshot) {
+            renderFirebaseMessages(lastGuestbookSnapshot);
+          }
+
+          return;
+        }
+
         const deleteBtn = event.target.closest('.message-delete-btn');
         if (!deleteBtn) return;
+
         deleteGuestMessage(deleteBtn.dataset.id);
       });
     }
