@@ -4717,7 +4717,7 @@
     let GUESTBOOK_DELETE_PASSWORD = '260822';
 
     const MESSAGES_PER_PAGE = 4;
-    const MAX_VISIBLE_MESSAGE_PAGES = 4;
+    const MAX_VISIBLE_MESSAGE_PAGES = 5;
 
     let currentMessagePage = 1;
     let lastGuestbookSnapshot = null;
@@ -4760,22 +4760,17 @@
     function renderMessagePagination(totalPages) {
       if (totalPages <= 1) return '';
 
-      let startPage = Math.max(
-        1,
-        currentMessagePage - Math.floor(MAX_VISIBLE_MESSAGE_PAGES / 2)
+      const currentPageGroup = Math.floor(
+        (currentMessagePage - 1) / MAX_VISIBLE_MESSAGE_PAGES
       );
 
-      let endPage = Math.min(
-        totalPages,
-        startPage + MAX_VISIBLE_MESSAGE_PAGES - 1
-      );
+      const startPage =
+        currentPageGroup * MAX_VISIBLE_MESSAGE_PAGES + 1;
 
-      if (endPage - startPage + 1 < MAX_VISIBLE_MESSAGE_PAGES) {
-        startPage = Math.max(
-          1,
-          endPage - MAX_VISIBLE_MESSAGE_PAGES + 1
-        );
-      }
+      const endPage = Math.min(
+        startPage + MAX_VISIBLE_MESSAGE_PAGES - 1,
+        totalPages
+      );
 
       let numberButtons = '';
 
@@ -4986,18 +4981,18 @@
               )
             : 1;
 
-          if (
-            navBtn.dataset.pageAction === 'prev' &&
-            currentMessagePage > 1
-          ) {
-            currentMessagePage -= 1;
+          if (navBtn.dataset.pageAction === 'prev') {
+            currentMessagePage = Math.max(
+              1,
+              currentMessagePage - MAX_VISIBLE_MESSAGE_PAGES
+            );
           }
 
-          if (
-            navBtn.dataset.pageAction === 'next' &&
-            currentMessagePage < totalPages
-          ) {
-            currentMessagePage += 1;
+          if (navBtn.dataset.pageAction === 'next') {
+            currentMessagePage = Math.min(
+              totalPages,
+              currentMessagePage + MAX_VISIBLE_MESSAGE_PAGES
+            );
           }
 
           if (lastGuestbookSnapshot) {
