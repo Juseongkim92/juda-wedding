@@ -528,10 +528,10 @@
       color: #ff0000;
     }
 
-    .calendar-day.saturday {
+    /* .calendar-day.saturday {
       color: var(--accent);
       color: #0000ff;
-    }
+    } */
 
     .calendar-day.event {
       background: rgba(197, 213, 227, 0.55);
@@ -4432,7 +4432,7 @@
         const date = new Date(year, month, i);
         const isEvent = (i === 22);           // 결혼식 날짜
         const isSunday = date.getDay() === 0;
-        const isSaturday = date.getDay() === 6;
+        // const isSaturday = date.getDay() === 6;
         const isHoliday = holidays.includes(i); // 공휴일 여부
 
         let classes = 'calendar-day';
@@ -4441,9 +4441,10 @@
           classes += ' event';                    // 결혼식은 event 우선 적용
         } else if (isHoliday || isSunday) {
           classes += ' holiday';                  // 공휴일 + 일요일 → 빨간색
-        } else if (isSaturday) {
-          classes += ' saturday';
-        }
+        } 
+        // else if (isSaturday) {
+        //   classes += ' saturday';
+        // }
 
         html += `<div class="${classes}">${i}</div>`;
       }
