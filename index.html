@@ -1886,9 +1886,9 @@
       animation-delay: var(--delay, 0s);
     }
 
-    .message-card.is-hidden {
+    /* .message-card.is-hidden {
       display: none;
-    }
+    } */
 
     @keyframes messageCardFadeUp {
       to {
@@ -1897,68 +1897,109 @@
       }
     }
 
-    .message-toggle-wrap {
+    .message-page-cards {
       display: flex;
-      justify-content: center;
-      margin-top: 18px;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .message-toggle-btn {
-      display: inline-flex;
+    .message-pagination {
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
+      margin-top: 20px;
+      white-space: nowrap;
+    }
 
-      min-width: 166px;
-      padding: 13px 24px;
+    .message-page-numbers {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
 
-      border: 1px solid rgba(197, 213, 227, 0.95);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.86);
-      color: var(--primary);
+    .message-page-number {
+      width: 31px;
+      height: 31px;
+      padding: 0;
+
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text-light);
 
       font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
 
-      box-shadow: 0 8px 22px rgba(26, 35, 50, 0.08);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
       transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        border-color 0.22s ease,
-        background 0.22s ease;
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
     }
 
-    .message-toggle-btn::after {
-      content: '⌄';
-      display: inline-block;
-      margin-top: -2px;
-      color: var(--accent);
-      font-size: 16px;
+    .message-page-number:hover {
+      background: rgba(197, 213, 227, 0.35);
+      color: var(--primary);
+    }
+
+    .message-page-number.is-current {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
       font-weight: 700;
-      line-height: 1;
-      transition: transform 0.25s ease;
     }
 
-    .message-toggle-btn[aria-expanded="true"]::after {
-      transform: rotate(180deg);
+    .message-page-number:active {
+      transform: scale(0.93);
     }
 
-    .message-toggle-btn:hover {
-      border-color: var(--accent);
-      background: rgba(255, 255, 255, 0.96);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 26px rgba(26, 35, 50, 0.11);
+    .message-page-nav {
+      min-height: 31px;
+      padding: 0 4px;
+      border: none;
+      background: transparent;
+      color: var(--accent);
+
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
     }
 
-    .message-toggle-btn:active {
-      transform: scale(0.98);
+    .message-page-nav:disabled {
+      opacity: 0.28;
+      cursor: default;
     }
 
+    @media (max-width: 380px) {
+      .message-pagination {
+        gap: 3px;
+      }
+
+      .message-page-numbers {
+        gap: 1px;
+      }
+
+      .message-page-number {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+      }
+
+      .message-page-nav {
+        padding: 0 2px;
+        font-size: 10.5px;
+      }
+    }
     /* ════════════════════════════════════
       PRAYER SECTION
     ════════════════════════════════════ */
